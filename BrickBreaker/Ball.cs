@@ -6,7 +6,7 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 {
     public class Ball
     {
-        public int x, y, xSpeed, ySpeed, size;
+        public int x, y, xSpeed, ySpeed, size, damage;
         public Color colour;
 
         public static Random rand = new Random();
@@ -18,13 +18,12 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
-
         }
 
         public void Move()
         {
-            x = x + xSpeed;
-            y = y + ySpeed;
+            x += xSpeed;
+            y += ySpeed;
         }
 
         public bool BlockCollision(Block b)
@@ -34,7 +33,36 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 
             if (ballRec.IntersectsWith(blockRec))
             {
-                ySpeed *= -1;
+
+
+
+                // Get the range of specific points it may hit
+                if (b.x <= x - size + (size / 8) || b.x >= x + size - (size / 8)) // Hits either side
+                {
+                    xSpeed *= -1;
+
+                    if (xSpeed > 0)
+                    {
+                        b.x = b.x - size;
+                    }
+                    else if (xSpeed < 0)
+                    {
+                        b.x = b.x + size;
+                    }
+                }   
+                else // hits anywhere else
+                {
+                    ySpeed *= -1;
+
+                    if (ySpeed > 0)
+                    {
+                        b.y = b.y + size;
+                    }
+                    else if (ySpeed < 0)
+                    {
+                        b.y = b.y - size;
+                    }
+                }
             }
 
             return blockRec.IntersectsWith(ballRec);
@@ -47,6 +75,15 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 
             if (ballRec.IntersectsWith(paddleRec))
             {
+                if (ySpeed > 0)
+                {
+                    y = p.y - size;
+                }
+                else if (ySpeed < 0)
+                {
+                    y = p.y + size;
+                }
+
                 ySpeed *= -1;
             }
         }
