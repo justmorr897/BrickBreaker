@@ -13,46 +13,113 @@ namespace BrickBreaker
 {
     public partial class LevelEditor : UserControl
     {
+        List<Rectangle> rectangles = new List<Rectangle>();
+
+        TextBox textbox = new TextBox();
+        SolidBrush redbrush = new SolidBrush(Color.Red);
+        Pen drawPen = new Pen(Color.White);
+        Rectangle newRect;
+        int mouseX;
+        int mouseY;
+        int width = 50;
+        int height = 25;
+
+
         public LevelEditor()
         {
             InitializeComponent();
+            Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
+            rectangles.Add(saveButtonRect);
         }
 
         private void LevelEditor_MouseClick(object sender, MouseEventArgs e)
         {
-            TextBox textbox = new TextBox();
-            textbox.Location = new Point(e.X, e.Y);
-            textbox.Size = new Size(50, 25);
-            textbox.BackColor = Color.Black;
-            textbox.ForeColor = Color.White;
-            textbox.TextAlign = HorizontalAlignment.Center;
-            this.Controls.Add(textbox);
-            textbox.Focus();
+            if(drawPen.Color == Color.Blue)
+            {
+                rectangles.Add(newRect);
 
-            if(textbox.Text == "1")
-            {
-                textbox.BackColor = Color.Yellow;
+                textbox = new TextBox();
+                textbox.Font = new Font("Arial", 14);
+                textbox.Location = new Point(e.X, e.Y);
+                textbox.Size = new Size(50, 25);
+                textbox.BackColor = Color.Black;
+                textbox.ForeColor = Color.White;
+                textbox.TextAlign = HorizontalAlignment.Center;
+
+
+                textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+
+                this.Controls.Add(textbox);
+                textbox.Focus();
             }
-            else if (textbox.Text == "2")
+            else
             {
-                textbox.BackColor = Color.Orange;
+
             }
-            else if (textbox.Text == "3")
+            
+        }
+
+        private void LevelEditor_MouseMove(object sender, MouseEventArgs e)
+        {
+            mouseX = e.X;
+            mouseY = e.Y;
+
+            newRect = new Rectangle(e.X, e.Y, width, height);
+
+            for (int i = 0; i < rectangles.Count; i++)
             {
-                textbox.BackColor = Color.Red;
-            }
-            else if (textbox.Text == "4")
-            {
-                textbox.BackColor = Color.White;
+                if (newRect.IntersectsWith(rectangles[i]))
+                {
+                    drawPen = new Pen(Color.Red);
+                    break;
+                }
+                else
+                {
+                    drawPen = new Pen(Color.Blue);
+                }
+
             }
 
-            //textbox.KeyDown 
+            Refresh();
 
-            //Label label = new Label();
-            //label.Location = new Point(e.X, e.Y);
-            //label.Size = new Size(50, 25);
-            //label.BackColor = Color.Black;
-            //this.Controls.Add(label);
+
+        }
+
+        public void Textbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (textbox.Text == "1")
+                {
+                    textbox.BackColor = Color.Green;
+                }
+                else if (textbox.Text == "2")
+                {
+                    textbox.BackColor = Color.DarkCyan;
+                }
+                else if (textbox.Text == "3")
+                {
+                    textbox.BackColor = Color.Orange;
+                }
+                else if (textbox.Text == "4")
+                {
+                    textbox.BackColor = Color.Red;
+                }
+                else if (textbox.Text == "5")
+                {
+                    textbox.BackColor = Color.Purple;
+                }
+                else if (textbox.Text == "6")
+                {
+                    textbox.BackColor = Color.Gold;
+                }
+                else if (textbox.Text == "7")
+                {
+                    textbox.BackColor = Color.Black;
+                }
+
+                textbox.Enabled = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,7 +132,6 @@ namespace BrickBreaker
             {
                 if (c is TextBox)
                 {
-
                     writer.WriteStartElement("brick");
                     writer.WriteElementString("x", $"{c.Location.X}");
                     writer.WriteElementString("y", $"{c.Location.Y}");
@@ -79,6 +145,13 @@ namespace BrickBreaker
             writer.WriteEndElement();
 
             writer.Close();
+        }
+
+
+
+        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, 50, 25);
         }
     }
 }

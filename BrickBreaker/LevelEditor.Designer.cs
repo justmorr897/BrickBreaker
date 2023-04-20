@@ -29,33 +29,48 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(580, 735);
+            this.button1.Location = new System.Drawing.Point(387, 478);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 46);
+            this.button1.Size = new System.Drawing.Size(59, 30);
             this.button1.TabIndex = 0;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(369, 453);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
+            // 
             // LevelEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelEditor";
-            this.Size = new System.Drawing.Size(1280, 812);
+            this.Size = new System.Drawing.Size(853, 528);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelEditor_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseMove);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
