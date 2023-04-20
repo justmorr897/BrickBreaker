@@ -178,6 +178,8 @@ namespace BrickBreaker
                 }
             }
 
+            TheodoropoulosCode();
+
             //redraw the screen
             Refresh();
         }
@@ -208,6 +210,11 @@ namespace BrickBreaker
 
             // Draws ball
             e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+        }
+
+        public void TheodoropoulosCode()
+        {
+
         }
     }
 }
