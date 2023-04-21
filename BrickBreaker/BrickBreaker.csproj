@@ -141,7 +141,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Background.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LevelEditorXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
