@@ -109,9 +109,27 @@ namespace BrickBreaker
 
             while (reader.Read())
             {
-                reader.ReadToFollowing("brick");
-                //x = reader.ReadContentAsString("x");
+                if(reader.NodeType == XmlNodeType.Text)
+                {
+                    x = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("y");
+                    y = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("hp");
+                    hp = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("color");
+                    color = reader.ReadString();
+
+                    Color newColor = Color.FromName(color);
+
+                    Block newBlock = new Block(x, y, hp, newColor);
+                    blocks.Add(newBlock);
+                }
             }
+
+            reader.Close();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -232,7 +250,7 @@ namespace BrickBreaker
             // Draws blocks
             foreach (Block b in blocks)
             {
-                e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
+                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
             }
 
             // Draws ball
