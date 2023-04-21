@@ -1,7 +1,7 @@
 ﻿/*  Created by: 
  *  Project: Brick Breaker
  *  Date: 
- */ 
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.Xml;
 
 namespace BrickBreaker
 {
@@ -98,7 +99,19 @@ namespace BrickBreaker
 
         public void LevelBuild()
         {
+            int x, y, hp;
+            string color;
+
             blocks.Clear();
+            XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
+
+            reader.ReadToFollowing("Level");
+
+            while (reader.Read())
+            {
+                reader.ReadToFollowing("brick");
+                //x = reader.ReadContentAsString("x");
+            }
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -203,7 +216,7 @@ namespace BrickBreaker
             // Goes to the game over screen
             Form form = this.FindForm();
             MenuScreen ps = new MenuScreen();
-            
+
             ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
 
             form.Controls.Add(ps);
