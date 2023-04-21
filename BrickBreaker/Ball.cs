@@ -34,7 +34,7 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             if (ballRec.IntersectsWith(blockRec))
             {
                 // Get the range of specific points it may hit
-                if (b.x <= x - size + (size / 8) || b.x >= x + size - (size / 8)) // Hits either side
+                if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
                 {
                     xSpeed *= -1;
 
