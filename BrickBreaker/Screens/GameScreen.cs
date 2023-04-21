@@ -24,6 +24,7 @@ namespace BrickBreaker
 
         // Game values
         int lives;
+        int score;
 
         // Paddle and Ball objects
         Paddle paddle;
@@ -73,23 +74,31 @@ namespace BrickBreaker
             ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
-            //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
-            blocks.Clear();
-            int x = 10;
 
-            while (blocks.Count < 12)
-            {
-                x += 57;
-                Block b1 = new Block(x, 10, 1, Color.White);
-                blocks.Add(b1);
-            }
+            //TODO - replace all the code in this region eventually with code that loads levels from xml files
+
+            LevelBuild();
+
+            //blocks.Clear();
+            //int x = 10;
+
+            //while (blocks.Count < 12)
+            //{
+            //    x += 57;
+            //    Block b1 = new Block(x, 10, 1, Color.White);
+            //    blocks.Add(b1);
+            //}
 
             #endregion
 
             // start the game engine loop
             gameTimer.Enabled = true;
+        }
+
+
+        public void LevelBuild()
+        {
+            blocks.Clear();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -166,6 +175,7 @@ namespace BrickBreaker
             {
                 if (ball.BlockCollision(b))
                 {
+                    JustinCode();
                     blocks.Remove(b);
 
                     if (blocks.Count == 0)
@@ -180,6 +190,10 @@ namespace BrickBreaker
 
             //redraw the screen
             Refresh();
+        }
+        public void JustinCode()
+        {
+            score++;
         }
 
         public void OnEnd()
