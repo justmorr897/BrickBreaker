@@ -46,17 +46,13 @@ namespace BrickBreaker
                 textbox.ForeColor = Color.White;
                 textbox.TextAlign = HorizontalAlignment.Center;
 
-
                 textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
 
                 this.Controls.Add(textbox);
                 textbox.Focus();
-            }
-            else
-            {
 
+                Cursor.Position = new Point(Cursor.Position.X + 50, Cursor.Position.Y);
             }
-            
         }
 
         private void LevelEditor_MouseMove(object sender, MouseEventArgs e)
@@ -147,11 +143,9 @@ namespace BrickBreaker
             writer.Close();
         }
 
-
-
         private void LevelEditor_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, 50, 25);
+            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
         }
     }
 }
