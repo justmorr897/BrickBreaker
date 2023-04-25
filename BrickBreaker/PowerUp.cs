@@ -71,7 +71,7 @@ namespace BrickBreaker
                     }
                     type = 0;
                 }
-                if (y > 542)
+                if (y > Form1.formHeight)
                 {
                     type = 0;
                 }
