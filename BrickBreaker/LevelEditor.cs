@@ -24,6 +24,7 @@ namespace BrickBreaker
         int width = 50;
         int height = 25;
 
+        int color;
 
         public LevelEditor()
         {
@@ -34,24 +35,70 @@ namespace BrickBreaker
 
         private void LevelEditor_MouseClick(object sender, MouseEventArgs e)
         {
-            if(drawPen.Color == Color.Blue)
+            Print();
+        }
+
+        public void Print()
+        {
+            if (drawPen.Color == Color.Blue)
             {
                 rectangles.Add(newRect);
 
                 textbox = new TextBox();
-                textbox.Font = new Font("Arial", 14);
-                textbox.Location = new Point(e.X, e.Y);
+
+                //if (textbox.Text == "")
+                //{
+                    if (color == 1)
+                    {
+                        textbox.BackColor = Color.Green;
+                        textbox.Text = "1";
+                    }
+                    else if (color == 2)
+                    {
+                        textbox.BackColor = Color.DarkCyan;
+                        textbox.Text = "2";
+                    }
+                    else if (color == 3)
+                    {
+                        textbox.BackColor = Color.Orange;
+                        textbox.Text = "3";
+                    }
+                    else if (color == 4)
+                    {
+                        textbox.BackColor = Color.Purple;
+                        textbox.Text = "4";
+                    }
+                    else if (color == 5)
+                    {
+                        textbox.BackColor = Color.Gold;
+                        textbox.Text = "5";
+                    }
+                    else if (color == 6)
+                    {
+                        textbox.BackColor = Color.Black;
+                        textbox.Text = "6";
+                    }
+                    else if (color == 7)
+                    {
+                        textbox.BackColor = Color.Red;
+                        textbox.Text = "7";
+                    }
+                //
+
+                textbox.Font = new Font("Arial", 9);
+                textbox.Location = new Point(mouseX, mouseY);
                 textbox.Size = new Size(50, 25);
-                textbox.BackColor = Color.Black;
                 textbox.ForeColor = Color.White;
                 textbox.TextAlign = HorizontalAlignment.Center;
+                textbox.ReadOnly = true;
+
+                //Cursor.Position = new Point(Cursor.Position.X + 60, Cursor.Position.Y);
 
                 textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
 
                 this.Controls.Add(textbox);
                 textbox.Focus();
 
-                Cursor.Position = new Point(Cursor.Position.X + 50, Cursor.Position.Y);
             }
         }
 
@@ -73,48 +120,66 @@ namespace BrickBreaker
                 {
                     drawPen = new Pen(Color.Blue);
                 }
-
             }
 
             Refresh();
-
-
         }
 
         public void Textbox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (textbox.Text == "1")
-                {
-                    textbox.BackColor = Color.Green;
-                }
-                else if (textbox.Text == "2")
-                {
-                    textbox.BackColor = Color.DarkCyan;
-                }
-                else if (textbox.Text == "3")
-                {
-                    textbox.BackColor = Color.Orange;
-                }
-                else if (textbox.Text == "4")
-                {
-                    textbox.BackColor = Color.Red;
-                }
-                else if (textbox.Text == "5")
-                {
-                    textbox.BackColor = Color.Purple;
-                }
-                else if (textbox.Text == "6")
-                {
-                    textbox.BackColor = Color.Gold;
-                }
-                else if (textbox.Text == "7")
-                {
-                    textbox.BackColor = Color.Black;
-                }
+            TextBox textbox = sender as TextBox;
+            //string currentText = textbox.Text;
 
-                textbox.Enabled = false;
+            if (e.KeyCode == Keys.D1)
+            {
+                color = 1;
+            }
+            else if (e.KeyCode == Keys.D2)
+            {
+                color = 2;
+            }
+            else if (e.KeyCode == Keys.D3)
+            {
+                color = 3;
+            }
+            else if (e.KeyCode == Keys.D4)
+            {
+                color = 4;
+            }
+            else if (e.KeyCode == Keys.D5)
+            {
+                color = 5;
+            }
+            else if (e.KeyCode == Keys.D6)
+            {
+                color = 6;
+            }
+            else if (e.KeyCode == Keys.D7)
+            {
+                color = 7;
+            }
+
+            if (e.KeyCode == Keys.Up)
+            {
+                Cursor.Position = new Point(Cursor.Position.X, Cursor.Position.Y - 30);
+                Print();
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                Cursor.Position = new Point(Cursor.Position.X + 60, Cursor.Position.Y);
+                Print();
+
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                Cursor.Position = new Point(Cursor.Position.X, Cursor.Position.Y + 30);
+                Print();
+
+            }
+            else if (e.KeyCode == Keys.Left)
+            {
+                Cursor.Position = new Point(Cursor.Position.X - 60, Cursor.Position.Y);
+                Print();
             }
         }
 
@@ -146,6 +211,78 @@ namespace BrickBreaker
         private void LevelEditor_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
+        }
+
+        private void LevelEditor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            
+        }
+
+        private void oneHPButton_Click(object sender, EventArgs e)
+        {
+            color = 1;
+        }
+
+        private void twoHPButton_Click(object sender, EventArgs e)
+        {
+            color = 2;
+        }
+
+        private void threeHPButton_Click(object sender, EventArgs e)
+        {
+            color = 3;
+        }
+
+        private void fourHPButton_Click(object sender, EventArgs e)
+        {
+            color = 4;
+        }
+
+        private void fiveHPButton_Click(object sender, EventArgs e)
+        {
+            color = 5;
+        }
+
+        private void sixHPButton_Click(object sender, EventArgs e)
+        {
+            color = 6;
+        }
+
+        private void sevenHPButton_Click(object sender, EventArgs e)
+        {
+            color = 7;
+        }
+
+        private void oneHPButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //if (e.KeyCode == Keys.D1)
+            //{
+            //    color = 1;
+            //}
+            //else if (e.KeyCode == Keys.D2)
+            //{
+            //    color = 2;
+            //}
+            //else if (e.KeyCode == Keys.D3)
+            //{
+            //    color = 3;
+            //}
+            //else if (e.KeyCode == Keys.D4)
+            //{
+            //    color = 4;
+            //}
+            //else if (e.KeyCode == Keys.D5)
+            //{
+            //    color = 5;
+            //}
+            //else if (e.KeyCode == Keys.D6)
+            //{
+            //    color = 6;
+            //}
+            //else if (e.KeyCode == Keys.D7)
+            //{
+            //    color = 7;
+            //}
         }
     }
 }
