@@ -32,7 +32,7 @@ namespace BrickBreaker
             Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
-            if (ballRec.IntersectsWith(blockRec))
+            if (ballRec.IntersectsWith(blockRec) && GameScreen.fireBallTimer == 0)
             {
                 ySpeed *= -1;
             }
