@@ -30,7 +30,7 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
-            if (ballRec.IntersectsWith(blockRec))
+            if (ballRec.IntersectsWith(blockRec) && GameScreen.fireBallTimer == 0)
             {
                 // Get the range of specific points it may hit
                 if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
