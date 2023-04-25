@@ -237,34 +237,7 @@ namespace BrickBreaker
 
         private void oneHPButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            //if (e.KeyCode == Keys.D1)
-            //{
-            //    color = 1;
-            //}
-            //else if (e.KeyCode == Keys.D2)
-            //{
-            //    color = 2;
-            //}
-            //else if (e.KeyCode == Keys.D3)
-            //{
-            //    color = 3;
-            //}
-            //else if (e.KeyCode == Keys.D4)
-            //{
-            //    color = 4;
-            //}
-            //else if (e.KeyCode == Keys.D5)
-            //{
-            //    color = 5;
-            //}
-            //else if (e.KeyCode == Keys.D6)
-            //{
-            //    color = 6;
-            //}
-            //else if (e.KeyCode == Keys.D7)
-            //{
-            //    color = 7;
-            //}
+           
         }
     }
 }

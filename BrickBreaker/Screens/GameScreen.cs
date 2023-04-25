@@ -24,20 +24,30 @@ namespace BrickBreaker
         Boolean leftArrowDown, rightArrowDown;
 
         // Game values
-        int lives;
+        public static int lives;
+        public static int lPaddletimer = 0;
+        public static int fireBallTimer = 0;
+        Random random = new Random();
         int score;
 
         // Paddle and Ball objects
-        Paddle paddle;
-        Ball ball;
+        public static Paddle paddle;
+        public static List<Ball> balls = new List<Ball>();
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
 
+        // list of power ups
+        List<PowerUp> powerups = new List<PowerUp>();
+
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
         SolidBrush ballBrush = new SolidBrush(Color.Transparent);
-        SolidBrush blockBrush = new SolidBrush(Color.Red);
+        
+        SolidBrush red = new SolidBrush(Color.Red);
+        SolidBrush orange = new SolidBrush(Color.Orange);
+        SolidBrush yellow = new SolidBrush(Color.Yellow);
+        SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
 
         #endregion
 
@@ -69,10 +79,11 @@ namespace BrickBreaker
             int ballY = this.Height - paddle.height - 80;
 
             // Creates a new ball
-            int xSpeed = 6;
-            int ySpeed = 6;
+            int xSpeed = 4;
+            int ySpeed = 4;
             int ballSize = 20;
-            ball = new Ball(ballX, ballY, xSpeed, ySpeed, ballSize);
+            balls.Clear();
+            balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
 
@@ -83,7 +94,7 @@ namespace BrickBreaker
             //blocks.Clear();
             //int x = 10;
 
-            //while (blocks.Count < 12)
+            //while (blocks.Count < 12) // Originally 12
             //{
             //    x += 57;
             //    Block b1 = new Block(x, 10, 1, Color.White);
@@ -176,47 +187,83 @@ namespace BrickBreaker
                 paddle.Move("right");
             }
 
-            // Move ball
-            ball.Move();
-
-            // Check for collision with top and side walls
-            ball.WallCollision(this);
-
-            // Check for ball hitting bottom of screen
-            if (ball.BottomCollision(this))
+            foreach (Ball b in balls)
             {
-                lives--;
-
-                // Moves the ball back to origin
-                ball.x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
-                ball.y = (this.Height - paddle.height) - 85;
-
-                if (lives == 0)
+                b.PaddleCollision(paddle);
+                b.Move();
+                b.WallCollision(this);
+                if (b.BottomCollision(this))
                 {
-                    gameTimer.Enabled = false;
-                    OnEnd();
+                    if (b == balls[0])
+                    {
+                        lives--;
+
+                        // Moves the ball back to origin
+                        b.x = ((paddle.x - (b.size / 2)) + (paddle.width / 2));
+                        b.y = (this.Height - paddle.height) - 85;
+
+                        if (lives == 0)
+                        {
+                            gameTimer.Enabled = false;
+                            OnEnd();
+                        }
+                    }
+                    else
+                    {
+                        balls.Remove(b);
+                        break;
+                    }
                 }
             }
 
-            // Check for collision of ball with paddle, (incl. paddle movement)
-            ball.PaddleCollision(paddle);
-
             // Check if ball has collided with any blocks
-            foreach (Block b in blocks)
+            foreach (Ball ball in balls)
             {
-                if (ball.BlockCollision(b))
+                foreach (Block b in blocks)
                 {
-                    JustinCode();
-                    blocks.Remove(b);
-
-                    if (blocks.Count == 0)
+                    if (ball.BlockCollision(b))
                     {
-                        gameTimer.Enabled = false;
-                        OnEnd();
-                    }
+                        JustinCode();
+                        blocks.Remove(b);
 
+                        if (random.Next(1, 10) == 1)
+                        {
+                            powerups.Add(new PowerUp(random.Next(1, 5), b.x, b.y));
+                        }
+
+                        if (blocks.Count == 0)
+                        {
+                            gameTimer.Enabled = false;
+                            OnEnd();
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            foreach (PowerUp p in powerups)
+            {
+                p.Move();
+                if (p.type == 0)
+                {
+                    powerups.Remove(p);
                     break;
                 }
+            }
+
+            if (lPaddletimer == 0)
+            {
+                paddle.width = 80;
+            }
+            else
+            {
+                lPaddletimer--;
+            }
+
+            if (fireBallTimer != 0)
+            {
+                fireBallTimer--;
             }
 
             TheodoropoulosCode();
@@ -253,8 +300,23 @@ namespace BrickBreaker
                 e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
             }
 
-            // Draws ball
-            e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            // Draws balls
+            foreach (Ball b in balls)
+            {
+                if (b == balls[0])
+                {
+                    e.Graphics.FillEllipse(darkBlue, b.x, b.y, b.size, b.size);
+                }
+                else
+                {
+                    e.Graphics.FillEllipse(ballBrush, b.x, b.y, b.size, b.size);
+                }
+            }
+            
+            foreach (PowerUp p in powerups)
+            {
+                e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
+            }
         }
 
         public void TheodoropoulosCode()
