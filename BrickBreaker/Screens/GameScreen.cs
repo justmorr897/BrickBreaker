@@ -90,15 +90,15 @@ namespace BrickBreaker
 
             LevelBuild();
 
-            blocks.Clear();
-            int x = 10;
+            //blocks.Clear();
+            //int x = 10;
 
-            while (blocks.Count < 12) // Originally 12
-            {
-                x += 57;
-                Block b1 = new Block(x, 10, 1, Color.White);
-                blocks.Add(b1);
-            }
+            //while (blocks.Count < 12) // Originally 12
+            //{
+            //    x += 57;
+            //    Block b1 = new Block(x, 10, 1, Color.White);
+            //    blocks.Add(b1);
+            //}
 
             #endregion
 
@@ -221,17 +221,14 @@ namespace BrickBreaker
                 foreach (Block b in blocks)
                 {
                     if (ball.BlockCollision(b))
-                    //JustinCode();
-                    //blocks.Remove(b);
-
-                    //if (blocks.Count == 0)
                     {
+                        JustinCode();
+                        blocks.Remove(b);
+
                         if (random.Next(1, 10) == 1)
                         {
                             powerups.Add(new PowerUp(random.Next(1, 5), b.x, b.y));
                         }
-
-                        blocks.Remove(b);
 
                         if (blocks.Count == 0)
                         {
