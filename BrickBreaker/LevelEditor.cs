@@ -23,6 +23,8 @@ namespace BrickBreaker
         int mouseY;
         int width = 50;
         int height = 25;
+        int level = 0;
+        int totalLevels = 5;
 
         int color;
 
@@ -177,7 +179,11 @@ namespace BrickBreaker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml", null);
+            level++;
+
+            string levelFile = "Resources/level" + level + ".xml";
+
+            XmlWriter writer = XmlWriter.Create(levelFile);
 
             writer.WriteStartElement("Level");
 
@@ -198,16 +204,25 @@ namespace BrickBreaker
             writer.WriteEndElement();
 
             writer.Close();
+
+            for (int i = 0; i < this.Controls.Count - 6; i++)
+            {
+                this.Controls.RemoveAt(6);
+            }
+
+            //for(int i = 0; i < this.Controls.Count; i++)
+            //{
+            //    if(this.Controls[i] is TextBox)
+            //    {
+            //        this.Controls.RemoveAt(i);
+            //    }
+            //}
+
         }
 
         private void LevelEditor_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
-        }
-
-        private void LevelEditor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            
         }
 
         private void oneHPButton_Click(object sender, EventArgs e)
@@ -233,11 +248,6 @@ namespace BrickBreaker
         private void fiveHPButton_Click(object sender, EventArgs e)
         {
             color = 5;
-        }
-
-        private void oneHPButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-           
         }
     }
 }

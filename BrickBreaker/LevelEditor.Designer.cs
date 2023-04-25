@@ -56,7 +56,6 @@
             this.oneHPButton.Text = "1 HP";
             this.oneHPButton.UseVisualStyleBackColor = true;
             this.oneHPButton.Click += new System.EventHandler(this.oneHPButton_Click);
-            this.oneHPButton.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.oneHPButton_PreviewKeyDown);
             // 
             // twoHPButton
             // 
@@ -115,7 +114,6 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelEditor_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseMove);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.LevelEditor_PreviewKeyDown);
             this.ResumeLayout(false);
 
         }
