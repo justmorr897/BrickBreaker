@@ -8,9 +8,8 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
     {
         public int x, y, xSpeed, ySpeed, size, damage;
         public Color colour;
-
         public static Random rand = new Random();
-
+        
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
         {
             x = _x;
@@ -34,7 +33,7 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             if (ballRec.IntersectsWith(blockRec))
             {
                 // Get the range of specific points it may hit
-                if (b.x <= x - size + (size / 8) || b.x >= x + size - (size / 8)) // Hits either side
+                if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
                 {
                     xSpeed *= -1;
 
@@ -83,6 +82,7 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 
                 ySpeed *= -1;
             }
+            
         }
 
         public void WallCollision(UserControl UC)

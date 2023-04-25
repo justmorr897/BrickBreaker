@@ -80,15 +80,15 @@ namespace BrickBreaker
 
             LevelBuild();
 
-            //blocks.Clear();
-            //int x = 10;
+            blocks.Clear();
+            int x = 10;
 
-            //while (blocks.Count < 12)
-            //{
-            //    x += 57;
-            //    Block b1 = new Block(x, 10, 1, Color.White);
-            //    blocks.Add(b1);
-            //}
+            while (blocks.Count < 12) // Originally 12
+            {
+                x += 57;
+                Block b1 = new Block(x, 10, 1, Color.White);
+                blocks.Add(b1);
+            }
 
             #endregion
 
