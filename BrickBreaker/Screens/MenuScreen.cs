@@ -34,5 +34,15 @@ namespace BrickBreaker
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LevelEditor le = new LevelEditor();
+            Form form = this.FindForm();
+
+            form.Controls.Add(le);
+            form.Controls.Remove(this);
+
+            le.Location = new Point((form.Width - le.Width) / 2, (form.Height - le.Height) / 2);
+        }
     }
 }

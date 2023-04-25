@@ -72,6 +72,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LevelEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelEditor.Designer.cs">
+      <DependentUpon>LevelEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Paddle.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
@@ -90,6 +96,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelEditor.resx">
+      <DependentUpon>LevelEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -134,7 +143,48 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LevelEditorXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sign.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

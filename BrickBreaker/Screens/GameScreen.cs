@@ -1,7 +1,7 @@
 ﻿/*  Created by: 
  *  Project: Brick Breaker
  *  Date: 
- */ 
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.Xml;
 
 namespace BrickBreaker
 {
@@ -27,6 +28,7 @@ namespace BrickBreaker
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         Random random = new Random();
+        int score;
 
         // Paddle and Ball objects
         public static Paddle paddle;
@@ -83,13 +85,15 @@ namespace BrickBreaker
             balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
             #region Creates blocks for generic level. Need to replace with code that loads levels.
-            
+
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
-            
+
+            LevelBuild();
+
             blocks.Clear();
             int x = 10;
 
-            while (blocks.Count < 12)
+            while (blocks.Count < 12) // Originally 12
             {
                 x += 57;
                 Block b1 = new Block(x, 10, 1, Color.White);
@@ -100,6 +104,42 @@ namespace BrickBreaker
 
             // start the game engine loop
             gameTimer.Enabled = true;
+        }
+
+
+        public void LevelBuild()
+        {
+            int x, y, hp;
+            string color;
+
+            blocks.Clear();
+            XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
+
+            reader.ReadToFollowing("Level");
+
+            while (reader.Read())
+            {
+                if(reader.NodeType == XmlNodeType.Text)
+                {
+                    x = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("y");
+                    y = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("hp");
+                    hp = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("color");
+                    color = reader.ReadString();
+
+                    Color newColor = Color.FromName(color);
+
+                    Block newBlock = new Block(x, y, hp, newColor);
+                    blocks.Add(newBlock);
+                }
+            }
+
+            reader.Close();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -181,6 +221,10 @@ namespace BrickBreaker
                 foreach (Block b in blocks)
                 {
                     if (ball.BlockCollision(b))
+                    //JustinCode();
+                    //blocks.Remove(b);
+
+                    //if (blocks.Count == 0)
                     {
                         if (random.Next(1, 10) == 1)
                         {
@@ -224,7 +268,14 @@ namespace BrickBreaker
                 fireBallTimer--;
             }
 
+            TheodoropoulosCode();
+
+            //redraw the screen
             Refresh();
+        }
+        public void JustinCode()
+        {
+            score++;
         }
 
         public void OnEnd()
@@ -232,7 +283,7 @@ namespace BrickBreaker
             // Goes to the game over screen
             Form form = this.FindForm();
             MenuScreen ps = new MenuScreen();
-            
+
             ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
 
             form.Controls.Add(ps);
@@ -248,7 +299,7 @@ namespace BrickBreaker
             // Draws blocks
             foreach (Block b in blocks)
             {
-                e.Graphics.FillRectangle(red, b.x, b.y, b.width, b.height);
+                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
             }
 
             // Draws balls
@@ -268,6 +319,11 @@ namespace BrickBreaker
             {
                 e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
             }
+        }
+
+        public void TheodoropoulosCode()
+        {
+
         }
     }
 }
