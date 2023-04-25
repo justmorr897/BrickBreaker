@@ -150,14 +150,6 @@ namespace BrickBreaker
             {
                 color = 5;
             }
-            else if (e.KeyCode == Keys.D6)
-            {
-                color = 6;
-            }
-            else if (e.KeyCode == Keys.D7)
-            {
-                color = 7;
-            }
 
             if (e.KeyCode == Keys.Up)
             {
@@ -241,16 +233,6 @@ namespace BrickBreaker
         private void fiveHPButton_Click(object sender, EventArgs e)
         {
             color = 5;
-        }
-
-        private void sixHPButton_Click(object sender, EventArgs e)
-        {
-            color = 6;
-        }
-
-        private void sevenHPButton_Click(object sender, EventArgs e)
-        {
-            color = 7;
         }
 
         private void oneHPButton_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

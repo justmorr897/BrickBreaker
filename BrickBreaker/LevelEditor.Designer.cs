@@ -33,8 +33,6 @@
             this.twoHPButton = new System.Windows.Forms.Button();
             this.threeHPButton = new System.Windows.Forms.Button();
             this.fiveHPButton = new System.Windows.Forms.Button();
-            this.sixHPButton = new System.Windows.Forms.Button();
-            this.sevenHPButton = new System.Windows.Forms.Button();
             this.fourHPButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -51,7 +49,7 @@
             // 
             // oneHPButton
             // 
-            this.oneHPButton.Location = new System.Drawing.Point(20, 642);
+            this.oneHPButton.Location = new System.Drawing.Point(55, 642);
             this.oneHPButton.Name = "oneHPButton";
             this.oneHPButton.Size = new System.Drawing.Size(75, 23);
             this.oneHPButton.TabIndex = 1;
@@ -62,7 +60,7 @@
             // 
             // twoHPButton
             // 
-            this.twoHPButton.Location = new System.Drawing.Point(100, 642);
+            this.twoHPButton.Location = new System.Drawing.Point(155, 642);
             this.twoHPButton.Name = "twoHPButton";
             this.twoHPButton.Size = new System.Drawing.Size(75, 23);
             this.twoHPButton.TabIndex = 2;
@@ -72,7 +70,7 @@
             // 
             // threeHPButton
             // 
-            this.threeHPButton.Location = new System.Drawing.Point(180, 642);
+            this.threeHPButton.Location = new System.Drawing.Point(255, 642);
             this.threeHPButton.Name = "threeHPButton";
             this.threeHPButton.Size = new System.Drawing.Size(75, 23);
             this.threeHPButton.TabIndex = 3;
@@ -82,7 +80,7 @@
             // 
             // fiveHPButton
             // 
-            this.fiveHPButton.Location = new System.Drawing.Point(340, 642);
+            this.fiveHPButton.Location = new System.Drawing.Point(455, 642);
             this.fiveHPButton.Name = "fiveHPButton";
             this.fiveHPButton.Size = new System.Drawing.Size(75, 23);
             this.fiveHPButton.TabIndex = 4;
@@ -90,29 +88,9 @@
             this.fiveHPButton.UseVisualStyleBackColor = true;
             this.fiveHPButton.Click += new System.EventHandler(this.fiveHPButton_Click);
             // 
-            // sixHPButton
-            // 
-            this.sixHPButton.Location = new System.Drawing.Point(420, 642);
-            this.sixHPButton.Name = "sixHPButton";
-            this.sixHPButton.Size = new System.Drawing.Size(75, 23);
-            this.sixHPButton.TabIndex = 5;
-            this.sixHPButton.Text = "6 HP";
-            this.sixHPButton.UseVisualStyleBackColor = true;
-            this.sixHPButton.Click += new System.EventHandler(this.sixHPButton_Click);
-            // 
-            // sevenHPButton
-            // 
-            this.sevenHPButton.Location = new System.Drawing.Point(500, 642);
-            this.sevenHPButton.Name = "sevenHPButton";
-            this.sevenHPButton.Size = new System.Drawing.Size(75, 23);
-            this.sevenHPButton.TabIndex = 6;
-            this.sevenHPButton.Text = "7 HP";
-            this.sevenHPButton.UseVisualStyleBackColor = true;
-            this.sevenHPButton.Click += new System.EventHandler(this.sevenHPButton_Click);
-            // 
             // fourHPButton
             // 
-            this.fourHPButton.Location = new System.Drawing.Point(260, 642);
+            this.fourHPButton.Location = new System.Drawing.Point(355, 642);
             this.fourHPButton.Name = "fourHPButton";
             this.fourHPButton.Size = new System.Drawing.Size(75, 23);
             this.fourHPButton.TabIndex = 7;
@@ -126,8 +104,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Controls.Add(this.fourHPButton);
-            this.Controls.Add(this.sevenHPButton);
-            this.Controls.Add(this.sixHPButton);
             this.Controls.Add(this.fiveHPButton);
             this.Controls.Add(this.threeHPButton);
             this.Controls.Add(this.twoHPButton);
@@ -151,8 +127,6 @@
         private System.Windows.Forms.Button twoHPButton;
         private System.Windows.Forms.Button threeHPButton;
         private System.Windows.Forms.Button fiveHPButton;
-        private System.Windows.Forms.Button sixHPButton;
-        private System.Windows.Forms.Button sevenHPButton;
         private System.Windows.Forms.Button fourHPButton;
     }
 }
