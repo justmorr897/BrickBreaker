@@ -41,8 +41,9 @@ namespace BrickBreaker
         List<PowerUp> powerups = new List<PowerUp>();
 
         // Brushes
-        SolidBrush paddleBrush = new SolidBrush(Color.White);
-        SolidBrush ballBrush = new SolidBrush(Color.White);
+        SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
+        SolidBrush ballBrush = new SolidBrush(Color.Transparent);
+        
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
@@ -70,7 +71,7 @@ namespace BrickBreaker
             int paddleX = ((this.Width / 2) - (paddleWidth / 2));
             int paddleY = (this.Height - paddleHeight) - 60;
             int paddleSpeed = 8;
-            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.White);
+            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.Transparent);
 
             // setup starting ball values
             int ballX = this.Width / 2 - 10;
@@ -319,7 +320,13 @@ namespace BrickBreaker
 
         public void TheodoropoulosCode()
         {
+            //draw paddle
+            paddlePicture.Location = new Point(paddle.x, paddle.y);
+            paddlePicture.Size = new Size(paddle.width, paddle.width);
 
+            //draw ball
+            ballPicture.Location = new Point(ball.x, ball.y);
+            ballPicture.Size = new Size(ball.size, ball.size);
         }
     }
 }
