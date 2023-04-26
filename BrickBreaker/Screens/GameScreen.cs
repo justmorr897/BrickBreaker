@@ -254,7 +254,7 @@ namespace BrickBreaker
             }
 
             // Draws ball
-            e.Graphics.FillRectangle(ballBrush, ball.x, ball.y, ball.size, ball.size);
+            e.Graphics.DrawImage(Properties.Resources.Ball, ball.x, ball.y, ball.size, ball.size);
         }
 
         public void TheodoropoulosCode()
@@ -264,8 +264,8 @@ namespace BrickBreaker
             paddlePicture.Size = new Size(paddle.width, paddle.width);
 
             //draw ball
-            ballPicture.Location = new Point(ball.x, ball.y);
-            ballPicture.Size = new Size(ball.size, ball.size);
+            //ballPicture.Location = new Point(ball.x, ball.y);
+            //ballPicture.Size = new Size(ball.size, ball.size);
         }
     }
 }
