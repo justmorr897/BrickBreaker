@@ -181,9 +181,11 @@ namespace BrickBreaker
         {
             level++;
 
-            string levelFile = "Resources/level" + level + ".xml";
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
 
-            XmlWriter writer = XmlWriter.Create(levelFile);
+            XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
 
             writer.WriteStartElement("Level");
 
@@ -205,10 +207,10 @@ namespace BrickBreaker
 
             writer.Close();
 
-            for (int i = 0; i < this.Controls.Count - 6; i++)
-            {
-                this.Controls.RemoveAt(6);
-            }
+            //for (int i = 0; i < this.Controls.Count - 6; i++)
+            //{
+            //    this.Controls.RemoveAt(6);
+            //}
 
             //for(int i = 0; i < this.Controls.Count; i++)
             //{

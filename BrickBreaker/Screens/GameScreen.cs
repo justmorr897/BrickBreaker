@@ -265,7 +265,7 @@ namespace BrickBreaker
                 fireBallTimer--;
             }
 
-            TheodoropoulosCode();
+            //TheodoropoulosCode();
 
             //redraw the screen
             Refresh();
@@ -289,10 +289,6 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            // Draws paddle
-            paddleBrush.Color = paddle.colour;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
-
             // Draws blocks
             foreach (Block b in blocks)
             {
@@ -311,22 +307,24 @@ namespace BrickBreaker
                     e.Graphics.FillEllipse(ballBrush, b.x, b.y, b.size, b.size);
                 }
             }
-            
+
             foreach (PowerUp p in powerups)
             {
                 e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
             }
+
+            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
         }
 
         public void TheodoropoulosCode()
         {
             //draw paddle
-            paddlePicture.Location = new Point(paddle.x, paddle.y);
-            paddlePicture.Size = new Size(paddle.width, paddle.width);
+            //paddlePicture.Location = new Point(paddle.x, paddle.y);
+            //paddlePicture.Size = new Size(paddle.width, paddle.width);
 
             //draw ball
-            ballPicture.Location = new Point(ball.x, ball.y);
-            ballPicture.Size = new Size(ball.size, ball.size);
+            //ballPicture.Location = new Point(ball.x, ball.y);
+            //ballPicture.Size = new Size(ball.size, ball.size);
         }
     }
 }
