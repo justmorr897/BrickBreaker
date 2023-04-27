@@ -21,12 +21,13 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown;
+        Boolean leftArrowDown, rightArrowDown, spaceDown;
 
         // Game values
         public static int lives;
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
+        public bool awaitingLaunch = true;
         Random random = new Random();
         int score;
 
@@ -40,6 +41,9 @@ namespace BrickBreaker
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
 
+        // Arrow
+        Rectangle arrow = new Rectangle();
+
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.White);
         SolidBrush ballBrush = new SolidBrush(Color.White);
@@ -47,12 +51,15 @@ namespace BrickBreaker
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+        Font font;
 
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
+            font = new Font("Arial", 24, FontStyle.Bold);
+            arrowBox.Image = Properties.Resources.ARROW_PNG;
             OnStart();
         }
 
@@ -77,7 +84,10 @@ namespace BrickBreaker
             int ballX = this.Width / 2 - 10;
             int ballY = this.Height - paddle.height - 80;
 
-            // Creates a new ball
+ 
+            /**
+             * Set the ball speed to 0 so it doesnt move upon start so it can be launched
+             */
             int xSpeed = 4;
             int ySpeed = 4;
             int ballSize = 20;
@@ -153,6 +163,9 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = true;
                     break;
+                case Keys.Space:
+                    spaceDown = true;
+                    break;
                 default:
                     break;
             }
@@ -169,6 +182,9 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = false;
                     break;
+                case Keys.Space:
+                    spaceDown = false;
+                    break;
                 default:
                     break;
             }
@@ -176,6 +192,9 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            // Set the location of the arrow rectangle
+            arrowBox.Location = new Point(paddle.x + (paddle.width / 3), paddle.y - paddle.height);
+
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
@@ -270,6 +289,12 @@ namespace BrickBreaker
             //redraw the screen
             Refresh();
         }
+
+        public void SpinArrow()
+        {
+
+        }
+
         public void JustinCode()
         {
             score++;
@@ -316,11 +341,12 @@ namespace BrickBreaker
             {
                 e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
             }
+            
         }
 
         public void TheodoropoulosCode()
         {
-
+            
         }
     }
 }

@@ -120,4 +120,51 @@
   <metadata name="gameTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="arrowBox.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAABGdBTUEAALGPC/xhBQAACXNJREFUeF7t
+        00GuxEgOA9F/jL7/RXs2sagFgS5LLlupiQdwbVhJ/kmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSbvDv
+        S/i8pDexx8fxeUlvYo+P4/OS3sQeH8fnJb2JPT6Oz0t6E3t8HJ+X9Cb2+Dg+L+lN7PFxfF7Sm9jj4/i8
+        pDexx8fxeUlvYo+P4/OS3sQeH8fnJb2JPT6Oz0t6E3t8HJ+XdAd2dd3fP++kiN+V9Il9XJfG+USK+F1J
+        n9jHdWmcT6SI35X0iX1cl8b5RIr4XUmf2Md1aZxPpIjflfSJfVyXxvlEivhdSZ/Yx3VpnE+kiN+V9Il9
+        XJfG+USK+F1Jn9jHdWmcT6SI35X0iX1cl8b5RIr4XUmf2Md1aZxPpIjflfSJfVyXxvlEivhdSZ/Yx3Vp
+        nE+kiN+V9qHjNWlkG9PAmaWZ6GlNGsvGNHBmaSZ6WpPGsjENnFmaiZ7WpLFsTANnlmaipzVpLBvTwJml
+        mehpTRrLxjRwZmkmelqTxrIxDZxZmome1qSxbEwDZ5Zmoqc1aSwb08CZpZnoaU0ay8Y0cGZpJnpak8ay
+        MQ2cWZqJntaksWxMA2eWZqKnNWksG9PAmaWZ6GlNGsvGNHBm6bfo23Wp8Oa+FPGs0nfozXWptOa+FPGs
+        0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs
+        0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs0nfozXWptOa+FPGs
+        0nfozXWptOa+FPGs0nfozXWptOa+FPGs+n/C29ek8plz00CddBreryaVyJybBuqk0/B+NalE5tw0UCed
+        hverSSUy56aBOuk0vF9NKpE5Nw3USafh/WpSicy5aaBOOg3vV5NKZM5NA3XSaXi/mlQic24aqJNOw/vV
+        pBKZc9NAnXQa3q8mlcicmwbqpNPwfjWpRObcNFAnnYb3q0klMuemgTrpNLxfTSqROTcN1Emn4f1qUonM
+        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
+</value>
+  </data>
 </root>

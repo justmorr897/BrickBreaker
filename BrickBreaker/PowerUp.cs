@@ -51,12 +51,20 @@ namespace BrickBreaker
                 Rectangle PaddleRec = new Rectangle(GameScreen.paddle.x, GameScreen.paddle.y, GameScreen.paddle.width, GameScreen.paddle.height);
                 if (PowerUpRec.IntersectsWith(PaddleRec))
                 {
+                    type = 1;
+
                     if (type == 1)
                     {
-                        GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, 4, -4, 20));
-                        GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, -4, -4, 20));
+                        for (int i = 0; i < 2; i++)
+                        {
+                            // Create a new ball
+                           Ball newBall = new Ball(GameScreen.paddle.x + (GameScreen.paddle.width / 2), GameScreen.paddle.y - 40, -1^i * 4, -4, 20);
+                            
+                            // Add ball to list
+                            GameScreen.balls.Add(newBall);
+                        }
                     }
-                    else if (type == 2)
+                    else if (type == 2) 
                     {
                         GameScreen.paddle.width = 160;
                         GameScreen.lPaddletimer = 1000;

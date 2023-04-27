@@ -91,11 +91,13 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             if (x <= 0)
             {
                 xSpeed *= -1;
+                x = size;
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 xSpeed *= -1;
+                x = UC.Width - size;
             }
             // Collision with top wall
             if (y <= 2)

@@ -31,6 +31,9 @@ namespace BrickBreaker
             InitializeComponent();
             Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
             rectangles.Add(saveButtonRect);
+
+            // Set a default value
+            color = 1;
         }
 
         private void LevelEditor_MouseClick(object sender, MouseEventArgs e)
