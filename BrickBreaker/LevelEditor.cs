@@ -16,7 +16,6 @@ namespace BrickBreaker
         List<Rectangle> rectangles = new List<Rectangle>();
         List<TextBox> textboxList = new List<TextBox>();
 
-
         TextBox textbox = new TextBox();
         SolidBrush redbrush = new SolidBrush(Color.Red);
         Pen drawPen = new Pen(Color.White);
