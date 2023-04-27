@@ -38,10 +38,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(243, 666);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(363, 934);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 30);
+            this.button1.Size = new System.Drawing.Size(156, 46);
             this.button1.TabIndex = 0;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
@@ -49,9 +48,10 @@
             // 
             // oneHPButton
             // 
-            this.oneHPButton.Location = new System.Drawing.Point(55, 642);
+            this.oneHPButton.Location = new System.Drawing.Point(82, 988);
+            this.oneHPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.oneHPButton.Name = "oneHPButton";
-            this.oneHPButton.Size = new System.Drawing.Size(75, 23);
+            this.oneHPButton.Size = new System.Drawing.Size(112, 35);
             this.oneHPButton.TabIndex = 1;
             this.oneHPButton.Text = "1 HP";
             this.oneHPButton.UseVisualStyleBackColor = true;
@@ -59,9 +59,10 @@
             // 
             // twoHPButton
             // 
-            this.twoHPButton.Location = new System.Drawing.Point(155, 642);
+            this.twoHPButton.Location = new System.Drawing.Point(232, 988);
+            this.twoHPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.twoHPButton.Name = "twoHPButton";
-            this.twoHPButton.Size = new System.Drawing.Size(75, 23);
+            this.twoHPButton.Size = new System.Drawing.Size(112, 35);
             this.twoHPButton.TabIndex = 2;
             this.twoHPButton.Text = "2 HP";
             this.twoHPButton.UseVisualStyleBackColor = true;
@@ -69,9 +70,10 @@
             // 
             // threeHPButton
             // 
-            this.threeHPButton.Location = new System.Drawing.Point(255, 642);
+            this.threeHPButton.Location = new System.Drawing.Point(382, 988);
+            this.threeHPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.threeHPButton.Name = "threeHPButton";
-            this.threeHPButton.Size = new System.Drawing.Size(75, 23);
+            this.threeHPButton.Size = new System.Drawing.Size(112, 35);
             this.threeHPButton.TabIndex = 3;
             this.threeHPButton.Text = "3 HP";
             this.threeHPButton.UseVisualStyleBackColor = true;
@@ -79,9 +81,10 @@
             // 
             // fiveHPButton
             // 
-            this.fiveHPButton.Location = new System.Drawing.Point(455, 642);
+            this.fiveHPButton.Location = new System.Drawing.Point(682, 988);
+            this.fiveHPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fiveHPButton.Name = "fiveHPButton";
-            this.fiveHPButton.Size = new System.Drawing.Size(75, 23);
+            this.fiveHPButton.Size = new System.Drawing.Size(112, 35);
             this.fiveHPButton.TabIndex = 4;
             this.fiveHPButton.Text = "5 HP";
             this.fiveHPButton.UseVisualStyleBackColor = true;
@@ -89,9 +92,10 @@
             // 
             // fourHPButton
             // 
-            this.fourHPButton.Location = new System.Drawing.Point(355, 642);
+            this.fourHPButton.Location = new System.Drawing.Point(532, 988);
+            this.fourHPButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fourHPButton.Name = "fourHPButton";
-            this.fourHPButton.Size = new System.Drawing.Size(75, 23);
+            this.fourHPButton.Size = new System.Drawing.Size(112, 35);
             this.fourHPButton.TabIndex = 7;
             this.fourHPButton.Text = "4 HP";
             this.fourHPButton.UseVisualStyleBackColor = true;
@@ -99,7 +103,7 @@
             // 
             // LevelEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Controls.Add(this.fourHPButton);
@@ -108,9 +112,8 @@
             this.Controls.Add(this.twoHPButton);
             this.Controls.Add(this.oneHPButton);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LevelEditor";
-            this.Size = new System.Drawing.Size(600, 700);
+            this.Size = new System.Drawing.Size(900, 1077);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelEditor_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseMove);

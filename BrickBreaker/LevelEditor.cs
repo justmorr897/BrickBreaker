@@ -14,6 +14,8 @@ namespace BrickBreaker
     public partial class LevelEditor : UserControl
     {
         List<Rectangle> rectangles = new List<Rectangle>();
+        List<TextBox> textboxList = new List<TextBox>();
+
 
         TextBox textbox = new TextBox();
         SolidBrush redbrush = new SolidBrush(Color.Red);
@@ -101,6 +103,9 @@ namespace BrickBreaker
                 this.Controls.Add(textbox);
                 textbox.Focus();
 
+                textboxList.Add(textbox);
+
+
             }
         }
 
@@ -186,7 +191,6 @@ namespace BrickBreaker
 
             XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
 
-
             writer.WriteStartElement("Level");
 
             foreach (Control c in this.Controls)
@@ -207,18 +211,13 @@ namespace BrickBreaker
 
             writer.Close();
 
-            //for (int i = 0; i < this.Controls.Count - 6; i++)
-            //{
-            //    this.Controls.RemoveAt(6);
-            //}
+            int length = this.Controls.Count;
 
-            //for(int i = 0; i < this.Controls.Count; i++)
-            //{
-            //    if(this.Controls[i] is TextBox)
-            //    {
-            //        this.Controls.RemoveAt(i);
-            //    }
-            //}
+            for (int i = length - 7; i >= 0; i--)
+            {
+                //this.Controls.RemoveAt(i);
+                this.Controls.Remove(textboxList[i]);
+            }
 
         }
 
