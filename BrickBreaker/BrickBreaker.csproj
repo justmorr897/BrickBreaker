@@ -79,6 +79,7 @@
       <DependentUpon>LevelEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Paddle.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scores.cs" />
@@ -154,6 +155,43 @@
     <Content Include="HighScoreXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Duck01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ball.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
