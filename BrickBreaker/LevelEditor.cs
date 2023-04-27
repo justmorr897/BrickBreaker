@@ -22,8 +22,8 @@ namespace BrickBreaker
         Rectangle newRect;
         int mouseX;
         int mouseY;
-        int width = 50;
-        int height = 25;
+        int width = 30;
+        int height = 20;
         int level = 0;
         int totalLevels = 5;
 
@@ -85,9 +85,9 @@ namespace BrickBreaker
                         textbox.Text = "7";
                     }
 
-                textbox.Font = new Font("Arial", 9);
+                textbox.Font = new Font("Arial", 7);
                 textbox.Location = new Point(mouseX, mouseY);
-                textbox.Size = new Size(50, 25);
+                textbox.Size = new Size(width, height);
                 textbox.ForeColor = Color.White;
                 textbox.TextAlign = HorizontalAlignment.Center;
                 textbox.ReadOnly = true;
@@ -172,44 +172,24 @@ namespace BrickBreaker
                 Cursor.Position = new Point(Cursor.Position.X - 60, Cursor.Position.Y);
                 Print();
             }
+
+            if(e.KeyCode == Keys.V)
+            {
+                ButtonVisibleChange();
+            }
+        }
+
+        public void ButtonVisibleChange()
+        {
+            level1Button.Visible = !level1Button.Visible;
+            level2Button.Visible = !level2Button.Visible;
+            level3Button.Visible = !level3Button.Visible;
+            level4Button.Visible = !level4Button.Visible;
+            level5Button.Visible = !level5Button.Visible;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            level++;
-
-            //string levelFile = "Resources/level" + level + ".xml";
-            //XmlWriter writer = XmlWriter.Create(levelFile);
-
-            XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
-
-            writer.WriteStartElement("Level");
-
-            foreach (Control c in this.Controls)
-            {
-                if (c is TextBox)
-                {
-                    writer.WriteStartElement("brick");
-                    writer.WriteElementString("x", $"{c.Location.X}");
-                    writer.WriteElementString("y", $"{c.Location.Y}");
-                    writer.WriteElementString("hp", $"{c.Text}");
-                    writer.WriteElementString("color", $"{c.BackColor.Name}");
-
-                    writer.WriteEndElement();
-                }
-            }
-
-            writer.WriteEndElement();
-
-            writer.Close();
-
-            int length = this.Controls.Count;
-
-            for (int i = length - 7; i >= 0; i--)
-            {
-                //this.Controls.RemoveAt(i);
-                this.Controls.Remove(textboxList[i]);
-            }
 
         }
 
@@ -241,6 +221,125 @@ namespace BrickBreaker
         private void fiveHPButton_Click(object sender, EventArgs e)
         {
             color = 5;
+        }
+
+        private void level1Button_MouseEnter(object sender, EventArgs e)
+        {
+            //Button tempButton = sender as Button;
+            //tempButton.Location = new Point(100, tempButton.Location.Y);
+        }
+
+        private void level1Button_MouseLeave(object sender, EventArgs e)
+        {
+            //Button tempButton = sender as Button;
+            //tempButton.Location = new Point(-50, tempButton.Location.Y);
+
+        }
+
+        private void level1Button_Click(object sender, EventArgs e)
+        {
+            level = 1;
+            LevelButtonClick(level);
+            ButtonVisibleChange();
+
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
+
+            ////XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
+        }
+
+        private void level2Button_Click(object sender, EventArgs e)
+        {
+            level = 2;
+            LevelButtonClick(level);
+            ButtonVisibleChange();
+
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
+
+            ////XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
+        }
+
+        private void level3Button_Click(object sender, EventArgs e)
+        {
+            level = 3;
+            LevelButtonClick(level);
+            ButtonVisibleChange();
+
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
+
+            ////XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
+            //writer.WriteStartElement("Level");
+        }
+
+        private void level4Button_Click(object sender, EventArgs e)
+        {
+            level = 4;
+            LevelButtonClick(level);
+            ButtonVisibleChange();
+
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
+
+            ////XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
+            //writer.WriteStartElement("Level");
+        }
+
+        private void level5Button_Click(object sender, EventArgs e)
+        {
+            level = 5;
+            LevelButtonClick(level);
+            ButtonVisibleChange();
+            //string levelFile = "Resources/level" + level + ".xml";
+            //XmlWriter writer = XmlWriter.Create(levelFile);
+
+            ////XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+        }
+
+        public void LevelButtonClick(int _level)
+        {
+            level = _level;
+
+            string levelFile = "Resources/level" + level + ".xml";
+            XmlWriter writer = XmlWriter.Create(levelFile);
+
+            //XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
+
+            writer.WriteStartElement("Level");
+
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                {
+                    writer.WriteStartElement("brick");
+                    writer.WriteElementString("x", $"{c.Location.X}");
+                    writer.WriteElementString("y", $"{c.Location.Y}");
+                    writer.WriteElementString("hp", $"{c.Text}");
+                    writer.WriteElementString("color", $"{c.BackColor.Name}");
+
+                    writer.WriteEndElement();
+                }
+            }
+
+            writer.WriteEndElement();
+
+            writer.Close();
+
+            int length = this.Controls.Count;
+
+            for (int i = length - 12; i >= 0; i--)
+            {
+                //this.Controls.RemoveAt(i);
+                this.Controls.Remove(textboxList[i]);
+            }
+
+            textboxList.Clear();
+            //level5Button.Enabled = false;
         }
     }
 }
