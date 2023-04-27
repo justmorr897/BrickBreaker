@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace BrickBreaker
 {
     public partial class MenuScreen : UserControl
     {
+        List<Scores> scores = new List<Scores>();
         public MenuScreen()
         {
             InitializeComponent();
+            CooperCode();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -44,5 +47,29 @@ namespace BrickBreaker
 
             le.Location = new Point((form.Width - le.Width) / 2, (form.Height - le.Height) / 2);
         }
+
+        public void CooperCode()
+        {
+            string name, score;
+
+            XmlReader reader = XmlReader.Create("HighScoreXML.xml");
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    name = reader.ReadString();
+
+                    reader.ReadToNextSibling("score");
+
+                    score = reader.ReadString();
+
+                    Scores s = new Scores(name, score);
+
+                    scores.Add(s);
+                }
+            }
+            reader.Close();
+        }
+
     }
 }
