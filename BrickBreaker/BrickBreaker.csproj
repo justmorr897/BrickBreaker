@@ -82,6 +82,7 @@
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scores.cs" />
     <Compile Include="Screens\MenuScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,6 +152,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HighScoreXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Duck01.png" />
   </ItemGroup>
   <ItemGroup>

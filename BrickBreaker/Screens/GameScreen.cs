@@ -55,6 +55,7 @@ namespace BrickBreaker
         {
             InitializeComponent();
             OnStart();
+
         }
 
         public void OnStart()
@@ -277,6 +278,7 @@ namespace BrickBreaker
 
         public void OnEnd()
         {
+            CooperCode();
             // Goes to the game over screen
             Form form = this.FindForm();
             MenuScreen ps = new MenuScreen();
@@ -318,13 +320,23 @@ namespace BrickBreaker
 
         public void TheodoropoulosCode()
         {
-            //draw paddle
-            //paddlePicture.Location = new Point(paddle.x, paddle.y);
-            //paddlePicture.Size = new Size(paddle.width, paddle.width);
+             
+        }
 
-            //draw ball
-            //ballPicture.Location = new Point(ball.x, ball.y);
-            //ballPicture.Size = new Size(ball.size, ball.size);
+        public void CooperCode()
+        {
+            string name;
+            name = "do this later";
+            string HS = score.ToString();
+            XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
+            writer.WriteStartElement("HighScores");
+
+            writer.WriteElementString("Name", name);
+            writer.WriteElementString("Score", HS);
+
+            writer.WriteEndElement();
+            writer.Close();
+
         }
     }
 }
