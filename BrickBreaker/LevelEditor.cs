@@ -50,8 +50,6 @@ namespace BrickBreaker
 
                 textbox = new TextBox();
 
-                //if (textbox.Text == "")
-                //{
                     if (color == 1)
                     {
                         textbox.BackColor = Color.Green;
@@ -87,7 +85,6 @@ namespace BrickBreaker
                         textbox.BackColor = Color.Red;
                         textbox.Text = "7";
                     }
-                //
 
                 textbox.Font = new Font("Arial", 9);
                 textbox.Location = new Point(mouseX, mouseY);
@@ -96,16 +93,12 @@ namespace BrickBreaker
                 textbox.TextAlign = HorizontalAlignment.Center;
                 textbox.ReadOnly = true;
 
-                //Cursor.Position = new Point(Cursor.Position.X + 60, Cursor.Position.Y);
-
                 textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
 
                 this.Controls.Add(textbox);
                 textbox.Focus();
 
                 textboxList.Add(textbox);
-
-
             }
         }
 
