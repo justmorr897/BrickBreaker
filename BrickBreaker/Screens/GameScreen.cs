@@ -26,12 +26,17 @@ namespace BrickBreaker
         // Game values
         public static int lives;
         public static int paddleSizeTimer = 0;
-        public static int level = 1;
+        public static int saveLevel = 1;
+        public static int gameLevel = 1;
+        int totalLevels = 5;
+
+
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         public static int speedBallTimer = 0;
         public static int paddleSpeedTimer = 0;
         public static bool edgeProtector = false;
+        public static bool isSaveLevelSelcted = false;
         Random random = new Random();
         int score;
 
@@ -50,7 +55,7 @@ namespace BrickBreaker
 
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
-        SolidBrush ballBrush = new SolidBrush(Color.Transparent);
+        SolidBrush ballBrush = new SolidBrush(Color.Red);
         
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
@@ -100,6 +105,7 @@ namespace BrickBreaker
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
 
             LevelBuild();
+            balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
             //blocks.Clear();
             //int x = 10;
@@ -120,13 +126,26 @@ namespace BrickBreaker
 
         public void LevelBuild()
         {
+
+             balls.Clear();
+            //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
             string color;
 
             blocks.Clear();
+            XmlReader reader;
 
-            string levelFile = "Resources/level" + level + ".xml";
-            XmlReader reader = XmlReader.Create(levelFile);
+            if (isSaveLevelSelcted)
+            {
+                string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
+                reader = XmlReader.Create(levelFile);
+            }
+            else
+            {
+                string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
+                reader = XmlReader.Create(levelFile);
+            }
+          
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
@@ -239,7 +258,7 @@ namespace BrickBreaker
                         JustinCode();
                         blocks.Remove(b);
 
-                        if (random.Next(1, 11) == 1)
+                        if (random.Next(1, 2) == 1)
                         {
                             if (random.Next(1, 4) == 1)
                             {
@@ -338,14 +357,39 @@ namespace BrickBreaker
         public void OnEnd()
         {
             CooperCode();
+
+            JustinCode2();
             // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
 
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+            if(gameLevel < totalLevels)
+            {
 
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+            }
+            else if(gameLevel == totalLevels)
+            {
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+            }
+        }
+
+
+        public void JustinCode2()
+        {
+            if (isSaveLevelSelcted)
+            {
+                saveLevel++;
+                LevelBuild();
+            }
+            else 
+            {
+                gameLevel++;
+                LevelBuild();
+            }
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)

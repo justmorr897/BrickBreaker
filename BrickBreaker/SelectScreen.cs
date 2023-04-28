@@ -42,11 +42,15 @@ namespace BrickBreaker
         private void levelsButton_Click(object sender, EventArgs e)
         {
             ChangeScreen();
+            GameScreen.gameLevel = 1;
+            GameScreen.isSaveLevelSelcted = false;
+
         }
 
         private void SaveButton1_Click(object sender, EventArgs e)
         {
-            GameScreen.level = 1;
+            GameScreen.saveLevel = 1;
+            GameScreen.isSaveLevelSelcted = true;
 
             ChangeScreen();
 
@@ -54,7 +58,8 @@ namespace BrickBreaker
 
         private void SaveButton2_Click(object sender, EventArgs e)
         {
-            GameScreen.level = 2;
+            GameScreen.saveLevel = 2;
+            GameScreen.isSaveLevelSelcted = true;
 
             ChangeScreen();
 
@@ -62,7 +67,8 @@ namespace BrickBreaker
 
         private void SaveButton3_Click(object sender, EventArgs e)
         {
-            GameScreen.level = 3;
+            GameScreen.saveLevel = 3;
+            GameScreen.isSaveLevelSelcted = true;
 
             ChangeScreen();
 
@@ -70,7 +76,8 @@ namespace BrickBreaker
 
         private void SaveButton4_Click(object sender, EventArgs e)
         {
-            GameScreen.level = 4;
+            GameScreen.saveLevel = 4;
+            GameScreen.isSaveLevelSelcted = true;
 
             ChangeScreen();
 
@@ -78,7 +85,8 @@ namespace BrickBreaker
 
         private void SaveButton5_Click(object sender, EventArgs e)
         {
-            GameScreen.level = 5;
+            GameScreen.saveLevel = 5;
+            GameScreen.isSaveLevelSelcted = true;
 
             ChangeScreen();
 

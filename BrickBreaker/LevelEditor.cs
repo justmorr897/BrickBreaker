@@ -301,7 +301,7 @@ namespace BrickBreaker
         {
             level = _level;
 
-            string levelFile = "Resources/level" + level + ".xml";
+            string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
 
             //XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
@@ -335,6 +335,7 @@ namespace BrickBreaker
             }
 
             textboxList.Clear();
+            rectangles.Clear();
             outputLabel.Visible = true;
             outputLabel.Text = $"Level {level} Saved";
 
