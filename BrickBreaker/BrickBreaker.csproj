@@ -83,6 +83,7 @@
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scores.cs" />
     <Compile Include="Screens\MenuScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +95,12 @@
     </Compile>
     <Compile Include="Screens\GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SelectScreen.Designer.cs">
+      <DependentUpon>SelectScreen.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -116,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectScreen.resx">
+      <DependentUpon>SelectScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -152,6 +162,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HighScoreXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Duck01.png" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ball.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

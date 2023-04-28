@@ -26,6 +26,8 @@ namespace BrickBreaker
         // Game values
         public static int lives;
         public static int paddleSizeTimer = 0;
+        public static int level = 1;
+        public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         public static int speedBallTimer = 0;
         public static int paddleSpeedTimer = 0;
@@ -47,8 +49,9 @@ namespace BrickBreaker
         List<Fire> flames = new List<Fire>();
 
         // Brushes
-        SolidBrush paddleBrush = new SolidBrush(Color.White);
-        SolidBrush ballBrush = new SolidBrush(Color.White);
+        SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
+        SolidBrush ballBrush = new SolidBrush(Color.Transparent);
+        
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
@@ -61,13 +64,14 @@ namespace BrickBreaker
         {
             InitializeComponent();
             OnStart();
-        }
 
+        }
 
         public void OnStart()
         {
             //set life counter
             lives = 3;
+
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -78,7 +82,7 @@ namespace BrickBreaker
             int paddleX = ((this.Width / 2) - (paddleWidth / 2));
             int paddleY = (this.Height - paddleHeight) - 60;
             int paddleSpeed = 8;
-            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.White);
+            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.Transparent);
 
             // setup starting ball values
             int ballX = this.Width / 2 - 10;
@@ -120,7 +124,11 @@ namespace BrickBreaker
             string color;
 
             blocks.Clear();
-            XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
+
+            string levelFile = "Resources/level" + level + ".xml";
+            XmlReader reader = XmlReader.Create(levelFile);
+
+            //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
             reader.ReadToFollowing("Level");
 
@@ -317,6 +325,7 @@ namespace BrickBreaker
                 gameTimer.Enabled = false;
                 OnEnd();
             }
+            //TheodoropoulosCode();
 
             //redraw the screen
             Refresh();
@@ -328,6 +337,7 @@ namespace BrickBreaker
 
         public void OnEnd()
         {
+            CooperCode();
             // Goes to the game over screen
             Form form = this.FindForm();
             MenuScreen ps = new MenuScreen();
@@ -379,10 +389,29 @@ namespace BrickBreaker
             {
                 e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
             }
+
+            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
+
         }
 
         public void TheodoropoulosCode()
         {
+             
+        }
+
+        public void CooperCode()
+        {
+            string name;
+            name = "do this later";
+            string HS = score.ToString();
+            XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
+            writer.WriteStartElement("HighScores");
+
+            writer.WriteElementString("Name", name);
+            writer.WriteElementString("Score", HS);
+
+            writer.WriteEndElement();
+            writer.Close();
 
         }
     }
