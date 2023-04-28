@@ -27,14 +27,24 @@ namespace BrickBreaker
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            // Goes to the game screen
-            GameScreen gs = new GameScreen();
+            // Goes to the game screen'
+
+
+            SelectScreen ss = new SelectScreen();
             Form form = this.FindForm();
 
-            form.Controls.Add(gs);
+            form.Controls.Add(ss);
             form.Controls.Remove(this);
 
-            gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+            ss.Location = new Point((form.Width - ss.Width) / 2, (form.Height - ss.Height) / 2);
+
+            //GameScreen gs = new GameScreen();
+            //Form form = this.FindForm();
+
+            //form.Controls.Add(gs);
+            //form.Controls.Remove(this);
+
+            //gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
         }
 
         private void button1_Click(object sender, EventArgs e)

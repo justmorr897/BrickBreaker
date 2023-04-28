@@ -25,6 +25,7 @@ namespace BrickBreaker
 
         // Game values
         public static int lives;
+        public static int level = 1;
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         Random random = new Random();
@@ -62,6 +63,7 @@ namespace BrickBreaker
         {
             //set life counter
             lives = 3;
+
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -114,7 +116,11 @@ namespace BrickBreaker
             string color;
 
             blocks.Clear();
-            XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
+
+            string levelFile = "Resources/level" + level + ".xml";
+            XmlReader reader = XmlReader.Create(levelFile);
+
+            //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
             reader.ReadToFollowing("Level");
 

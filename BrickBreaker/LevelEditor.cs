@@ -26,7 +26,7 @@ namespace BrickBreaker
         int height = 30;
         int level = 0;
         int totalLevels = 5;
-        int buttonSpeed = 10;
+        int buttonSpeed = 2;
 
         int color;
 
@@ -151,7 +151,7 @@ namespace BrickBreaker
             }
             else if (e.KeyCode == Keys.Right && mouseX + (width + 5) < Form1.formWidth - width)
             {
-                Cursor.Position = new Point(Cursor.Position.X + (width + 5), Cursor.Position.Y);
+                Cursor.Position = new Point(Cursor.Position.X + (width + 10), Cursor.Position.Y);
                 Print();
 
             }
@@ -163,7 +163,7 @@ namespace BrickBreaker
             }
             else if (e.KeyCode == Keys.Left && mouseX - (width + 5) > 0)
             {
-                Cursor.Position = new Point(Cursor.Position.X - (width + 5), Cursor.Position.Y);
+                Cursor.Position = new Point(Cursor.Position.X - (width + 10), Cursor.Position.Y);
                 Print();
             }
 
