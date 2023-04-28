@@ -69,14 +69,12 @@ namespace BrickBreaker
         {
             InitializeComponent();
             OnStart();
-
         }
 
         public void OnStart()
         {
             //set life counter
             lives = 3;
-
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -126,7 +124,6 @@ namespace BrickBreaker
 
         public void LevelBuild()
         {
-
              balls.Clear();
             //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
@@ -145,7 +142,6 @@ namespace BrickBreaker
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
             }
-          
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
@@ -359,14 +355,15 @@ namespace BrickBreaker
             CooperCode();
 
             JustinCode2();
-            // Goes to the game over screen
 
             if(gameLevel < totalLevels)
             {
 
             }
             else if(gameLevel == totalLevels)
-            {
+            {            
+                // Goes to the game over screen
+
                 Form form = this.FindForm();
                 MenuScreen ps = new MenuScreen();
 
