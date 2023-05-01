@@ -187,7 +187,7 @@ namespace BrickBreaker
                     }
                 }
 
-                if (type == 99 && random.Next(1, 5) == 1)
+                if (type == 99 && random.Next(1, 5) == 1) // Random power up
                 {
                     powerupBrush.Color = Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
                 }
