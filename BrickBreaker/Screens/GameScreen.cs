@@ -226,6 +226,7 @@ namespace BrickBreaker
         {
 
             livesLabel.Text = $"Lives: {lives}";
+            scoreLabel.Text = $"Score: {score}";    
 
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
