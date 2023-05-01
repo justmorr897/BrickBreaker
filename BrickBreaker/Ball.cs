@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU SEE THIS THEN IT WORKED
+namespace BrickBreaker
 {
     public class Ball
     {
@@ -79,10 +79,6 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
                 {
                     y = p.y - size;
                 }
-                else if (ySpeed < 0)
-                {
-                    y = p.y + size;
-                }
 
                 ySpeed *= -1;
             }
@@ -95,17 +91,35 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             if (x <= 0)
             {
                 xSpeed *= -1;
+                x = size;
+                AdjustAngle("Y");
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 xSpeed *= -1;
+                x = UC.Width - size;
+                AdjustAngle("Y");
             }
             // Collision with top wall
             if (y <= 2)
             {
                 ySpeed *= -1;
+                AdjustAngle("X");
             }
+        }
+
+        public void AdjustAngle(string direction)
+        {
+            /**
+             * Generate 3 numbers and depending on the result change the angle of the ball
+             * The ball has its inital value and upon hitting a wall, it can adjust one of the speeds to be 1 above or below
+             * the initial value or reset it back to that
+             */
+
+            int randomNum = rand.Next(0, 3);
+
+
         }
 
         public bool BottomCollision(UserControl UC)
