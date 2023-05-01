@@ -287,7 +287,7 @@ Random random = new Random();
                         {
                             JustinCode();
 
-                            if (random.Next(1, 10) == 1)
+                            if (random.Next(1, 2) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -486,7 +486,7 @@ Random random = new Random();
                 e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
             }
 
-            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
+            //e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
 
             // Draws powerup message
             if (messageTimer > 0)
