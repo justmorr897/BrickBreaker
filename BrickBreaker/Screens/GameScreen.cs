@@ -25,9 +25,18 @@ namespace BrickBreaker
 
         // Game values
         public static int lives;
+        public static int paddleSizeTimer = 0;
+        public static int saveLevel = 1;
+        public static int gameLevel = 1;
+        int totalLevels = 5;
+
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         public bool awaitingLaunch = true;
+        public static int speedBallTimer = 0;
+        public static int paddleSpeedTimer = 0;
+        public static bool edgeProtector = false;
+        public static bool isSaveLevelSelcted = false;
         Random random = new Random();
         int score;
 
@@ -41,17 +50,22 @@ namespace BrickBreaker
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
 
-        // Arrow
-        Rectangle arrow = new Rectangle();
 
+        // fire ball power up
+        List<Fire> flames = new List<Fire>();
+        
         // Brushes
-        SolidBrush paddleBrush = new SolidBrush(Color.White);
-        SolidBrush ballBrush = new SolidBrush(Color.White);
+        SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
+        SolidBrush ballBrush = new SolidBrush(Color.Red);
+        
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
+        SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
         Font font;
+
+        Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
         #endregion
 
@@ -61,7 +75,6 @@ namespace BrickBreaker
             font = new Font("Arial", 24, FontStyle.Bold);
             OnStart();
         }
-
 
         public void OnStart()
         {
@@ -77,7 +90,7 @@ namespace BrickBreaker
             int paddleX = ((this.Width / 2) - (paddleWidth / 2));
             int paddleY = (this.Height - paddleHeight) - 60;
             int paddleSpeed = 8;
-            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.White);
+            paddle = new Paddle(paddleX, paddleY, paddleWidth, paddleHeight, paddleSpeed, Color.Transparent);
 
             // setup starting ball values
             int ballX = this.Width / 2 - 10;
@@ -112,23 +125,38 @@ namespace BrickBreaker
             #endregion
 
             // start the game engine loop
-            gameTimer.Enabled = true;
+            //gameTimer.Enabled = true;
         }
 
 
         public void LevelBuild()
         {
+            //balls.Clear();
+            //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
             string color;
 
             blocks.Clear();
-            XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
+            XmlReader reader;
+
+            if (isSaveLevelSelcted && saveLevel <= totalLevels)
+            {
+                string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
+                reader = XmlReader.Create(levelFile);
+            }
+            else
+            {
+                string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
+                reader = XmlReader.Create(levelFile);
+            }
+
+            //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
             reader.ReadToFollowing("Level");
 
             while (reader.Read())
             {
-                if(reader.NodeType == XmlNodeType.Text)
+                if (reader.NodeType == XmlNodeType.Text)
                 {
                     x = Convert.ToInt32(reader.ReadString());
 
@@ -149,6 +177,11 @@ namespace BrickBreaker
             }
 
             reader.Close();
+
+            //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
+            //balls.Add(newBall);
+
+            gameTimer.Enabled = true;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -192,6 +225,8 @@ namespace BrickBreaker
         private void gameTimer_Tick(object sender, EventArgs e)
         {
 
+            livesLabel.Text = $"Lives: {lives}";
+
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
@@ -209,24 +244,23 @@ namespace BrickBreaker
                 b.WallCollision(this);
                 if (b.BottomCollision(this))
                 {
-                    if (b == balls[0])
+                    if (b == balls[0] && !edgeProtector)
                     {
                         lives--;
 
                         // Moves the ball back to origin
                         b.x = ((paddle.x - (b.size / 2)) + (paddle.width / 2));
                         b.y = (this.Height - paddle.height) - 85;
-
-                        if (lives == 0)
-                        {
-                            gameTimer.Enabled = false;
-                            OnEnd();
-                        }
                     }
-                    else
+                    else if (!edgeProtector)
                     {
                         balls.Remove(b);
                         break;
+                    }
+                    else
+                    {
+                        b.ySpeed *= -1;
+                        edgeProtector = false;
                     }
                 }
             }
@@ -236,14 +270,26 @@ namespace BrickBreaker
             {
                 foreach (Block b in blocks)
                 {
-                    if (ball.BlockCollision(b))
+                    if (ball.BlockCollision(b, ball))
                     {
-                        JustinCode();
-                        blocks.Remove(b);
-
-                        if (random.Next(1, 10) == 1)
+                        b.hp--;
+                        if(b.hp == 0)
                         {
-                            powerups.Add(new PowerUp(random.Next(1, 5), b.x, b.y));
+                            JustinCode();
+
+                            if (random.Next(1, 10) == 1)
+                            {
+                                if (random.Next(1, 4) == 1)
+                                {
+                                    powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
+                                }
+                                else
+                                {
+                                    powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
+                                }
+                            }
+
+                            blocks.Remove(b);
                         }
 
                         if (blocks.Count == 0)
@@ -267,21 +313,67 @@ namespace BrickBreaker
                 }
             }
 
-            if (lPaddletimer == 0)
+            if (speedBallTimer == 0 && balls[0].speed == 2)
             {
-                paddle.width = 80;
+                foreach (Ball b in balls)
+                {
+                    b.speed = 1;
+                }
             }
             else
             {
-                lPaddletimer--;
+                speedBallTimer--;
             }
 
             if (fireBallTimer != 0)
             {
                 fireBallTimer--;
+                flames.Add(new Fire(balls[0].x, balls[0].y));
+            }
+            foreach (Fire f in flames)
+            {
+                f.Move();
+            }
+            foreach (Fire f in flames)
+            {
+                if (f.i > 275)
+                {
+                    flames.Remove(f);
+                    break;
+                }
             }
 
-            TheodoropoulosCode();
+            if (paddleSizeTimer == 0)
+            {
+                paddle.width = 80;
+            }
+            else
+            {
+                paddleSizeTimer--;
+            }
+
+            if (paddleSpeedTimer == 0)
+            {
+                paddle.speed = 8;
+            }
+            else
+            {
+                paddleSpeedTimer--;
+            }
+
+            if (lives == 0)
+            {
+                gameTimer.Enabled = false;
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+                //OnEnd();
+            }
+            //TheodoropoulosCode();
 
             //redraw the screen
             Refresh();
@@ -299,21 +391,55 @@ namespace BrickBreaker
 
         public void OnEnd()
         {
-            // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
+            CooperCode();
 
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+            if(gameLevel < totalLevels)
+            {
+                JustinCode2();
 
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+            }
+            else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
+            {            
+                // Goes to the game over screen
+
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+            }
+        }
+
+
+        public void JustinCode2()
+        {
+            if (isSaveLevelSelcted)
+            {
+                saveLevel++;
+                LevelBuild();
+            }
+            else 
+            {
+                gameLevel++;
+                LevelBuild();
+            }
         }
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            // Draws Fire for fireball powerup
+            foreach (Fire f in flames)
+            {
+                e.Graphics.FillEllipse(f.fireColour, f.x, f.y, f.size + random.Next(-2, 3), f.size + random.Next(-2, 3));
+            }
+
             // Draws paddle
-            paddleBrush.Color = paddle.colour;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            //paddleBrush.Color = paddle.colour;
+            //e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            e.Graphics.DrawImage(paddleImage, paddle.x, paddle.y, paddle.width, paddle.width * 1.1f);
+
 
             // Draws blocks
             foreach (Block b in blocks)
@@ -333,17 +459,39 @@ namespace BrickBreaker
                     e.Graphics.FillEllipse(ballBrush, b.x, b.y, b.size, b.size);
                 }
             }
-            
+
+            // Draws Powerups
             foreach (PowerUp p in powerups)
             {
                 e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
             }
-            
+
+            if (edgeProtector)
+            {
+                e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
+            }
+
         }
 
         public void TheodoropoulosCode()
         {
-            
+   
+        }
+
+        public void CooperCode()
+        {
+            string name;
+            name = "do this later";
+            string HS = score.ToString();
+            XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
+            writer.WriteStartElement("HighScores");
+
+            writer.WriteElementString("Name", name);
+            writer.WriteElementString("Score", HS);
+
+            writer.WriteEndElement();
+            writer.Close();
+
         }
     }
 }

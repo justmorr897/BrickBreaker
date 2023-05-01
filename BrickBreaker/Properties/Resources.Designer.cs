@@ -73,6 +73,16 @@ namespace BrickBreaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Ball {
+            get {
+                object obj = ResourceManager.GetObject("Ball", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Duck01 {
             get {
                 object obj = ResourceManager.GetObject("Duck01", resourceCulture);
@@ -167,6 +177,49 @@ namespace BrickBreaker.Properties {
             get {
                 object obj = ResourceManager.GetObject("Exit_Sign", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Level&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;131&lt;/x&gt;
+        ///		&lt;y&gt;145&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;color&gt;Green&lt;/color&gt;
+        ///	&lt;/brick&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;131&lt;/x&gt;
+        ///		&lt;y&gt;145&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;color&gt;Green&lt;/color&gt;
+        ///	&lt;/brick&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;186&lt;/x&gt;
+        ///		&lt;y&gt;145&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;color&gt;Green&lt;/color&gt;
+        ///	&lt;/brick&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;241&lt;/x&gt;
+        ///		&lt;y&gt;145&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;color&gt;Green&lt;/color&gt;
+        ///	&lt;/brick&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;296&lt;/x&gt;
+        ///		&lt;y&gt;145&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;color&gt;Green&lt;/color&gt;
+        ///	&lt;/brick&gt;
+        ///	&lt;brick&gt;
+        ///		&lt;x&gt;351&lt;/x&gt;
+        ///		&lt;y [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GameLevel1 {
+            get {
+                return ResourceManager.GetString("GameLevel1", resourceCulture);
             }
         }
         

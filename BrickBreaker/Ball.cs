@@ -7,6 +7,7 @@ namespace BrickBreaker
     public class Ball
     {
         public int x, y, xSpeed, ySpeed, size, damage;
+        public int speed = 1;
         public Color colour;
         public static Random rand = new Random();
         
@@ -21,42 +22,45 @@ namespace BrickBreaker
 
         public void Move()
         {
-            x += xSpeed;
-            y += ySpeed;
+            x += xSpeed * speed;
+            y += ySpeed * speed;
         }
 
-        public bool BlockCollision(Block b)
+        public bool BlockCollision(Block block, Ball ball)
         {
-            Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
+            Rectangle blockRec = new Rectangle(block.x, block.y, block.width, block.height);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
-            if (ballRec.IntersectsWith(blockRec) && GameScreen.fireBallTimer == 0)
+            if (ballRec.IntersectsWith(blockRec))
             {
-                // Get the range of specific points it may hit
-                if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
+                if (GameScreen.fireBallTimer == 0 || GameScreen.balls[0] != this)
                 {
-                    xSpeed *= -1;
+                    // Get the range of specific points it may hit
+                    if (x + (size / 2) <= block.x || x + (size / 2) >= block.x + block.width) // Hits either side
+                    {
+                        xSpeed *= -1;
 
-                    if (xSpeed > 0)
-                    {
-                        b.x = b.x - size;
+                        if (xSpeed > 0)
+                        {
+                            ball.x = ball.x - size;
+                        }
+                        else if (xSpeed < 0)
+                        {
+                            ball.x = ball.x + size;
+                        }
                     }
-                    else if (xSpeed < 0)
+                    else // hits anywhere else
                     {
-                        b.x = b.x + size;
-                    }
-                }   
-                else // hits anywhere else
-                {
-                    ySpeed *= -1;
+                        ySpeed *= -1;
 
-                    if (ySpeed > 0)
-                    {
-                        b.y = b.y + size;
-                    }
-                    else if (ySpeed < 0)
-                    {
-                        b.y = b.y - size;
+                        if (ySpeed > 0)
+                        {
+                            ball.y = ball.y + size;
+                        }
+                        else if (ySpeed < 0)
+                        {
+                            ball.y = ball.y - size;
+                        }
                     }
                 }
             }
