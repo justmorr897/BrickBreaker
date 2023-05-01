@@ -29,7 +29,6 @@ namespace BrickBreaker
         {
             // Goes to the game screen'
 
-
             SelectScreen ss = new SelectScreen();
             Form form = this.FindForm();
 

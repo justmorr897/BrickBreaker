@@ -12,6 +12,8 @@ namespace BrickBreaker
 {
     public partial class SelectScreen : UserControl
     {
+        public static string username;
+
         public SelectScreen()
         {
             InitializeComponent();
@@ -25,7 +27,10 @@ namespace BrickBreaker
 
         private void textBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-
+            if(e.KeyCode == Keys.Enter)
+            {
+                username = usernameInput.Text;
+            }
         }
 
         public void ChangeScreen()

@@ -25,9 +25,7 @@ namespace BrickBreaker
         int width = 45;
         int height = 30;
         int level = 0;
-        int totalLevels = 5;
-        int buttonSpeed = 2;
-
+        int buttonSpeed = 5;
         int color;
 
         public LevelEditor()
@@ -251,26 +249,10 @@ namespace BrickBreaker
             color = 5;
         }
 
-        private void level1Button_MouseEnter(object sender, EventArgs e)
-        {
-
-            //Button tempButton = sender as Button;
-            //tempButton.BackColor = Color.Blue;
-        }
-
-        private void level1Button_MouseLeave(object sender, EventArgs e)
-        {
-            //Button tempButton = sender as Button;
-            //tempButton.BackColor = Color.White;
-        }
-
         private void level1Button_Click(object sender, EventArgs e)
         {
             level = 1;
             LevelButtonClick(level);
-
-            //string levelFile = "Resources/level" + level + ".xml";
-            //XmlWriter writer = XmlWriter.Create(levelFile);
         }
 
         private void level2Button_Click(object sender, EventArgs e)
@@ -303,8 +285,6 @@ namespace BrickBreaker
 
             string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
-
-            //XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
 
             writer.WriteStartElement("Level");
 

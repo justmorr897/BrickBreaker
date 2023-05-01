@@ -30,7 +30,6 @@ namespace BrickBreaker
         public static int gameLevel = 1;
         int totalLevels = 5;
 
-
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
         public static int speedBallTimer = 0;
@@ -62,6 +61,8 @@ namespace BrickBreaker
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+
+        Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
         #endregion
 
@@ -118,13 +119,13 @@ namespace BrickBreaker
             #endregion
 
             // start the game engine loop
-            gameTimer.Enabled = true;
+            //gameTimer.Enabled = true;
         }
 
 
         public void LevelBuild()
         {
-             balls.Clear();
+            //balls.Clear();
             //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
             string color;
@@ -132,7 +133,7 @@ namespace BrickBreaker
             blocks.Clear();
             XmlReader reader;
 
-            if (isSaveLevelSelcted)
+            if (isSaveLevelSelcted && saveLevel <= totalLevels)
             {
                 string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
@@ -170,6 +171,11 @@ namespace BrickBreaker
             }
 
             reader.Close();
+
+            //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
+            //balls.Add(newBall);
+
+            gameTimer.Enabled = true;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -206,6 +212,8 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            livesLabel.Text = $"Lives: {lives}";
+
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
             {
@@ -338,7 +346,14 @@ namespace BrickBreaker
             if (lives == 0)
             {
                 gameTimer.Enabled = false;
-                OnEnd();
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+                //OnEnd();
             }
             //TheodoropoulosCode();
 
@@ -354,13 +369,12 @@ namespace BrickBreaker
         {
             CooperCode();
 
-            JustinCode2();
-
             if(gameLevel < totalLevels)
             {
+                JustinCode2();
 
             }
-            else if(gameLevel == totalLevels)
+            else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
             {            
                 // Goes to the game over screen
 
@@ -398,8 +412,10 @@ namespace BrickBreaker
             }
 
             // Draws paddle
-            paddleBrush.Color = paddle.colour;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            //paddleBrush.Color = paddle.colour;
+            //e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            e.Graphics.DrawImage(paddleImage, paddle.x, paddle.y, paddle.width, paddle.width * 1.1f);
+
 
             // Draws blocks
             foreach (Block b in blocks)
@@ -431,7 +447,6 @@ namespace BrickBreaker
                 e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
             }
 
-            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
 
         }
 
