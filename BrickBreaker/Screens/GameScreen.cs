@@ -104,7 +104,6 @@ namespace BrickBreaker
             //TODO - replace all the code in this region eventually with code that loads levels from xml files
 
             LevelBuild();
-            balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
             //blocks.Clear();
             //int x = 10;
@@ -257,21 +256,26 @@ namespace BrickBreaker
             {
                 foreach (Block b in blocks)
                 {
-                    if (ball.BlockCollision(b))
+                    if (ball.BlockCollision(b, ball))
                     {
-                        JustinCode();
-                        blocks.Remove(b);
-
-                        if (random.Next(1, 2) == 1)
+                        b.hp--;
+                        if(b.hp == 0)
                         {
-                            if (random.Next(1, 4) == 1)
+                            JustinCode();
+
+                            if (random.Next(1, 10) == 1)
                             {
-                                powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
+                                if (random.Next(1, 4) == 1)
+                                {
+                                    powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
+                                }
+                                else
+                                {
+                                    powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
+                                }
                             }
-                            else
-                            {
-                                powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
-                            }
+
+                            blocks.Remove(b);
                         }
 
                         if (blocks.Count == 0)

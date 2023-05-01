@@ -26,9 +26,9 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             y += ySpeed * speed;
         }
 
-        public bool BlockCollision(Block b)
+        public bool BlockCollision(Block block, Ball ball)
         {
-            Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
+            Rectangle blockRec = new Rectangle(block.x, block.y, block.width, block.height);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
             if (ballRec.IntersectsWith(blockRec))
@@ -36,17 +36,17 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
                 if (GameScreen.fireBallTimer == 0 || GameScreen.balls[0] != this)
                 {
                     // Get the range of specific points it may hit
-                    if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
+                    if (x + (size / 2) <= block.x || x + (size / 2) >= block.x + block.width) // Hits either side
                     {
                         xSpeed *= -1;
 
                         if (xSpeed > 0)
                         {
-                            b.x = b.x - size;
+                            ball.x = ball.x - size;
                         }
                         else if (xSpeed < 0)
                         {
-                            b.x = b.x + size;
+                            ball.x = ball.x + size;
                         }
                     }
                     else // hits anywhere else
@@ -55,11 +55,11 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 
                         if (ySpeed > 0)
                         {
-                            b.y = b.y + size;
+                            ball.y = ball.y + size;
                         }
                         else if (ySpeed < 0)
                         {
-                            b.y = b.y - size;
+                            ball.y = ball.y - size;
                         }
                     }
                 }
