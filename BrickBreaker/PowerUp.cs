@@ -12,8 +12,9 @@ namespace BrickBreaker
         public int type, x, y;
         public int size = 20;
         public SolidBrush powerupBrush = new SolidBrush(Color.White);
-        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!" };
+        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!" };
         public static string[] badPowerups = { "Small paddle!", "Fast ball!", "Disorientation!", "Lose a Life!", "Slow Paddle!" };
+        Random random = new Random();
 
         public PowerUp(int _type, int _x, int _y)
         {
@@ -38,16 +39,26 @@ namespace BrickBreaker
                 case 5:
                     powerupBrush.Color = Color.Purple;
                     break;
+                case 6:
+                    powerupBrush.Color = Color.Yellow;
+                    break;
                 default:
                     break;
             }
+
+            if (random.Next(1, 6) == 1)
+            {
+                type = 99;
+            }
             /// TYPE VARIABLE
             /// Good powerups (> 0)
+
             // 1 = more balls (Green)
             // 2 = large paddle (Cyan)
             // 3 = fire ball (Red)
             // 4 = more health (Pink)
             // 5 = edge protector (Purple)
+            // 6 = sticky paddle
 
             /// Bad powerups (< 0)
             // -1 = small paddle
@@ -60,7 +71,6 @@ namespace BrickBreaker
         }
         public void Move()
         {
-            Random random = new Random();
             y += 2;
             if (type != 0) // If the type is zero, the powerup is disabled and should be removed
             {
@@ -113,6 +123,12 @@ namespace BrickBreaker
                         {
                             GameScreen.edgeProtector = true;
                         }
+                        else if (type == 6)
+                        {
+                            GameScreen.stickyPaddle = true;
+                        }
+                        GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
+                        type = 0;
                     }
                     else if (type < 0)
                     {
@@ -154,6 +170,8 @@ namespace BrickBreaker
                             GameScreen.paddle.speed = 4;
                             GameScreen.paddleSpeedTimer = 750;
                         }
+                        GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1]);
+                        type = 0;
                     }
                     else
                     {
@@ -166,7 +184,6 @@ namespace BrickBreaker
                             type = random.Next(1, goodPowerups.Length + 1);
                         }
                     }
-                    type = 0;
                 }
                 if (y > Form1.formHeight)
                 {
@@ -185,7 +202,7 @@ namespace BrickBreaker
                     }
                 }
 
-                if (type == 99 && random.Next(1, 5) == 1)
+                if (type == 99 && random.Next(1, 5) == 1) // Random power up
                 {
                     powerupBrush.Color = Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
                 }

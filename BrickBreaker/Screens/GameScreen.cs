@@ -35,9 +35,13 @@ namespace BrickBreaker
         public bool awaitingLaunch = true;
         public static int speedBallTimer = 0;
         public static int paddleSpeedTimer = 0;
+        public static int messageTimer = 0;
         public static bool edgeProtector = false;
+        public static bool stickyPaddle = false;
+        public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        Random random = new Random();
+
+Random random = new Random();
         int score;
 
         // Paddle and Ball objects
@@ -56,6 +60,7 @@ namespace BrickBreaker
         
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
+
         SolidBrush ballBrush = new SolidBrush(Color.Red);
         
         SolidBrush red = new SolidBrush(Color.Red);
@@ -66,6 +71,9 @@ namespace BrickBreaker
         Font font;
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
+
+        // Font
+        Font powerupMessageFont = new Font("Arial", 50);
 
         #endregion
 
@@ -196,6 +204,7 @@ namespace BrickBreaker
                     rightArrowDown = true;
                     break;
                 case Keys.Space:
+                    stickyPaddle = false;
                     spaceDown = true;
                     break;
                 default:
@@ -362,6 +371,11 @@ namespace BrickBreaker
                 paddleSpeedTimer--;
             }
 
+            if (messageTimer > 0)
+            {
+                messageTimer--;
+            }
+
             if (lives == 0)
             {
                 gameTimer.Enabled = false;
@@ -461,7 +475,7 @@ namespace BrickBreaker
                 }
             }
 
-            // Draws Powerups
+            // Draws powerups
             foreach (PowerUp p in powerups)
             {
                 e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
@@ -472,6 +486,13 @@ namespace BrickBreaker
                 e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
             }
 
+            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
+
+            // Draws powerup message
+            if (messageTimer > 0)
+            {
+                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 50, Height / 2 - 50);
+            }
         }
 
         public void TheodoropoulosCode()
@@ -493,6 +514,12 @@ namespace BrickBreaker
             writer.WriteEndElement();
             writer.Close();
 
+        }
+
+        public static void WritePowerupMessage(string message)
+        {
+            messageTimer = 100;
+            powerupMessage = message;
         }
     }
 }

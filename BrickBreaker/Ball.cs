@@ -9,7 +9,9 @@ namespace BrickBreaker
         public int x, y, xSpeed, ySpeed, size, damage;
         public int speed = 1;
         public Color colour;
-        public static Random rand = new Random();
+        public Random rand = new Random();
+        public bool stuck = false;
+        public int xStuck = 0;
         
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
         {
@@ -22,8 +24,20 @@ namespace BrickBreaker
 
         public void Move()
         {
-            x += xSpeed * speed;
-            y += ySpeed * speed;
+            if (!stuck)
+            {
+                x += xSpeed * speed;
+                y += ySpeed * speed;
+            }
+            else
+            {
+                x = GameScreen.paddle.x + xStuck;
+
+                if (!GameScreen.stickyPaddle)
+                {
+                    stuck = false;
+                }
+            }
         }
 
         public bool BlockCollision(Block block, Ball ball)
@@ -81,8 +95,13 @@ namespace BrickBreaker
                 }
 
                 ySpeed *= -1;
+
+                if (GameScreen.stickyPaddle && !stuck)
+                {
+                    stuck = true;
+                    xStuck = x - GameScreen.paddle.x;
+                }
             }
-            
         }
 
         public void WallCollision(UserControl UC)
@@ -124,7 +143,7 @@ namespace BrickBreaker
 
         public bool BottomCollision(UserControl UC)
         {
-            Boolean didCollide = false;
+            bool didCollide = false;
 
             if (y >= UC.Height)
             {
