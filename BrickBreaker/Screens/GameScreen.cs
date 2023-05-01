@@ -19,6 +19,10 @@ namespace BrickBreaker
     public partial class GameScreen : UserControl
     {
         #region global values
+        Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
+        , Properties.Resources.Duck12, Properties.Resources.Duck13, Properties.Resources.Duck21, Properties.Resources.Duck22
+        , Properties.Resources.Duck23, Properties.Resources.Duck31, Properties.Resources.Duck32, Properties.Resources.Duck33
+        , Properties.Resources.Duck41, Properties.Resources.Duck42, Properties.Resources.Duck43};
 
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown;
@@ -48,6 +52,9 @@ namespace BrickBreaker
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+
+        //theo's time tracker
+        int theoTracker = 0;
 
         #endregion
 
@@ -90,16 +97,16 @@ namespace BrickBreaker
 
             LevelBuild();
 
-            //blocks.Clear();
-            //int x = 10;
+            blocks.Clear();
+            int x = 10;
 
-            //while (blocks.Count < 12) // Originally 12
-            //{
-            //    x += 57;
-            //    Block b1 = new Block(x, 10, 1, Color.White);
-            //    blocks.Add(b1);
-            //}
-
+            while (blocks.Count < 12) // Originally 12
+            {
+                x += 57;
+                Block b1 = new Block(x, 10, 1, Color.White);
+                blocks.Add(b1);
+            }
+            blocks.RemoveAt(11);
             #endregion
 
             // start the game engine loop
@@ -291,20 +298,24 @@ namespace BrickBreaker
         {
             // Draws paddle
             paddleBrush.Color = paddle.colour;
-            e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, paddle.width, paddle.width);
 
             // Draws blocks
             foreach (Block b in blocks)
             {
-                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                //e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.height);
+                //e.Graphics.DrawImage(ducks[0], b.x, b.y, b.width, b.height);
             }
+
+            //e.Graphics.DrawImage(Duck01, blocks[0].x, blocks[0].y, blocks[0].width, blocks[0].height);
 
             // Draws balls
             foreach (Ball b in balls)
             {
                 if (b == balls[0])
                 {
-                    e.Graphics.FillEllipse(darkBlue, b.x, b.y, b.size, b.size);
+                    e.Graphics.DrawImage(Properties.Resources.Ball, b.x, b.y, b.size, b.size);
                 }
                 else
                 {
@@ -320,13 +331,17 @@ namespace BrickBreaker
 
         public void TheodoropoulosCode()
         {
-            //draw paddle
-            paddlePicture.Location = new Point(paddle.x, paddle.y);
-            paddlePicture.Size = new Size(paddle.width, paddle.width);
-
-            //draw ball
-            //ballPicture.Location = new Point(ball.x, ball.y);
-            //ballPicture.Size = new Size(ball.size, ball.size);
+            theoTracker++;
+            if (theoTracker == 60)
+            {
+                theoTracker = 0;
+                foreach (Block b in blocks)
+                {
+                    if (b.frame == 1) { b.flow = 1; }
+                    else if (b.frame == 3) {b.flow = -1; }
+                    b.frame += b.flow;
+                }
+            }
         }
     }
 }

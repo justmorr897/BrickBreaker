@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace BrickBreaker
 {
@@ -17,6 +18,11 @@ namespace BrickBreaker
         public int hp;
         public Color colour;
 
+        //animation
+        public int frame;
+        public int flow = 1;
+        public Image image;
+
         public static Random rand = new Random();
 
         public Block(int _x, int _y, int _hp, Color _colour)
@@ -25,6 +31,7 @@ namespace BrickBreaker
             y = _y;
             hp = _hp;
             colour = _colour;
+            frame = rand.Next(1, 4);
         }
     }
 }

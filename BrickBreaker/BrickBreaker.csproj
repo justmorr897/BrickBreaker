@@ -151,6 +151,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ball.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Duck01.png" />
   </ItemGroup>
   <ItemGroup>
@@ -178,16 +184,28 @@
     <None Include="Resources\Duck23.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Duck31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck33.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck42.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Duck43.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Exit Sign.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Paddle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Sign.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Ball.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
