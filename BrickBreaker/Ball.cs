@@ -42,24 +42,24 @@ namespace BrickBreaker
 
                         if (xSpeed > 0)
                         {
-                            ball.x = ball.x - size;
+                            x = block.x + block.width + size;
                         }
                         else if (xSpeed < 0)
                         {
-                            ball.x = ball.x + size;
+                            x = block.x + size;
                         }
                     }
                     else // hits anywhere else
                     {
                         ySpeed *= -1;
 
-                        if (ySpeed > 0)
+                        if (ySpeed > 0) 
                         {
-                            ball.y = ball.y + size;
+                            ball.y = block.y - size;
                         }
-                        else if (ySpeed < 0)
+                        else if (ySpeed < 0) 
                         {
-                            ball.y = ball.y - size;
+                            ball.y = block.y + size;
                         }
                     }
                 }
