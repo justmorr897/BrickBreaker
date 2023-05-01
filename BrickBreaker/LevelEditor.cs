@@ -25,9 +25,7 @@ namespace BrickBreaker
         int width = 45;
         int height = 30;
         int level = 0;
-        int totalLevels = 5;
-        int buttonSpeed = 2;
-
+        int buttonSpeed = 5;
         int color;
 
         public LevelEditor()
@@ -35,6 +33,9 @@ namespace BrickBreaker
             InitializeComponent();
             Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
             rectangles.Add(saveButtonRect);
+
+            // Set a default value
+            color = 1;
         }
 
         private void LevelEditor_MouseClick(object sender, MouseEventArgs e)
@@ -251,26 +252,10 @@ namespace BrickBreaker
             color = 5;
         }
 
-        private void level1Button_MouseEnter(object sender, EventArgs e)
-        {
-
-            //Button tempButton = sender as Button;
-            //tempButton.BackColor = Color.Blue;
-        }
-
-        private void level1Button_MouseLeave(object sender, EventArgs e)
-        {
-            //Button tempButton = sender as Button;
-            //tempButton.BackColor = Color.White;
-        }
-
         private void level1Button_Click(object sender, EventArgs e)
         {
             level = 1;
             LevelButtonClick(level);
-
-            //string levelFile = "Resources/level" + level + ".xml";
-            //XmlWriter writer = XmlWriter.Create(levelFile);
         }
 
         private void level2Button_Click(object sender, EventArgs e)
@@ -301,10 +286,8 @@ namespace BrickBreaker
         {
             level = _level;
 
-            string levelFile = "Resources/level" + level + ".xml";
+            string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
-
-            //XmlWriter writer = XmlWriter.Create("Resources/LevelEditorXML.xml");
 
             writer.WriteStartElement("Level");
 
@@ -335,6 +318,7 @@ namespace BrickBreaker
             }
 
             textboxList.Clear();
+            rectangles.Clear();
             outputLabel.Visible = true;
             outputLabel.Text = $"Level {level} Saved";
 

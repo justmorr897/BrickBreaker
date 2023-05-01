@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU SEE THIS THEN IT WORKED
+namespace BrickBreaker
 {
     public class Ball
     {
@@ -40,9 +40,9 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             }
         }
 
-        public bool BlockCollision(Block b)
+        public bool BlockCollision(Block block, Ball ball)
         {
-            Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
+            Rectangle blockRec = new Rectangle(block.x, block.y, block.width, block.height);
             Rectangle ballRec = new Rectangle(x, y, size, size);
 
             if (ballRec.IntersectsWith(blockRec))
@@ -50,17 +50,17 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
                 if (GameScreen.fireBallTimer == 0 || GameScreen.balls[0] != this)
                 {
                     // Get the range of specific points it may hit
-                    if (x + (size / 2) <= b.x || x + (size / 2) >= b.x + b.width) // Hits either side
+                    if (x + (size / 2) <= block.x || x + (size / 2) >= block.x + block.width) // Hits either side
                     {
                         xSpeed *= -1;
 
                         if (xSpeed > 0)
                         {
-                            b.x = b.x - size;
+                            ball.x = ball.x - size;
                         }
                         else if (xSpeed < 0)
                         {
-                            b.x = b.x + size;
+                            ball.x = ball.x + size;
                         }
                     }
                     else // hits anywhere else
@@ -69,11 +69,11 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
 
                         if (ySpeed > 0)
                         {
-                            b.y = b.y + size;
+                            ball.y = ball.y + size;
                         }
                         else if (ySpeed < 0)
                         {
-                            b.y = b.y - size;
+                            ball.y = ball.y - size;
                         }
                     }
                 }
@@ -93,10 +93,6 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
                 {
                     y = p.y - size;
                 }
-                else if (ySpeed < 0)
-                {
-                    y = p.y + size;
-                }
 
                 ySpeed *= -1;
 
@@ -114,17 +110,35 @@ namespace BrickBreaker // HELLO THERE THIS IS A COMMIT TEST FROKM JAMES IF YOU S
             if (x <= 0)
             {
                 xSpeed *= -1;
+                x = size;
+                AdjustAngle("Y");
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 xSpeed *= -1;
+                x = UC.Width - size;
+                AdjustAngle("Y");
             }
             // Collision with top wall
             if (y <= 2)
             {
                 ySpeed *= -1;
+                AdjustAngle("X");
             }
+        }
+
+        public void AdjustAngle(string direction)
+        {
+            /**
+             * Generate 3 numbers and depending on the result change the angle of the ball
+             * The ball has its inital value and upon hitting a wall, it can adjust one of the speeds to be 1 above or below
+             * the initial value or reset it back to that
+             */
+
+            int randomNum = rand.Next(0, 3);
+
+
         }
 
         public bool BottomCollision(UserControl UC)

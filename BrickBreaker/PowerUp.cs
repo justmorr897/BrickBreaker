@@ -52,11 +52,12 @@ namespace BrickBreaker
             }
             /// TYPE VARIABLE
             /// Good powerups (> 0)
-            // 1 = more balls
-            // 2 = large paddle
-            // 3 = fire ball
-            // 4 = more health
-            // 5 = edge protector
+
+            // 1 = more balls (Green)
+            // 2 = large paddle (Cyan)
+            // 3 = fire ball (Red)
+            // 4 = more health (Pink)
+            // 5 = edge protector (Purple)
             // 6 = sticky paddle
 
             /// Bad powerups (< 0)
@@ -77,6 +78,20 @@ namespace BrickBreaker
                 Rectangle PaddleRec = new Rectangle(GameScreen.paddle.x, GameScreen.paddle.y, GameScreen.paddle.width, GameScreen.paddle.height);
                 if (PowerUpRec.IntersectsWith(PaddleRec))
                 {
+
+                    if (type == 1)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            // Create a new ball
+                           Ball newBall = new Ball(GameScreen.paddle.x + (GameScreen.paddle.width / 2), GameScreen.paddle.y - 40, -1^i * 4, -4, 20);
+                            
+                            // Add ball to list
+                            GameScreen.balls.Add(newBall);
+                        }
+                    }
+                    else if (type == 2) 
+                    
                     if (type > 0 && type < 99)
                     {
                         if (type == 1)
