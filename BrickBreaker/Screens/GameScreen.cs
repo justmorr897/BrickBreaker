@@ -59,7 +59,6 @@ namespace BrickBreaker
         {
             InitializeComponent();
             font = new Font("Arial", 24, FontStyle.Bold);
-            arrowBox.Image = Properties.Resources.ARROW_PNG;
             OnStart();
         }
 
@@ -192,8 +191,6 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            // Set the location of the arrow rectangle
-            arrowBox.Location = new Point(paddle.x + (paddle.width / 3), paddle.y - paddle.height);
 
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
