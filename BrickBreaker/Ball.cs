@@ -6,7 +6,7 @@ namespace BrickBreaker
 {
     public class Ball
     {
-        public int x, y, xSpeed, ySpeed, size, damage;
+        public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY;
         public int speed = 1;
         public Color colour;
         public static Random rand = new Random();
@@ -24,6 +24,9 @@ namespace BrickBreaker
         {
             x += xSpeed * speed;
             y += ySpeed * speed;
+
+            prevX = x;
+            prevY = y;
         }
 
         public bool BlockCollision(Block block, Ball ball)
@@ -40,27 +43,15 @@ namespace BrickBreaker
                     {
                         xSpeed *= -1;
 
-                        if (xSpeed > 0)
-                        {
-                            x = block.x + block.width + size;
-                        }
-                        else if (xSpeed < 0)
-                        {
-                            x = block.x + size;
-                        }
+                        x = prevX;
+                        y = prevY;
                     }
                     else // hits anywhere else
                     {
                         ySpeed *= -1;
 
-                        if (ySpeed > 0) 
-                        {
-                            ball.y = block.y - size;
-                        }
-                        else if (ySpeed < 0) 
-                        {
-                            ball.y = block.y + size;
-                        }
+                        x = prevX;
+                        y = prevY;
                     }
                 }
             }
