@@ -336,6 +336,7 @@ namespace BrickBreaker
                         if(b.hp == 0)
                         {
                             JustinCode();
+                            DeathAnimation();
 
                             if (random.Next(1, 2) == 1)
                             {
