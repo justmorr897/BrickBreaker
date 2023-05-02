@@ -165,6 +165,12 @@
     <Content Include="HighScoreXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Duck43.png" />
+    <None Include="Resources\Duck42.png" />
+    <None Include="Resources\Duck41.png" />
+    <None Include="Resources\Duck33.png" />
+    <None Include="Resources\Duck32.png" />
+    <None Include="Resources\Duck31.png" />
     <None Include="Resources\GameLevel1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

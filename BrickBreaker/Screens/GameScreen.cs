@@ -41,7 +41,14 @@ namespace BrickBreaker
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
 
-Random random = new Random();
+        //pictures for blocks
+        Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
+        , Properties.Resources.Duck12, Properties.Resources.Duck13, Properties.Resources.Duck21, Properties.Resources.Duck22
+        , Properties.Resources.Duck23, Properties.Resources.Duck31, Properties.Resources.Duck32, Properties.Resources.Duck33
+        , Properties.Resources.Duck41, Properties.Resources.Duck42, Properties.Resources.Duck43};
+        int theoTracker = 0;
+
+        Random random = new Random();
         int score;
 
         // Paddle and Ball objects
@@ -388,7 +395,7 @@ Random random = new Random();
                 form.Controls.Remove(this);
                 //OnEnd();
             }
-            //TheodoropoulosCode();
+            TheodoropoulosCode();
 
             //redraw the screen
             Refresh();
@@ -459,7 +466,8 @@ Random random = new Random();
             // Draws blocks
             foreach (Block b in blocks)
             {
-                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                //e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.width);
             }
 
             // Draws balls
@@ -497,7 +505,17 @@ Random random = new Random();
 
         public void TheodoropoulosCode()
         {
-   
+            theoTracker++;
+            if(theoTracker == 5)
+            {
+                theoTracker = 0;
+                foreach(Block b in blocks)
+                {
+                    if(b.frame == 1) { b.flow = 1; }
+                    else if(b.frame == 3) { b.flow = -1; }
+                    b.frame += b.flow;
+                }
+            }
         }
 
         public void CooperCode()
