@@ -12,7 +12,7 @@ namespace BrickBreaker
         public int type, x, y;
         public int size = 20;
         public SolidBrush powerupBrush = new SolidBrush(Color.White);
-        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!" };
+        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Shotgun!!!" };
         public static string[] badPowerups = { "Small paddle!", "Fast ball!", "Disorientation!", "Lose a Life!", "Slow Paddle!" };
         Random random = new Random();
 
@@ -42,6 +42,9 @@ namespace BrickBreaker
                 case 6:
                     powerupBrush.Color = Color.Yellow;
                     break;
+                case 7:
+                    powerupBrush.Color = Color.Beige;
+                    break;
                 default:
                     break;
             }
@@ -59,6 +62,7 @@ namespace BrickBreaker
             // 4 = more health (Pink)
             // 5 = edge protector (Purple)
             // 6 = sticky paddle
+            // 7 = shotgun 
 
             /// Bad powerups (< 0)
             // -1 = small paddle
@@ -113,6 +117,11 @@ namespace BrickBreaker
                         {
                             GameScreen.stickyPaddle = true;
                         }
+                        else if(type == 7)
+                        {
+                            GameScreen.shotgunPowerUp = true;
+                        }
+
                         GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
                         type = 0;
                     }

@@ -22,6 +22,7 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, spaceDown;
+        Boolean wDown, aDown, sDown, dDown = false;
 
         // Game values
         public static int lives;
@@ -29,6 +30,7 @@ namespace BrickBreaker
         public static int saveLevel = 1;
         public static int gameLevel = 1;
         int totalLevels = 5;
+        int crosshairX, crosshairY;
 
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
@@ -40,6 +42,7 @@ namespace BrickBreaker
         public static bool stickyPaddle = false;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
+        public static bool shotgunPowerUp = true;
 
         //pictures for blocks
         Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
@@ -75,6 +78,9 @@ namespace BrickBreaker
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+
+        Pen pen = new Pen(Color.Black);
+
         Font font;
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
@@ -82,12 +88,21 @@ namespace BrickBreaker
         // Font
         Font powerupMessageFont = new Font("Arial", 50);
 
+        Rectangle CrosshairRectangle = new Rectangle();
+
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
+
+            crosshairX = this.Width / 2;
+            crosshairY = this.Height / 2;
+
             font = new Font("Arial", 24, FontStyle.Bold);
+
+            Cursor.Hide();
+
             OnStart();
         }
 
@@ -214,6 +229,21 @@ namespace BrickBreaker
                     stickyPaddle = false;
                     spaceDown = true;
                     break;
+                case Keys.P:
+                    shotgunPowerUp = false;
+                    break;
+                case Keys.W:
+                    wDown = true;
+                    break;
+                case Keys.A:
+                    aDown = true;
+                    break;
+                case Keys.S:
+                    sDown = true;
+                    break;
+                case Keys.D:
+                    dDown = true;
+                    break;
                 default:
                     break;
             }
@@ -233,6 +263,18 @@ namespace BrickBreaker
                 case Keys.Space:
                     spaceDown = false;
                     break;
+                case Keys.W:
+                    wDown = false;
+                    break;
+                case Keys.A:
+                    aDown = false;
+                    break;
+                case Keys.S:
+                    sDown = false;
+                    break;
+                case Keys.D:
+                    dDown = false;
+                    break;
                 default:
                     break;
             }
@@ -240,6 +282,7 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            CrosshairRectangle = new Rectangle(crosshairX - 10, crosshairY -10, 20, 20);
 
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";    
@@ -309,15 +352,17 @@ namespace BrickBreaker
                             blocks.Remove(b);
                         }
 
-                        if (blocks.Count == 0)
-                        {
-                            gameTimer.Enabled = false;
-                            OnEnd();
-                        }
+                      
 
                         break;
                     }
                 }
+            }
+
+            if (blocks.Count == 0)
+            {
+                gameTimer.Enabled = false;
+                OnEnd();
             }
 
             foreach (PowerUp p in powerups)
@@ -411,6 +456,37 @@ namespace BrickBreaker
             score++;
         }
 
+        private void GameScreen_MouseMove(object sender, MouseEventArgs e)
+        {
+            crosshairX = e.X;
+            crosshairY = e.Y;
+        }
+
+        private void GameScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (shotgunPowerUp)
+            {
+                for(int i = blocks.Count - 1; i >= 0; i--)
+                {
+                    if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
+                    {
+                        blocks.Remove(blocks[i]);
+                    }
+                }
+
+                //foreach(Block block in blocks)
+                //{
+                //    if (block.CrossHairCollision(block, CrosshairRectangle))
+                //    {
+                //        blocks.Remove(block);
+                //    }
+
+                //    break; 
+
+                //}
+            }
+        }
+
         public void OnEnd()
         {
             CooperCode();
@@ -451,6 +527,16 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            if (shotgunPowerUp)
+            {
+                e.Graphics.DrawEllipse(pen, crosshairX - 25, crosshairY -25, 50, 50);
+                e.Graphics.DrawLine(pen, crosshairX - 25, crosshairY, crosshairX + 25, crosshairY);
+                e.Graphics.DrawLine(pen, crosshairX , crosshairY - 25, crosshairX, crosshairY + 25);
+
+            }
+
+            //e.Graphics.FillRectangle(ballBrush, CrosshairRectangle); 
+
             // Draws Fire for fireball powerup
             foreach (Fire f in flames)
             {
@@ -506,7 +592,7 @@ namespace BrickBreaker
         public void TheodoropoulosCode()
         {
             theoTracker++;
-            if(theoTracker == 5)
+            if(theoTracker == 30)
             {
                 theoTracker = 0;
                 foreach(Block b in blocks)

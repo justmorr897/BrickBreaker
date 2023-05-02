@@ -76,11 +76,13 @@
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.livesLabel);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(750, 875);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseClick);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseMove);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
 
