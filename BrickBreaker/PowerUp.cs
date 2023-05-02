@@ -175,7 +175,7 @@ namespace BrickBreaker
                     type = 0;
                 }
 
-                if (type < 0 && random.Next(1, 5) == 1)
+                if (type < 0 && random.Next(1, 5) == 1) // Bad power up flash
                 {
                     if (powerupBrush.Color == Color.FromArgb(255, 200, 0))
                     {
@@ -187,7 +187,7 @@ namespace BrickBreaker
                     }
                 }
 
-                if (type == 99 && random.Next(1, 5) == 1) // Random power up
+                if (type == 99 && random.Next(1, 5) == 1) // Random power up flash
                 {
                     powerupBrush.Color = Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
                 }
