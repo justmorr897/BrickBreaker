@@ -129,8 +129,6 @@
             this.level1Button.UseVisualStyleBackColor = false;
             this.level1Button.Visible = false;
             this.level1Button.Click += new System.EventHandler(this.level1Button_Click);
-            this.level1Button.MouseEnter += new System.EventHandler(this.level1Button_MouseEnter);
-            this.level1Button.MouseLeave += new System.EventHandler(this.level1Button_MouseLeave);
             // 
             // level2Button
             // 
@@ -147,8 +145,6 @@
             this.level2Button.UseVisualStyleBackColor = false;
             this.level2Button.Visible = false;
             this.level2Button.Click += new System.EventHandler(this.level2Button_Click);
-            this.level2Button.MouseEnter += new System.EventHandler(this.level1Button_MouseEnter);
-            this.level2Button.MouseLeave += new System.EventHandler(this.level1Button_MouseLeave);
             // 
             // level3Button
             // 
@@ -165,8 +161,6 @@
             this.level3Button.UseVisualStyleBackColor = false;
             this.level3Button.Visible = false;
             this.level3Button.Click += new System.EventHandler(this.level3Button_Click);
-            this.level3Button.MouseEnter += new System.EventHandler(this.level1Button_MouseEnter);
-            this.level3Button.MouseLeave += new System.EventHandler(this.level1Button_MouseLeave);
             // 
             // level4Button
             // 
@@ -183,8 +177,6 @@
             this.level4Button.UseVisualStyleBackColor = false;
             this.level4Button.Visible = false;
             this.level4Button.Click += new System.EventHandler(this.level4Button_Click);
-            this.level4Button.MouseEnter += new System.EventHandler(this.level1Button_MouseEnter);
-            this.level4Button.MouseLeave += new System.EventHandler(this.level1Button_MouseLeave);
             // 
             // level5Button
             // 
@@ -201,8 +193,6 @@
             this.level5Button.UseVisualStyleBackColor = false;
             this.level5Button.Visible = false;
             this.level5Button.Click += new System.EventHandler(this.level5Button_Click);
-            this.level5Button.MouseEnter += new System.EventHandler(this.level1Button_MouseEnter);
-            this.level5Button.MouseLeave += new System.EventHandler(this.level1Button_MouseLeave);
             // 
             // outputLabel
             // 

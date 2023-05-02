@@ -52,11 +52,12 @@ namespace BrickBreaker
             }
             /// TYPE VARIABLE
             /// Good powerups (> 0)
-            // 1 = more balls
-            // 2 = large paddle
-            // 3 = fire ball
-            // 4 = more health
-            // 5 = edge protector
+
+            // 1 = more balls (Green)
+            // 2 = large paddle (Cyan)
+            // 3 = fire ball (Red)
+            // 4 = more health (Pink)
+            // 5 = edge protector (Purple)
             // 6 = sticky paddle
 
             /// Bad powerups (< 0)
