@@ -101,7 +101,7 @@ namespace BrickBreaker
 
             font = new Font("Arial", 24, FontStyle.Bold);
 
-            Cursor.Hide();
+            //Cursor.Hide();
 
             OnStart();
         }
@@ -446,6 +446,16 @@ namespace BrickBreaker
             Refresh();
         }
 
+        public void Pause()
+        {
+
+        }
+
+        public void DeathAnimation()
+        {
+
+        }
+
         public void SpinArrow()
         {
 
@@ -473,18 +483,12 @@ namespace BrickBreaker
                         blocks.Remove(blocks[i]);
                     }
                 }
-
-                //foreach(Block block in blocks)
-                //{
-                //    if (block.CrossHairCollision(block, CrosshairRectangle))
-                //    {
-                //        blocks.Remove(block);
-                //    }
-
-                //    break; 
-
-                //}
             }
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            gameTimer.Enabled = !gameTimer.Enabled;
         }
 
         public void OnEnd()
@@ -499,7 +503,6 @@ namespace BrickBreaker
             else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
             {            
                 // Goes to the game over screen
-
                 Form form = this.FindForm();
                 MenuScreen ps = new MenuScreen();
 
@@ -509,7 +512,6 @@ namespace BrickBreaker
                 form.Controls.Remove(this);
             }
         }
-
 
         public void JustinCode2()
         {
