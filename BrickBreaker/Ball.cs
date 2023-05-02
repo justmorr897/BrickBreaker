@@ -54,27 +54,27 @@ namespace BrickBreaker
                     {
                         xSpeed *= -1;
 
-                        if (xSpeed > 0)
-                        {
-                            ball.x = ball.x - size;
-                        }
-                        else if (xSpeed < 0)
-                        {
-                            ball.x = ball.x + size;
-                        }
+                        //if (xSpeed > 0)
+                        //{
+                        //    ball.x = ball.x - size;
+                        //}
+                        //else if (xSpeed < 0)
+                        //{
+                        //    ball.x = ball.x + size;
+                        //}
                     }
                     else // hits anywhere else
                     {
                         ySpeed *= -1;
 
-                        if (ySpeed > 0)
-                        {
-                            ball.y = ball.y + size;
-                        }
-                        else if (ySpeed < 0)
-                        {
-                            ball.y = ball.y - size;
-                        }
+                        //if (ySpeed > 0)
+                        //{
+                        //    ball.y = ball.y + size;
+                        //}
+                        //else if (ySpeed < 0)
+                        //{
+                        //    ball.y = ball.y - size;
+                        //}
                     }
                 }
             }

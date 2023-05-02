@@ -287,7 +287,7 @@ Random random = new Random();
                         {
                             JustinCode();
 
-                            if (random.Next(1, 11) == 1)
+                            if (random.Next(1, 2) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {

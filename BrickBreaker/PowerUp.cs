@@ -78,20 +78,6 @@ namespace BrickBreaker
                 Rectangle PaddleRec = new Rectangle(GameScreen.paddle.x, GameScreen.paddle.y, GameScreen.paddle.width, GameScreen.paddle.height);
                 if (PowerUpRec.IntersectsWith(PaddleRec))
                 {
-
-                    if (type == 1)
-                    {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            // Create a new ball
-                           Ball newBall = new Ball(GameScreen.paddle.x + (GameScreen.paddle.width / 2), GameScreen.paddle.y - 40, -1^i * 4, -4, 20);
-                            
-                            // Add ball to list
-                            GameScreen.balls.Add(newBall);
-                        }
-                    }
-                    else if (type == 2) 
-                    
                     if (type > 0 && type < 99)
                     {
                         if (type == 1)

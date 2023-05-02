@@ -45,9 +45,10 @@
             this.livesLabel.BackColor = System.Drawing.Color.Transparent;
             this.livesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.livesLabel.ForeColor = System.Drawing.Color.Black;
-            this.livesLabel.Location = new System.Drawing.Point(3, 0);
+            this.livesLabel.Location = new System.Drawing.Point(4, 0);
+            this.livesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.livesLabel.Name = "livesLabel";
-            this.livesLabel.Size = new System.Drawing.Size(116, 34);
+            this.livesLabel.Size = new System.Drawing.Size(145, 42);
             this.livesLabel.TabIndex = 0;
             this.livesLabel.Text = "1";
             this.livesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -57,16 +58,17 @@
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.Black;
-            this.scoreLabel.Location = new System.Drawing.Point(634, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(605, 0);
+            this.scoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(116, 34);
+            this.scoreLabel.Size = new System.Drawing.Size(145, 42);
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "Score: 1";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
@@ -74,9 +76,9 @@
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.livesLabel);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "GameScreen";
-            this.Size = new System.Drawing.Size(600, 700);
+            this.Size = new System.Drawing.Size(750, 875);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
