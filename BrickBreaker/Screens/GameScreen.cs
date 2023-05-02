@@ -488,7 +488,36 @@ namespace BrickBreaker
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
-            gameTimer.Enabled = !gameTimer.Enabled;
+            gameTimer.Enabled = false;
+            pauseLabel.Visible = true;
+            pauseLivesLabel.Visible = true;
+            pauseScoreLabel.Visible = true;
+            exitButton.Visible = true;
+            resumeButton.Visible = true;
+
+            pauseLabel.BringToFront();
+            pauseLivesLabel.BringToFront();
+            pauseScoreLabel.BringToFront();
+            exitButton.BringToFront();
+            resumeButton.BringToFront();
+
+            pauseLivesLabel.Text = $"Lives: {lives}";
+            pauseScoreLabel.Text = $"Score: {score}";
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            gameTimer.Enabled = true;
+            pauseLabel.Visible = false;
+            pauseLivesLabel.Visible = false;
+            pauseScoreLabel.Visible = false;
+            exitButton.Visible = false;
+            resumeButton.Visible = false;
         }
 
         public void OnEnd()
