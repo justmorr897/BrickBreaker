@@ -21,7 +21,7 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, spaceDown;
+        public static Boolean leftArrowDown, rightArrowDown, spaceDown;
 
         // Game values
         public static int lives;
@@ -81,6 +81,7 @@ namespace BrickBreaker
             //set life counter
             lives = 3;
 
+
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
 
@@ -126,6 +127,9 @@ namespace BrickBreaker
 
             // start the game engine loop
             //gameTimer.Enabled = true;
+
+            // Just make sure the ball doesnt move on start
+            balls[0].canMove = false;
         }
 
 
@@ -225,6 +229,9 @@ namespace BrickBreaker
         private void gameTimer_Tick(object sender, EventArgs e)
         {
 
+            // Call Ball Launch
+            BallLaunch();
+
             livesLabel.Text = $"Lives: {lives}";
 
             // Move the paddle
@@ -251,6 +258,10 @@ namespace BrickBreaker
                         // Moves the ball back to origin
                         b.x = ((paddle.x - (b.size / 2)) + (paddle.width / 2));
                         b.y = (this.Height - paddle.height) - 85;
+
+                        // Prevent ball from moving to allow for launch
+                        balls[0].canMove = false;
+
                     }
                     else if (!edgeProtector)
                     {
@@ -379,9 +390,18 @@ namespace BrickBreaker
             Refresh();
         }
 
-        public void SpinArrow()
+        public void BallLaunch()
         {
+            if (balls[0].canMove == false)
+            {
+                balls[0].x = paddle.x + (paddle.width / 2) - (balls[0].size / 2);
+                balls[0].y = paddle.y - (paddle.height);
+            }
 
+            if (spaceDown)
+            {
+                balls[0].canMove = true;
+            }
         }
 
         public void JustinCode()

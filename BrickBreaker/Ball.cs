@@ -73,7 +73,24 @@ namespace BrickBreaker
                 }
 
                 ySpeed *= -1;
+
+                // Get Direction
+                if (GameScreen.leftArrowDown)
+                {
+                    xSpeed = -Math.Abs(xSpeed);
+                } 
+                else if (GameScreen.rightArrowDown)
+                {
+                    xSpeed = Math.Abs(xSpeed);
+                } 
+
+                // Force launch the ball if you hit another one while holding it
+                if (GameScreen.balls[0] != this)
+                {
+                    GameScreen.balls[0].canMove = true;
+                }
             }
+
             
         }
 
