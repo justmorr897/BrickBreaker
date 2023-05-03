@@ -6,9 +6,11 @@ namespace BrickBreaker
 {
     public class Ball
     {
-        public int x, y, xSpeed, ySpeed, size, damage;
+        public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY;
         public int speed = 1;
         public Color colour;
+        public bool canMove = false;
+        public static Random rand = new Random();
         public Random rand = new Random();
         public bool stuck = false;
         public int xStuck = 0;
@@ -24,6 +26,12 @@ namespace BrickBreaker
 
         public void Move()
         {
+            x += xSpeed * speed;
+            y += ySpeed * speed;
+
+            prevX = x;
+            prevY = y;
+            
             if (!stuck)
             {
                 x += xSpeed * speed;
@@ -54,6 +62,9 @@ namespace BrickBreaker
                     {
                         xSpeed *= -1;
 
+                        x = prevX;
+                        y = prevY;
+
                         //if (xSpeed > 0)
                         //{
                         //    ball.x = ball.x - size;
@@ -67,6 +78,9 @@ namespace BrickBreaker
                     {
                         ySpeed *= -1;
 
+                        x = prevX;
+                        y = prevY;
+                        
                         //if (ySpeed > 0)
                         //{
                         //    ball.y = ball.y + size;
@@ -96,6 +110,23 @@ namespace BrickBreaker
 
                 ySpeed *= -1;
 
+                // Get Direction
+                if (GameScreen.leftArrowDown)
+                {
+                    xSpeed = -Math.Abs(xSpeed);
+                } 
+                else if (GameScreen.rightArrowDown)
+                {
+                    xSpeed = Math.Abs(xSpeed);
+                } 
+
+                // Force launch the ball if you hit another one while holding it
+                if (GameScreen.balls[0] != this)
+                {
+                    GameScreen.balls[0].canMove = true;
+                }
+            }
+       
                 if (GameScreen.stickyPaddle && !stuck)
                 {
                     stuck = true;
