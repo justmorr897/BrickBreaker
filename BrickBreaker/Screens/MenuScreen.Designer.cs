@@ -31,6 +31,7 @@
             this.playButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.editorButton = new System.Windows.Forms.Button();
+            this.leaderboardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playButton
@@ -92,6 +93,16 @@
             this.editorButton.UseVisualStyleBackColor = false;
             this.editorButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // leaderboardButton
+            // 
+            this.leaderboardButton.Location = new System.Drawing.Point(200, 22);
+            this.leaderboardButton.Name = "leaderboardButton";
+            this.leaderboardButton.Size = new System.Drawing.Size(187, 60);
+            this.leaderboardButton.TabIndex = 3;
+            this.leaderboardButton.Text = "Leaderboard";
+            this.leaderboardButton.UseVisualStyleBackColor = true;
+            this.leaderboardButton.Click += new System.EventHandler(this.leaderboardButton_Click);
+            // 
             // MenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -99,6 +110,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Controls.Add(this.leaderboardButton);
             this.Controls.Add(this.editorButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
@@ -115,5 +127,6 @@
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button editorButton;
+        private System.Windows.Forms.Button leaderboardButton;
     }
 }

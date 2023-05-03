@@ -31,6 +31,9 @@ namespace BrickBreaker
         public static int gameLevel = 1;
         int totalLevels = 5;
         int crosshairX, crosshairY;
+        int placeHolder;
+        bool up = true;
+        int gravity = 1;
 
         public static int lPaddletimer = 0;
         public static int fireBallTimer = 0;
@@ -42,7 +45,7 @@ namespace BrickBreaker
         public static bool stickyPaddle = false;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = true;
+        public static bool shotgunPowerUp = false;
 
         //pictures for blocks
         Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
@@ -60,6 +63,7 @@ namespace BrickBreaker
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
+        List <Block> deadBlocks = new List<Block>();
 
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
@@ -109,7 +113,7 @@ namespace BrickBreaker
         public void OnStart()
         {
             //set life counter
-            lives = 3;
+            lives = 1;
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -211,7 +215,9 @@ namespace BrickBreaker
             //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
             //balls.Add(newBall);
 
+            this.Focus();
             gameTimer.Enabled = true;
+            this.Focus();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -232,18 +238,18 @@ namespace BrickBreaker
                 case Keys.P:
                     shotgunPowerUp = false;
                     break;
-                case Keys.W:
-                    wDown = true;
-                    break;
-                case Keys.A:
-                    aDown = true;
-                    break;
-                case Keys.S:
-                    sDown = true;
-                    break;
-                case Keys.D:
-                    dDown = true;
-                    break;
+                //case Keys.W:
+                //    wDown = true;
+                //    break;
+                //case Keys.A:
+                //    aDown = true;
+                //    break;
+                //case Keys.S:
+                //    sDown = true;
+                //    break;
+                //case Keys.D:
+                //    dDown = true;
+                //    break;
                 default:
                     break;
             }
@@ -263,18 +269,18 @@ namespace BrickBreaker
                 case Keys.Space:
                     spaceDown = false;
                     break;
-                case Keys.W:
-                    wDown = false;
-                    break;
-                case Keys.A:
-                    aDown = false;
-                    break;
-                case Keys.S:
-                    sDown = false;
-                    break;
-                case Keys.D:
-                    dDown = false;
-                    break;
+                //case Keys.W:
+                //    wDown = false;
+                //    break;
+                //case Keys.A:
+                //    aDown = false;
+                //    break;
+                //case Keys.S:
+                //    sDown = false;
+                //    break;
+                //case Keys.D:
+                //    dDown = false;
+                //    break;
                 default:
                     break;
             }
@@ -336,9 +342,8 @@ namespace BrickBreaker
                         if(b.hp == 0)
                         {
                             JustinCode();
-                            DeathAnimation();
 
-                            if (random.Next(1, 2) == 1)
+                            if (random.Next(1, 5) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -350,10 +355,11 @@ namespace BrickBreaker
                                 }
                             }
 
+                            deadBlocks.Add(b);
                             blocks.Remove(b);
                         }
 
-                      
+
 
                         break;
                     }
@@ -431,6 +437,7 @@ namespace BrickBreaker
 
             if (lives == 0)
             {
+                CooperCode();
                 gameTimer.Enabled = false;
                 Form form = this.FindForm();
                 MenuScreen ps = new MenuScreen();
@@ -443,18 +450,44 @@ namespace BrickBreaker
             }
             TheodoropoulosCode();
 
+            foreach (Block deadBlock in deadBlocks)
+            {
+                //int y = deadBlock.y;
+                int speed = 4;
+
+                //if (deadBlock.y > 200 && up)
+                //{
+                //    up = true;
+                //    deadBlock.y -= (speed - gravity);
+                //    gravity += 1;
+
+                //}
+                //else
+                //{
+                //    up = false;
+                //}
+
+
+                if (deadBlock.y < this.Height)
+                {
+                    deadBlock.y += speed + gravity;
+                    gravity += 1;
+
+                }
+
+                if (deadBlock.y > this.Height)
+                {
+                    deadBlocks.Remove(deadBlock);
+                    gravity = 1;
+                    //up = true;
+                    break;
+                }
+
+
+            }
+
             //redraw the screen
             Refresh();
-        }
-
-        public void Pause()
-        {
-
-        }
-
-        public void DeathAnimation()
-        {
-
         }
 
         public void SpinArrow()
@@ -481,6 +514,7 @@ namespace BrickBreaker
                 {
                     if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
                     {
+                        deadBlocks.Add(blocks[i]);
                         blocks.Remove(blocks[i]);
                     }
                 }
@@ -488,6 +522,26 @@ namespace BrickBreaker
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            gameTimer.Enabled = true;
+            pauseLabel.Visible = false;
+            pauseLivesLabel.Visible = false;
+            pauseScoreLabel.Visible = false;
+            exitButton.Visible = false;
+            resumeButton.Visible = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
             gameTimer.Enabled = false;
             pauseLabel.Visible = true;
@@ -504,21 +558,6 @@ namespace BrickBreaker
 
             pauseLivesLabel.Text = $"Lives: {lives}";
             pauseScoreLabel.Text = $"Score: {score}";
-        }
-
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void resumeButton_Click(object sender, EventArgs e)
-        {
-            gameTimer.Enabled = true;
-            pauseLabel.Visible = false;
-            pauseLivesLabel.Visible = false;
-            pauseScoreLabel.Visible = false;
-            exitButton.Visible = false;
-            resumeButton.Visible = false;
         }
 
         public void OnEnd()
@@ -588,6 +627,13 @@ namespace BrickBreaker
                 e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.width);
             }
 
+            foreach (Block b in deadBlocks)
+            {
+                //e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                //e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.width);
+                e.Graphics.DrawImage(ducks[1], b.x, b.y, b.width, b.width);
+            }
+
             // Draws balls
             foreach (Ball b in balls)
             {
@@ -617,7 +663,7 @@ namespace BrickBreaker
             // Draws powerup message
             if (messageTimer > 0)
             {
-                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 50, Height / 2 - 50);
+                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height/2);
             }
         }
 
@@ -639,13 +685,22 @@ namespace BrickBreaker
         public void CooperCode()
         {
             string name;
-            name = "do this later";
+            name = SelectScreen.username;
             string HS = score.ToString();
+            int intScore = Convert.ToInt32(HS);
+
+            Scores newScore = new Scores(name, intScore);
+
+            MenuScreen.scores.Add(newScore);
+
             XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
             writer.WriteStartElement("HighScores");
 
-            writer.WriteElementString("Name", name);
-            writer.WriteElementString("Score", HS);
+            foreach(Scores s in MenuScreen.scores)
+            {
+                writer.WriteElementString("Name", s.name);
+                writer.WriteElementString("Score", s.score.ToString());
+            }
 
             writer.WriteEndElement();
             writer.Close();

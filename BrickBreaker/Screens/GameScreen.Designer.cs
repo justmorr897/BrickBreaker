@@ -32,12 +32,12 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.livesLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
-            this.pauseButton = new System.Windows.Forms.Button();
             this.pauseLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
             this.resumeButton = new System.Windows.Forms.Button();
             this.pauseLivesLabel = new System.Windows.Forms.Label();
             this.pauseScoreLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -69,16 +69,6 @@
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "Score: 1";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pauseButton
-            // 
-            this.pauseButton.Location = new System.Drawing.Point(3, 674);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(75, 23);
-            this.pauseButton.TabIndex = 2;
-            this.pauseButton.Text = "Pause";
-            this.pauseButton.UseVisualStyleBackColor = true;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // pauseLabel
             // 
@@ -140,6 +130,19 @@
             this.pauseScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.pauseScoreLabel.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(237, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 34);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Pause";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -147,12 +150,12 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pauseScoreLabel);
             this.Controls.Add(this.pauseLivesLabel);
             this.Controls.Add(this.resumeButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.pauseLabel);
-            this.Controls.Add(this.pauseButton);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.livesLabel);
             this.DoubleBuffered = true;
@@ -173,11 +176,11 @@
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label livesLabel;
         private System.Windows.Forms.Label scoreLabel;
-        private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Label pauseLabel;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button resumeButton;
         private System.Windows.Forms.Label pauseLivesLabel;
         private System.Windows.Forms.Label pauseScoreLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
