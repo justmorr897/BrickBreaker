@@ -41,7 +41,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = false;
+        public static bool shotgunPowerUp = true;
 
         // timers
         public static int paddleSizeTimer = 0;
