@@ -25,8 +25,8 @@ namespace BrickBreaker
 
         public void Move()
         {
-            x += xSpeed * speed;
-            y += ySpeed * speed;
+            //x += xSpeed * speed;
+            //y += ySpeed * speed;
 
             prevX = x;
             prevY = y;
