@@ -113,7 +113,7 @@ namespace BrickBreaker
         public void OnStart()
         {
             //set life counter
-            lives = 1;
+            lives = 3;
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -238,18 +238,6 @@ namespace BrickBreaker
                 case Keys.P:
                     shotgunPowerUp = false;
                     break;
-                //case Keys.W:
-                //    wDown = true;
-                //    break;
-                //case Keys.A:
-                //    aDown = true;
-                //    break;
-                //case Keys.S:
-                //    sDown = true;
-                //    break;
-                //case Keys.D:
-                //    dDown = true;
-                //    break;
                 default:
                     break;
             }
@@ -269,18 +257,6 @@ namespace BrickBreaker
                 case Keys.Space:
                     spaceDown = false;
                     break;
-                //case Keys.W:
-                //    wDown = false;
-                //    break;
-                //case Keys.A:
-                //    aDown = false;
-                //    break;
-                //case Keys.S:
-                //    sDown = false;
-                //    break;
-                //case Keys.D:
-                //    dDown = false;
-                //    break;
                 default:
                     break;
             }
@@ -454,19 +430,6 @@ namespace BrickBreaker
             {
                 //int y = deadBlock.y;
                 int speed = 4;
-
-                //if (deadBlock.y > 200 && up)
-                //{
-                //    up = true;
-                //    deadBlock.y -= (speed - gravity);
-                //    gravity += 1;
-
-                //}
-                //else
-                //{
-                //    up = false;
-                //}
-
 
                 if (deadBlock.y < this.Height)
                 {

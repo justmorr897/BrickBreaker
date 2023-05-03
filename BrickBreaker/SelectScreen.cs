@@ -50,9 +50,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.gameLevel = 1;
                 GameScreen.isSaveLevelSelcted = false;
+                ChangeScreen();
+
             }
             else
             {
@@ -67,9 +68,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.saveLevel = 1;
                 GameScreen.isSaveLevelSelcted = true;
+                ChangeScreen();
+
             }
             else
             {
@@ -83,9 +85,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.saveLevel = 2;
                 GameScreen.isSaveLevelSelcted = true;
+                ChangeScreen();
+
             }
             else
             {
@@ -99,9 +102,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.saveLevel = 3;
                 GameScreen.isSaveLevelSelcted = true;
+                ChangeScreen();
+
             }
             else
             {
@@ -115,9 +119,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.saveLevel = 4;
                 GameScreen.isSaveLevelSelcted = true;
+                ChangeScreen();
+
             }
             else
             {
@@ -131,9 +136,10 @@ namespace BrickBreaker
         {
             if (checkBox1.Checked == true)
             {
-                ChangeScreen();
                 GameScreen.saveLevel = 5;
                 GameScreen.isSaveLevelSelcted = true;
+                ChangeScreen();
+
             }
             else
             {
