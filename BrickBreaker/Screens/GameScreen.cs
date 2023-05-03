@@ -21,27 +21,31 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, spaceDown;
+        bool leftArrowDown, rightArrowDown, spaceDown;
 
         // Game values
         public static int lives;
-        public static int paddleSizeTimer = 0;
         public static int saveLevel = 1;
         public static int gameLevel = 1;
         int totalLevels = 5;
+        int timerDrawLocation = 0;
 
-        public static int lPaddletimer = 0;
-        public static int fireBallTimer = 0;
         public bool awaitingLaunch = true;
-        public static int speedBallTimer = 0;
-        public static int paddleSpeedTimer = 0;
-        public static int messageTimer = 0;
         public static bool edgeProtector = false;
         public static bool stickyPaddle = false;
+        public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
 
-Random random = new Random();
+        // timers
+        public static int paddleSizeTimer = 0;
+        public static int paddleSpeedTimer = 0;
+        public static int speedBallTimer = 0;
+        public static int damageTimer = 0;
+        public static int fireBallTimer = 0;
+        public static int messageTimer = 0;
+
+        Random random = new Random();
         int score;
 
         // Paddle and Ball objects
@@ -68,7 +72,10 @@ Random random = new Random();
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+        SolidBrush timerBrush = new SolidBrush(Color.White);
         Font font;
+
+        public static List<Color> powerupColours = new List<Color>{ Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta };
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
@@ -282,12 +289,12 @@ Random random = new Random();
                 {
                     if (ball.BlockCollision(b, ball))
                     {
-                        b.hp--;
-                        if(b.hp == 0)
+                        b.hp -= ballDamage;
+                        if(b.hp <= 0)
                         {
                             JustinCode();
 
-                            if (random.Next(1, 2) == 1)
+                            if (random.Next(1, 9) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -323,58 +330,7 @@ Random random = new Random();
                 }
             }
 
-            if (speedBallTimer == 0 && balls[0].speed == 2)
-            {
-                foreach (Ball b in balls)
-                {
-                    b.speed = 1;
-                }
-            }
-            else
-            {
-                speedBallTimer--;
-            }
-
-            if (fireBallTimer != 0)
-            {
-                fireBallTimer--;
-                flames.Add(new Fire(balls[0].x, balls[0].y));
-            }
-            foreach (Fire f in flames)
-            {
-                f.Move();
-            }
-            foreach (Fire f in flames)
-            {
-                if (f.i > 275)
-                {
-                    flames.Remove(f);
-                    break;
-                }
-            }
-
-            if (paddleSizeTimer == 0)
-            {
-                paddle.width = 80;
-            }
-            else
-            {
-                paddleSizeTimer--;
-            }
-
-            if (paddleSpeedTimer == 0)
-            {
-                paddle.speed = 8;
-            }
-            else
-            {
-                paddleSpeedTimer--;
-            }
-
-            if (messageTimer > 0)
-            {
-                messageTimer--;
-            }
+            CountTimers();
 
             if (lives == 0)
             {
@@ -493,6 +449,19 @@ Random random = new Random();
             {
                 e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 50, Height / 2 - 50);
             }
+
+            // Draw timers
+
+            float pie;
+            timerDrawLocation = 0;
+
+            if (paddleSizeTimer > 0)
+            {
+                timerDrawLocation += 30;
+                timerBrush.Color = powerupColours[1];
+                pie = paddleSizeTimer / 1000 * 360;
+                e.Graphics.FillPie(timerBrush, Width - 30, timerDrawLocation, 20, 20, 0, pie);
+            }
         }
 
         public void TheodoropoulosCode()
@@ -520,6 +489,71 @@ Random random = new Random();
         {
             messageTimer = 100;
             powerupMessage = message;
+        }
+
+        public void CountTimers()
+        {
+            if (speedBallTimer == 0 && balls[0].speed == 2)
+            {
+                foreach (Ball b in balls)
+                {
+                    b.speed = 1;
+                }
+            }
+            else
+            {
+                speedBallTimer--;
+            }
+
+            if (fireBallTimer != 0)
+            {
+                fireBallTimer--;
+                flames.Add(new Fire(balls[0].x, balls[0].y));
+            }
+            foreach (Fire f in flames)
+            {
+                f.Move();
+            }
+            foreach (Fire f in flames)
+            {
+                if (f.i > 275)
+                {
+                    flames.Remove(f);
+                    break;
+                }
+            }
+
+            if (paddleSizeTimer == 0)
+            {
+                paddle.width = 80;
+            }
+            else
+            {
+                paddleSizeTimer--;
+            }
+
+            if (paddleSpeedTimer == 0)
+            {
+                paddle.speed = 8;
+            }
+            else
+            {
+                paddleSpeedTimer--;
+            }
+
+            if (damageTimer == 0)
+            {
+                ballDamage = 1;
+            }
+            else
+            {
+                damageTimer--;
+            }
+
+            if (messageTimer > 0)
+            {
+                messageTimer--;
+            }
         }
     }
 }

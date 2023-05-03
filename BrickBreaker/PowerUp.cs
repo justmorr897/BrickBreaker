@@ -12,7 +12,7 @@ namespace BrickBreaker
         public int type, x, y;
         public int size = 20;
         public SolidBrush powerupBrush = new SolidBrush(Color.White);
-        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!" };
+        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Double Damage!" };
         public static string[] badPowerups = { "Small paddle!", "Fast ball!", "Disorientation!", "Lose a Life!", "Slow Paddle!" };
         Random random = new Random();
 
@@ -22,52 +22,39 @@ namespace BrickBreaker
             x = _x;
             y = _y;
 
-            switch (type)
+            if (type > 0 && type <= GameScreen.powerupColours.Count)
             {
-                case 1:
-                    powerupBrush.Color = Color.Green;
-                    break;
-                case 2:
-                    powerupBrush.Color = Color.Cyan;
-                    break;
-                case 3:
-                    powerupBrush.Color = Color.Red;
-                    break;
-                case 4:
-                    powerupBrush.Color = Color.Pink;
-                    break;
-                case 5:
-                    powerupBrush.Color = Color.Purple;
-                    break;
-                case 6:
-                    powerupBrush.Color = Color.Yellow;
-                    break;
-                default:
-                    break;
+                powerupBrush.Color = GameScreen.powerupColours[type - 1];
             }
 
             if (random.Next(1, 6) == 1)
             {
                 type = 99;
             }
+
+            /// HOW TO ADD POWER UPS:
+            // 1. Add the display message to either goodPowerups or badPowerups.
+            // 2. If the power up is good, add the colour of the power up to powerupColours on GameScreen.
+            // 3. Write the code for the power up in an IF statement under the other ones. Create a public static int timer if needed.
+
             /// TYPE VARIABLE
             /// Good powerups (> 0)
-
             // 1 = more balls (Green)
             // 2 = large paddle (Cyan)
             // 3 = fire ball (Red)
             // 4 = more health (Pink)
             // 5 = edge protector (Purple)
-            // 6 = sticky paddle
+            // 6 = sticky paddle (Yellow)
+            // 7 = double damage (Magenta)
 
-            /// Bad powerups (< 0)
+            /// Bad powerups (< 0) (Red and orange flash)
             // -1 = small paddle
             // -2 = fast ball
             // -3 = random paddle and ball teleportation
             // -4 = subtract a life
             // -5 = slow paddle
 
-            // 99 = mystery
+            // 99 = mystery (Colour flash)
         }
         public void Move()
         {
@@ -113,6 +100,12 @@ namespace BrickBreaker
                         {
                             GameScreen.stickyPaddle = true;
                         }
+                        else if (type == 7)
+                        {
+                            GameScreen.ballDamage = 2;
+                            GameScreen.damageTimer = 750;
+                        }
+
                         GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
                         type = 0;
                     }
@@ -156,6 +149,7 @@ namespace BrickBreaker
                             GameScreen.paddle.speed = 4;
                             GameScreen.paddleSpeedTimer = 750;
                         }
+
                         GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1]);
                         type = 0;
                     }
