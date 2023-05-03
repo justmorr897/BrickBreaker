@@ -9,6 +9,7 @@ namespace BrickBreaker
         public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY;
         public int speed = 1;
         public Color colour;
+        public bool canMove = false;
         public static Random rand = new Random();
         
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
