@@ -45,7 +45,7 @@ namespace BrickBreaker
         public static bool stickyPaddle = false;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = false;
+        public static bool shotgunPowerUp = true;
 
         //pictures for blocks
         Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
