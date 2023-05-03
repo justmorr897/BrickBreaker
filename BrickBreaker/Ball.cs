@@ -10,7 +10,6 @@ namespace BrickBreaker
         public int speed = 1;
         public Color colour;
         public bool canMove = false;
-        public static Random rand = new Random();
         public Random rand = new Random();
         public bool stuck = false;
         public int xStuck = 0;
@@ -132,7 +131,6 @@ namespace BrickBreaker
                     stuck = true;
                     xStuck = x - GameScreen.paddle.x;
                 }
-            }
         }
 
         public void WallCollision(UserControl UC)
@@ -183,6 +181,7 @@ namespace BrickBreaker
 
             return didCollide;
         }
+
 
     }
 }
