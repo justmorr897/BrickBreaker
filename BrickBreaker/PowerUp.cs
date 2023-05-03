@@ -12,7 +12,8 @@ namespace BrickBreaker
         public int type, x, y;
         public int size = 20;
         public SolidBrush powerupBrush = new SolidBrush(Color.White);
-        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Double Damage!" };
+        public static string[] goodPowerups = { "Multi ball!", "Large paddle!", "Fire ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Double Damage!", "Shotgun!!!" };
+
         public static string[] badPowerups = { "Small paddle!", "Fast ball!", "Disorientation!", "Lose a Life!", "Slow Paddle!" };
         Random random = new Random();
 
@@ -25,6 +26,35 @@ namespace BrickBreaker
             if (type > 0 && type <= GameScreen.powerupColours.Count)
             {
                 powerupBrush.Color = GameScreen.powerupColours[type - 1];
+/*
+                case 1:
+                    powerupBrush.Color = Color.Green;
+                    break;
+                case 2:
+                    powerupBrush.Color = Color.Cyan;
+                    break;
+                case 3:
+                    powerupBrush.Color = Color.Red;
+                    break;
+                case 4:
+                    powerupBrush.Color = Color.Pink;
+                    break;
+                case 5:
+                    powerupBrush.Color = Color.Purple;
+                    break;
+                case 6:
+                    powerupBrush.Color = Color.Yellow;
+                    break;
+                case 7:
+                    powerupBrush.Color = Color.Beige;
+                    break;
+                case 8:
+                    powerupBrush.Color = Color.Beige;
+                    break;
+                default:
+                    break;
+                    
+                    */
             }
 
             if (random.Next(1, 6) == 1)
@@ -46,6 +76,7 @@ namespace BrickBreaker
             // 5 = edge protector (Purple)
             // 6 = sticky paddle (Yellow)
             // 7 = double damage (Magenta)
+            // 8 = shotgun 
 
             /// Bad powerups (< 0) (Red and orange flash)
             // -1 = small paddle
@@ -104,6 +135,9 @@ namespace BrickBreaker
                         {
                             GameScreen.ballDamage = 2;
                             GameScreen.damageTimer = 750;
+                        else if(type == 8)
+                        {
+                            GameScreen.shotgunPowerUp = true;
                         }
 
                         GameScreen.WritePowerupMessage(goodPowerups[type - 1]);

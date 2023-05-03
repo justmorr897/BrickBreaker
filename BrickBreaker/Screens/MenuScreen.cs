@@ -13,7 +13,7 @@ namespace BrickBreaker
 {
     public partial class MenuScreen : UserControl
     {
-        List<Scores> scores = new List<Scores>();
+        public static List<Scores> scores = new List<Scores>();
         public MenuScreen()
         {
             InitializeComponent();
@@ -68,11 +68,13 @@ namespace BrickBreaker
                 {
                     name = reader.ReadString();
 
-                    reader.ReadToNextSibling("score");
+                    reader.ReadToNextSibling("Score");
 
                     score = reader.ReadString();
 
-                    Scores s = new Scores(name, score);
+                    int newScore = Convert.ToInt32(score);
+
+                    Scores s = new Scores(name, newScore);
 
                     scores.Add(s);
                 }
@@ -80,5 +82,16 @@ namespace BrickBreaker
             reader.Close();
         }
 
+        private void leaderboardButton_Click(object sender, EventArgs e)
+        {
+            Leaderboard lb = new Leaderboard();
+            Form form = this.FindForm();
+
+            form.Controls.Add(lb);
+            form.Controls.Remove(this);
+
+            lb.Location = new Point((form.Width - lb.Width) / 2, (form.Height - lb.Height) / 2);
+        }
     }
+    
 }
