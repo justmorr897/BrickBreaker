@@ -22,21 +22,42 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
+        Boolean wDown, aDown, sDown, dDown = false;
 
         // Game values
         public static int lives;
-        public static int paddleSizeTimer = 0;
         public static int saveLevel = 1;
         public static int gameLevel = 1;
         int totalLevels = 5;
+        int timerDrawLocation = 0;
+        int crosshairX, crosshairY;
+        int placeHolder;
+        bool up = true;
+        int gravity = 1;
 
-        public static int lPaddletimer = 0;
-        public static int fireBallTimer = 0;
         public bool awaitingLaunch = true;
-        public static int speedBallTimer = 0;
-        public static int paddleSpeedTimer = 0;
         public static bool edgeProtector = false;
+        public static bool stickyPaddle = false;
+        public static int ballDamage = 1;
+        public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
+        public static bool shotgunPowerUp = false;
+
+        // timers
+        public static int paddleSizeTimer = 0;
+        public static int paddleSpeedTimer = 0;
+        public static int speedBallTimer = 0;
+        public static int damageTimer = 0;
+        public static int fireBallTimer = 0;
+        public static int messageTimer = 0;
+
+        //pictures for blocks
+        Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
+        , Properties.Resources.Duck12, Properties.Resources.Duck13, Properties.Resources.Duck21, Properties.Resources.Duck22
+        , Properties.Resources.Duck23, Properties.Resources.Duck31, Properties.Resources.Duck32, Properties.Resources.Duck33
+        , Properties.Resources.Duck41, Properties.Resources.Duck42, Properties.Resources.Duck43};
+        int theoTracker = 0;
+
         Random random = new Random();
         int score;
 
@@ -46,6 +67,7 @@ namespace BrickBreaker
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
+        List <Block> deadBlocks = new List<Block>();
 
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
@@ -56,6 +78,7 @@ namespace BrickBreaker
         
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
+
         SolidBrush ballBrush = new SolidBrush(Color.Red);
         
         SolidBrush red = new SolidBrush(Color.Red);
@@ -63,16 +86,34 @@ namespace BrickBreaker
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+        SolidBrush timerBrush = new SolidBrush(Color.White);
+
+        Pen pen = new Pen(Color.Black);
+
         Font font;
 
+        public static List<Color> powerupColours = new List<Color>{ Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta };
+
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
+
+        // Font
+        Font powerupMessageFont = new Font("Arial", 50);
+
+        Rectangle CrosshairRectangle = new Rectangle();
 
         #endregion
 
         public GameScreen()
         {
             InitializeComponent();
+
+            crosshairX = this.Width / 2;
+            crosshairY = this.Height / 2;
+
             font = new Font("Arial", 24, FontStyle.Bold);
+
+            //Cursor.Hide();
+
             OnStart();
         }
 
@@ -185,7 +226,9 @@ namespace BrickBreaker
             //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
             //balls.Add(newBall);
 
+            this.Focus();
             gameTimer.Enabled = true;
+            this.Focus();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -200,7 +243,11 @@ namespace BrickBreaker
                     rightArrowDown = true;
                     break;
                 case Keys.Space:
+                    stickyPaddle = false;
                     spaceDown = true;
+                    break;
+                case Keys.P:
+                    shotgunPowerUp = false;
                     break;
                 default:
                     break;
@@ -228,11 +275,13 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            CrosshairRectangle = new Rectangle(crosshairX - 10, crosshairY -10, 20, 20);
 
             // Call Ball Launch
             BallLaunch();
 
             livesLabel.Text = $"Lives: {lives}";
+            scoreLabel.Text = $"Score: {score}";    
 
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
@@ -283,12 +332,12 @@ namespace BrickBreaker
                 {
                     if (ball.BlockCollision(b, ball))
                     {
-                        b.hp--;
-                        if(b.hp == 0)
+                        b.hp -= ballDamage;
+                        if(b.hp <= 0)
                         {
                             JustinCode();
 
-                            if (random.Next(1, 10) == 1)
+                            if (random.Next(1, 9) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -300,18 +349,21 @@ namespace BrickBreaker
                                 }
                             }
 
+                            deadBlocks.Add(b);
                             blocks.Remove(b);
                         }
 
-                        if (blocks.Count == 0)
-                        {
-                            gameTimer.Enabled = false;
-                            OnEnd();
-                        }
+
 
                         break;
                     }
                 }
+            }
+
+            if (blocks.Count == 0)
+            {
+                gameTimer.Enabled = false;
+                OnEnd();
             }
 
             foreach (PowerUp p in powerups)
@@ -324,6 +376,297 @@ namespace BrickBreaker
                 }
             }
 
+            CountTimers();
+
+            if (lives == 0)
+            {
+                CooperCode();
+                gameTimer.Enabled = false;
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+                //OnEnd();
+            }
+            TheodoropoulosCode();
+
+            foreach (Block deadBlock in deadBlocks)
+            {
+                //int y = deadBlock.y;
+                int speed = 4;
+
+                if (deadBlock.y < this.Height)
+                {
+                    deadBlock.y += speed + gravity;
+                    gravity += 1;
+
+                }
+
+                if (deadBlock.y > this.Height)
+                {
+                    deadBlocks.Remove(deadBlock);
+                    gravity = 1;
+                    //up = true;
+                    break;
+                }
+
+
+            }
+
+            //redraw the screen
+            Refresh();
+        }
+
+        public void BallLaunch()
+        {
+            if (balls[0].canMove == false)
+            {
+                balls[0].x = paddle.x + (paddle.width / 2) - (balls[0].size / 2);
+                balls[0].y = paddle.y - (paddle.height);
+            }
+
+            if (spaceDown)
+            {
+                balls[0].canMove = true;
+            }
+        }
+
+        public void JustinCode()
+        {
+            score++;
+        }
+
+        private void GameScreen_MouseMove(object sender, MouseEventArgs e)
+        {
+            crosshairX = e.X;
+            crosshairY = e.Y;
+        }
+
+        private void GameScreen_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (shotgunPowerUp)
+            {
+                for(int i = blocks.Count - 1; i >= 0; i--)
+                {
+                    if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
+                    {
+                        deadBlocks.Add(blocks[i]);
+                        blocks.Remove(blocks[i]);
+                    }
+                }
+            }
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void resumeButton_Click(object sender, EventArgs e)
+        {
+            gameTimer.Enabled = true;
+            pauseLabel.Visible = false;
+            pauseLivesLabel.Visible = false;
+            pauseScoreLabel.Visible = false;
+            exitButton.Visible = false;
+            resumeButton.Visible = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            gameTimer.Enabled = false;
+            pauseLabel.Visible = true;
+            pauseLivesLabel.Visible = true;
+            pauseScoreLabel.Visible = true;
+            exitButton.Visible = true;
+            resumeButton.Visible = true;
+
+            pauseLabel.BringToFront();
+            pauseLivesLabel.BringToFront();
+            pauseScoreLabel.BringToFront();
+            exitButton.BringToFront();
+            resumeButton.BringToFront();
+
+            pauseLivesLabel.Text = $"Lives: {lives}";
+            pauseScoreLabel.Text = $"Score: {score}";
+        }
+
+        public void OnEnd()
+        {
+            CooperCode();
+
+            if(gameLevel < totalLevels)
+            {
+                JustinCode2();
+
+            }
+            else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
+            {            
+                // Goes to the game over screen
+                Form form = this.FindForm();
+                MenuScreen ps = new MenuScreen();
+
+                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+
+                form.Controls.Add(ps);
+                form.Controls.Remove(this);
+            }
+        }
+
+        public void JustinCode2()
+        {
+            if (isSaveLevelSelcted)
+            {
+                saveLevel++;
+                LevelBuild();
+            }
+            else 
+            {
+                gameLevel++;
+                LevelBuild();
+            }
+        }
+
+        public void GameScreen_Paint(object sender, PaintEventArgs e)
+        {
+            if (shotgunPowerUp)
+            {
+                e.Graphics.DrawEllipse(pen, crosshairX - 25, crosshairY -25, 50, 50);
+                e.Graphics.DrawLine(pen, crosshairX - 25, crosshairY, crosshairX + 25, crosshairY);
+                e.Graphics.DrawLine(pen, crosshairX , crosshairY - 25, crosshairX, crosshairY + 25);
+
+            }
+
+            //e.Graphics.FillRectangle(ballBrush, CrosshairRectangle); 
+
+            // Draws Fire for fireball powerup
+            foreach (Fire f in flames)
+            {
+                e.Graphics.FillEllipse(f.fireColour, f.x, f.y, f.size + random.Next(-2, 3), f.size + random.Next(-2, 3));
+            }
+
+            // Draws paddle
+            //paddleBrush.Color = paddle.colour;
+            //e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+            e.Graphics.DrawImage(paddleImage, paddle.x, paddle.y, paddle.width, paddle.width * 1.1f);
+
+
+            // Draws blocks
+            foreach (Block b in blocks)
+            {
+                //e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.width);
+            }
+
+            foreach (Block b in deadBlocks)
+            {
+                //e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+                //e.Graphics.DrawImage(ducks[(b.hp - 1) * 3 + b.frame - 1], b.x, b.y, b.width, b.width);
+                e.Graphics.DrawImage(ducks[1], b.x, b.y, b.width, b.width);
+            }
+
+            // Draws balls
+            foreach (Ball b in balls)
+            {
+                if (b == balls[0])
+                {
+                    e.Graphics.FillEllipse(darkBlue, b.x, b.y, b.size, b.size);
+                }
+                else
+                {
+                    e.Graphics.FillEllipse(ballBrush, b.x, b.y, b.size, b.size);
+                }
+            }
+
+            // Draws powerups
+            foreach (PowerUp p in powerups)
+            {
+                e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
+            }
+
+            if (edgeProtector)
+            {
+                e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
+            }
+
+            //e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
+
+            // Draws powerup message
+            if (messageTimer > 0)
+            {
+                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height/2);
+            }
+
+            // Draw timers
+
+            float pie;
+            timerDrawLocation = 0;
+
+            if (paddleSizeTimer > 0)
+            {
+                timerDrawLocation += 30;
+                timerBrush.Color = powerupColours[1];
+                pie = paddleSizeTimer / 1000 * 360;
+                e.Graphics.FillPie(timerBrush, Width - 30, timerDrawLocation, 20, 20, 0, pie);
+            }
+        }
+
+        public void TheodoropoulosCode()
+        {
+            theoTracker++;
+            if(theoTracker == 30)
+            {
+                theoTracker = 0;
+                foreach(Block b in blocks)
+                {
+                    if(b.frame == 1) { b.flow = 1; }
+                    else if(b.frame == 3) { b.flow = -1; }
+                    b.frame += b.flow;
+                }
+            }
+        }
+
+        public void CooperCode()
+        {
+            string name;
+            name = SelectScreen.username;
+            string HS = score.ToString();
+            int intScore = Convert.ToInt32(HS);
+
+            Scores newScore = new Scores(name, intScore);
+
+            MenuScreen.scores.Add(newScore);
+
+            XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
+            writer.WriteStartElement("HighScores");
+
+            foreach(Scores s in MenuScreen.scores)
+            {
+                writer.WriteElementString("Name", s.name);
+                writer.WriteElementString("Score", s.score.ToString());
+            }
+
+            writer.WriteEndElement();
+            writer.Close();
+
+        }
+
+        public static void WritePowerupMessage(string message)
+        {
+            messageTimer = 100;
+            powerupMessage = message;
+        }
+
+        public void CountTimers()
+        {
             if (speedBallTimer == 0 && balls[0].speed == 2)
             {
                 foreach (Ball b in balls)
@@ -372,146 +715,19 @@ namespace BrickBreaker
                 paddleSpeedTimer--;
             }
 
-            if (lives == 0)
+            if (damageTimer == 0)
             {
-                gameTimer.Enabled = false;
-                Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
-                //OnEnd();
+                ballDamage = 1;
             }
-            //TheodoropoulosCode();
-
-            //redraw the screen
-            Refresh();
-        }
-
-        public void BallLaunch()
-        {
-            if (balls[0].canMove == false)
+            else
             {
-                balls[0].x = paddle.x + (paddle.width / 2) - (balls[0].size / 2);
-                balls[0].y = paddle.y - (paddle.height);
+                damageTimer--;
             }
 
-            if (spaceDown)
+            if (messageTimer > 0)
             {
-                balls[0].canMove = true;
+                messageTimer--;
             }
-        }
-
-        public void JustinCode()
-        {
-            score++;
-        }
-
-        public void OnEnd()
-        {
-            CooperCode();
-
-            if(gameLevel < totalLevels)
-            {
-                JustinCode2();
-
-            }
-            else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
-            {            
-                // Goes to the game over screen
-
-                Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
-            }
-        }
-
-
-        public void JustinCode2()
-        {
-            if (isSaveLevelSelcted)
-            {
-                saveLevel++;
-                LevelBuild();
-            }
-            else 
-            {
-                gameLevel++;
-                LevelBuild();
-            }
-        }
-
-        public void GameScreen_Paint(object sender, PaintEventArgs e)
-        {
-            // Draws Fire for fireball powerup
-            foreach (Fire f in flames)
-            {
-                e.Graphics.FillEllipse(f.fireColour, f.x, f.y, f.size + random.Next(-2, 3), f.size + random.Next(-2, 3));
-            }
-
-            // Draws paddle
-            //paddleBrush.Color = paddle.colour;
-            //e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
-            e.Graphics.DrawImage(paddleImage, paddle.x, paddle.y, paddle.width, paddle.width * 1.1f);
-
-
-            // Draws blocks
-            foreach (Block b in blocks)
-            {
-                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
-            }
-
-            // Draws balls
-            foreach (Ball b in balls)
-            {
-                if (b == balls[0])
-                {
-                    e.Graphics.FillEllipse(darkBlue, b.x, b.y, b.size, b.size);
-                }
-                else
-                {
-                    e.Graphics.FillEllipse(ballBrush, b.x, b.y, b.size, b.size);
-                }
-            }
-
-            // Draws Powerups
-            foreach (PowerUp p in powerups)
-            {
-                e.Graphics.FillRectangle(p.powerupBrush, p.x, p.y, p.size, p.size);
-            }
-
-            if (edgeProtector)
-            {
-                e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
-            }
-
-        }
-
-        public void TheodoropoulosCode()
-        {
-   
-        }
-
-        public void CooperCode()
-        {
-            string name;
-            name = "do this later";
-            string HS = score.ToString();
-            XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
-            writer.WriteStartElement("HighScores");
-
-            writer.WriteElementString("Name", name);
-            writer.WriteElementString("Score", HS);
-
-            writer.WriteEndElement();
-            writer.Close();
-
         }
     }
 }

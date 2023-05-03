@@ -11,6 +11,9 @@ namespace BrickBreaker
         public Color colour;
         public bool canMove = false;
         public static Random rand = new Random();
+        public Random rand = new Random();
+        public bool stuck = false;
+        public int xStuck = 0;
         
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
         {
@@ -28,6 +31,21 @@ namespace BrickBreaker
 
             prevX = x;
             prevY = y;
+            
+            if (!stuck)
+            {
+                x += xSpeed * speed;
+                y += ySpeed * speed;
+            }
+            else
+            {
+                x = GameScreen.paddle.x + xStuck;
+
+                if (!GameScreen.stickyPaddle)
+                {
+                    stuck = false;
+                }
+            }
         }
 
         public bool BlockCollision(Block block, Ball ball)
@@ -46,6 +64,15 @@ namespace BrickBreaker
 
                         x = prevX;
                         y = prevY;
+
+                        //if (xSpeed > 0)
+                        //{
+                        //    ball.x = ball.x - size;
+                        //}
+                        //else if (xSpeed < 0)
+                        //{
+                        //    ball.x = ball.x + size;
+                        //}
                     }
                     else // hits anywhere else
                     {
@@ -53,6 +80,15 @@ namespace BrickBreaker
 
                         x = prevX;
                         y = prevY;
+                        
+                        //if (ySpeed > 0)
+                        //{
+                        //    ball.y = ball.y + size;
+                        //}
+                        //else if (ySpeed < 0)
+                        //{
+                        //    ball.y = ball.y - size;
+                        //}
                     }
                 }
             }
@@ -90,8 +126,13 @@ namespace BrickBreaker
                     GameScreen.balls[0].canMove = true;
                 }
             }
-
-            
+       
+                if (GameScreen.stickyPaddle && !stuck)
+                {
+                    stuck = true;
+                    xStuck = x - GameScreen.paddle.x;
+                }
+            }
         }
 
         public void WallCollision(UserControl UC)
@@ -133,7 +174,7 @@ namespace BrickBreaker
 
         public bool BottomCollision(UserControl UC)
         {
-            Boolean didCollide = false;
+            bool didCollide = false;
 
             if (y >= UC.Height)
             {
