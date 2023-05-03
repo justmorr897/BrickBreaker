@@ -135,7 +135,8 @@ namespace BrickBreaker
                         {
                             GameScreen.ballDamage = 2;
                             GameScreen.damageTimer = 750;
-                        else if(type == 8)
+                        }
+                        else if (type == 8)
                         {
                             GameScreen.shotgunPowerUp = true;
                         }
