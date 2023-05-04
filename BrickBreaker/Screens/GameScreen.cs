@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Xml;
+using System.IO;
 
 namespace BrickBreaker
 {
@@ -23,6 +24,7 @@ namespace BrickBreaker
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
         Boolean wDown, aDown, sDown, dDown = false;
+        bool shotReady = false;    
 
         // Game values
         public static int lives;
@@ -34,6 +36,7 @@ namespace BrickBreaker
         int placeHolder;
         bool up = true;
         int gravity = 1;
+        int shotgunShots = 0;
 
         public bool awaitingLaunch = true;
         public static bool edgeProtector = false;
@@ -41,7 +44,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = true;
+        public static bool shotgunPowerUp = false;
 
         // timers
         public static int paddleSizeTimer = 0;
@@ -353,8 +356,6 @@ namespace BrickBreaker
                             blocks.Remove(b);
                         }
 
-
-
                         break;
                     }
                 }
@@ -412,9 +413,17 @@ namespace BrickBreaker
                     //up = true;
                     break;
                 }
-
-
             }
+
+            if (shotgunPowerUp && shotReady == true)
+            {
+                var reloadSound = new System.Windows.Media.MediaPlayer();
+                reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                reloadSound.Play();
+
+                shotReady = false;
+            }
+
 
             //redraw the screen
             Refresh();
@@ -447,18 +456,40 @@ namespace BrickBreaker
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            if (shotgunPowerUp)
+            if (shotgunPowerUp && shotgunShots < 3)
             {
-                for(int i = blocks.Count - 1; i >= 0; i--)
+                string file = Application.StartupPath + "/Resources/Shot.wav";
+
+                var shotSound = new System.Windows.Media.MediaPlayer();
+                shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
+                shotSound.Play();
+
+                shotReady = true;
+                //var reloadSound = new System.Windows.Media.MediaPlayer();
+                //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                //reloadSound.Play();
+
+
+                for (int i = blocks.Count - 1; i >= 0; i--)
                 {
                     if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
                     {
                         deadBlocks.Add(blocks[i]);
                         blocks.Remove(blocks[i]);
+                        score++;
                     }
                 }
+
             }
+            else
+            {
+                shotgunPowerUp = false;
+                shotgunShots = 0;
+            }
+
+            shotgunShots++;
         }
+
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
