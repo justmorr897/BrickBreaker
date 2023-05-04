@@ -59,6 +59,8 @@ namespace BrickBreaker
 
         public void CooperCode()
         {
+            scores.Clear();
+
             string name, score;
 
             XmlReader reader = XmlReader.Create("HighScoreXML.xml");

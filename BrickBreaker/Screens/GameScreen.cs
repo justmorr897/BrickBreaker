@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Media;
 using System.Xml;
 using System.IO;
+using System.Diagnostics;
 
 namespace BrickBreaker
 {
@@ -44,7 +45,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = false;
+        public static bool shotgunPowerUp = true;
 
         // timers
         public static int paddleSizeTimer = 0;
@@ -95,6 +96,8 @@ namespace BrickBreaker
 
         Font font;
 
+        Stopwatch stopwatch = new Stopwatch();
+
         public static List<Color> powerupColours = new List<Color>{ Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta };
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
@@ -114,8 +117,6 @@ namespace BrickBreaker
             crosshairY = this.Height / 2;
 
             font = new Font("Arial", 24, FontStyle.Bold);
-
-            //Cursor.Hide();
 
             OnStart();
         }
@@ -157,20 +158,7 @@ namespace BrickBreaker
 
             LevelBuild();
 
-            //blocks.Clear();
-            //int x = 10;
-
-            //while (blocks.Count < 12) // Originally 12
-            //{
-            //    x += 57;
-            //    Block b1 = new Block(x, 10, 1, Color.White);
-            //    blocks.Add(b1);
-            //}
-
             #endregion
-
-            // start the game engine loop
-            //gameTimer.Enabled = true;
 
             // Just make sure the ball doesnt move on start
             balls[0].canMove = false;
@@ -250,7 +238,14 @@ namespace BrickBreaker
                     spaceDown = true;
                     break;
                 case Keys.P:
-                    shotgunPowerUp = false;
+                    if(pauseLabel.Visible == false)
+                    {
+                        Pause();
+                    }
+                    else
+                    {
+                        Resume();
+                    }
                     break;
                 default:
                     break;
@@ -340,7 +335,7 @@ namespace BrickBreaker
                         {
                             JustinCode();
 
-                            if (random.Next(1, 9) == 1)
+                            if (random.Next(1, 8) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -403,7 +398,6 @@ namespace BrickBreaker
                 {
                     deadBlock.y += speed + gravity;
                     gravity += 1;
-
                 }
 
                 if (deadBlock.y > this.Height)
@@ -417,11 +411,14 @@ namespace BrickBreaker
 
             if (shotgunPowerUp && shotReady == true)
             {
-                var reloadSound = new System.Windows.Media.MediaPlayer();
-                reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
-                reloadSound.Play();
+                //if (stopwatch.ElapsedMilliseconds > 1500)
+                //{
+                    var reloadSound = new System.Windows.Media.MediaPlayer();
+                    reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                    reloadSound.Play();
 
-                shotReady = false;
+                    shotReady = false;
+                //}
             }
 
 
@@ -464,7 +461,9 @@ namespace BrickBreaker
                 shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
                 shotSound.Play();
 
+                stopwatch.Start();
                 shotReady = true;
+
                 //var reloadSound = new System.Windows.Media.MediaPlayer();
                 //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
                 //reloadSound.Play();
@@ -490,12 +489,6 @@ namespace BrickBreaker
             shotgunShots++;
         }
 
-
-        private void pauseButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -503,15 +496,10 @@ namespace BrickBreaker
 
         private void resumeButton_Click(object sender, EventArgs e)
         {
-            gameTimer.Enabled = true;
-            pauseLabel.Visible = false;
-            pauseLivesLabel.Visible = false;
-            pauseScoreLabel.Visible = false;
-            exitButton.Visible = false;
-            resumeButton.Visible = false;
+            Resume();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public void Pause()
         {
             gameTimer.Enabled = false;
             pauseLabel.Visible = true;
@@ -528,6 +516,21 @@ namespace BrickBreaker
 
             pauseLivesLabel.Text = $"Lives: {lives}";
             pauseScoreLabel.Text = $"Score: {score}";
+        }
+
+        public void Resume()
+        {
+            gameTimer.Enabled = true;
+            pauseLabel.Visible = false;
+            pauseLivesLabel.Visible = false;
+            pauseScoreLabel.Visible = false;
+            exitButton.Visible = false;
+            resumeButton.Visible = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Pause();
         }
 
         public void OnEnd()
@@ -653,7 +656,7 @@ namespace BrickBreaker
         public void TheodoropoulosCode()
         {
             theoTracker++;
-            if(theoTracker == 30)
+            if(theoTracker == 15)
             {
                 theoTracker = 0;
                 foreach(Block b in blocks)
