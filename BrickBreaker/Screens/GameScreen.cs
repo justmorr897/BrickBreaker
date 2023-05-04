@@ -21,31 +21,35 @@ namespace BrickBreaker
         #region global values
 
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, spaceDown;
+        public static Boolean leftArrowDown, rightArrowDown, spaceDown;
         Boolean wDown, aDown, sDown, dDown = false;
 
         // Game values
         public static int lives;
-        public static int paddleSizeTimer = 0;
         public static int saveLevel = 1;
         public static int gameLevel = 1;
         int totalLevels = 5;
+        int timerDrawLocation = 0;
         int crosshairX, crosshairY;
         int placeHolder;
         bool up = true;
         int gravity = 1;
 
-        public static int lPaddletimer = 0;
-        public static int fireBallTimer = 0;
         public bool awaitingLaunch = true;
-        public static int speedBallTimer = 0;
-        public static int paddleSpeedTimer = 0;
-        public static int messageTimer = 0;
         public static bool edgeProtector = false;
         public static bool stickyPaddle = false;
+        public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
         public static bool shotgunPowerUp = true;
+
+        // timers
+        public static int paddleSizeTimer = 0;
+        public static int paddleSpeedTimer = 0;
+        public static int speedBallTimer = 0;
+        public static int damageTimer = 0;
+        public static int fireBallTimer = 0;
+        public static int messageTimer = 0;
 
         //pictures for blocks
         Bitmap[] ducks = {Properties.Resources.Duck01, Properties.Resources.Duck02, Properties.Resources.Duck03, Properties.Resources.Duck11
@@ -82,10 +86,13 @@ namespace BrickBreaker
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
+        SolidBrush timerBrush = new SolidBrush(Color.White);
 
         Pen pen = new Pen(Color.Black);
 
         Font font;
+
+        public static List<Color> powerupColours = new List<Color>{ Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta };
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
@@ -113,7 +120,8 @@ namespace BrickBreaker
         public void OnStart()
         {
             //set life counter
-            lives = 1;
+            lives = 3;
+
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -160,6 +168,9 @@ namespace BrickBreaker
 
             // start the game engine loop
             //gameTimer.Enabled = true;
+
+            // Just make sure the ball doesnt move on start
+            balls[0].canMove = false;
         }
 
 
@@ -238,18 +249,6 @@ namespace BrickBreaker
                 case Keys.P:
                     shotgunPowerUp = false;
                     break;
-                //case Keys.W:
-                //    wDown = true;
-                //    break;
-                //case Keys.A:
-                //    aDown = true;
-                //    break;
-                //case Keys.S:
-                //    sDown = true;
-                //    break;
-                //case Keys.D:
-                //    dDown = true;
-                //    break;
                 default:
                     break;
             }
@@ -269,18 +268,6 @@ namespace BrickBreaker
                 case Keys.Space:
                     spaceDown = false;
                     break;
-                //case Keys.W:
-                //    wDown = false;
-                //    break;
-                //case Keys.A:
-                //    aDown = false;
-                //    break;
-                //case Keys.S:
-                //    sDown = false;
-                //    break;
-                //case Keys.D:
-                //    dDown = false;
-                //    break;
                 default:
                     break;
             }
@@ -289,6 +276,9 @@ namespace BrickBreaker
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             CrosshairRectangle = new Rectangle(crosshairX - 10, crosshairY -10, 20, 20);
+
+            // Call Ball Launch
+            BallLaunch();
 
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";    
@@ -317,6 +307,10 @@ namespace BrickBreaker
                         // Moves the ball back to origin
                         b.x = ((paddle.x - (b.size / 2)) + (paddle.width / 2));
                         b.y = (this.Height - paddle.height) - 85;
+
+                        // Prevent ball from moving to allow for launch
+                        balls[0].canMove = false;
+
                     }
                     else if (!edgeProtector)
                     {
@@ -338,12 +332,12 @@ namespace BrickBreaker
                 {
                     if (ball.BlockCollision(b, ball))
                     {
-                        b.hp--;
-                        if(b.hp == 0)
+                        b.hp -= ballDamage;
+                        if(b.hp <= 0)
                         {
                             JustinCode();
 
-                            if (random.Next(1, 5) == 1)
+                            if (random.Next(1, 9) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -382,58 +376,7 @@ namespace BrickBreaker
                 }
             }
 
-            if (speedBallTimer == 0 && balls[0].speed == 2)
-            {
-                foreach (Ball b in balls)
-                {
-                    b.speed = 1;
-                }
-            }
-            else
-            {
-                speedBallTimer--;
-            }
-
-            if (fireBallTimer != 0)
-            {
-                fireBallTimer--;
-                flames.Add(new Fire(balls[0].x, balls[0].y));
-            }
-            foreach (Fire f in flames)
-            {
-                f.Move();
-            }
-            foreach (Fire f in flames)
-            {
-                if (f.i > 275)
-                {
-                    flames.Remove(f);
-                    break;
-                }
-            }
-
-            if (paddleSizeTimer == 0)
-            {
-                paddle.width = 80;
-            }
-            else
-            {
-                paddleSizeTimer--;
-            }
-
-            if (paddleSpeedTimer == 0)
-            {
-                paddle.speed = 8;
-            }
-            else
-            {
-                paddleSpeedTimer--;
-            }
-
-            if (messageTimer > 0)
-            {
-                messageTimer--;
-            }
+            CountTimers();
 
             if (lives == 0)
             {
@@ -454,19 +397,6 @@ namespace BrickBreaker
             {
                 //int y = deadBlock.y;
                 int speed = 4;
-
-                //if (deadBlock.y > 200 && up)
-                //{
-                //    up = true;
-                //    deadBlock.y -= (speed - gravity);
-                //    gravity += 1;
-
-                //}
-                //else
-                //{
-                //    up = false;
-                //}
-
 
                 if (deadBlock.y < this.Height)
                 {
@@ -490,9 +420,18 @@ namespace BrickBreaker
             Refresh();
         }
 
-        public void SpinArrow()
+        public void BallLaunch()
         {
+            if (balls[0].canMove == false)
+            {
+                balls[0].x = paddle.x + (paddle.width / 2) - (balls[0].size / 2);
+                balls[0].y = paddle.y - (paddle.height);
+            }
 
+            if (spaceDown)
+            {
+                balls[0].canMove = true;
+            }
         }
 
         public void JustinCode()
@@ -665,6 +604,19 @@ namespace BrickBreaker
             {
                 e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height/2);
             }
+
+            // Draw timers
+
+            float pie;
+            timerDrawLocation = 0;
+
+            if (paddleSizeTimer > 0)
+            {
+                timerDrawLocation += 30;
+                timerBrush.Color = powerupColours[1];
+                pie = paddleSizeTimer / 1000 * 360;
+                e.Graphics.FillPie(timerBrush, Width - 30, timerDrawLocation, 20, 20, 0, pie);
+            }
         }
 
         public void TheodoropoulosCode()
@@ -711,6 +663,71 @@ namespace BrickBreaker
         {
             messageTimer = 100;
             powerupMessage = message;
+        }
+
+        public void CountTimers()
+        {
+            if (speedBallTimer == 0 && balls[0].speed == 2)
+            {
+                foreach (Ball b in balls)
+                {
+                    b.speed = 1;
+                }
+            }
+            else
+            {
+                speedBallTimer--;
+            }
+
+            if (fireBallTimer != 0)
+            {
+                fireBallTimer--;
+                flames.Add(new Fire(balls[0].x, balls[0].y));
+            }
+            foreach (Fire f in flames)
+            {
+                f.Move();
+            }
+            foreach (Fire f in flames)
+            {
+                if (f.i > 275)
+                {
+                    flames.Remove(f);
+                    break;
+                }
+            }
+
+            if (paddleSizeTimer == 0)
+            {
+                paddle.width = 80;
+            }
+            else
+            {
+                paddleSizeTimer--;
+            }
+
+            if (paddleSpeedTimer == 0)
+            {
+                paddle.speed = 8;
+            }
+            else
+            {
+                paddleSpeedTimer--;
+            }
+
+            if (damageTimer == 0)
+            {
+                ballDamage = 1;
+            }
+            else
+            {
+                damageTimer--;
+            }
+
+            if (messageTimer > 0)
+            {
+                messageTimer--;
+            }
         }
     }
 }
