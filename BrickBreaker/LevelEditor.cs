@@ -17,7 +17,6 @@ namespace BrickBreaker
         List<TextBox> textboxList = new List<TextBox>();
 
         TextBox textbox = new TextBox();
-        SolidBrush redbrush = new SolidBrush(Color.Red);
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
         int mouseX;
@@ -45,71 +44,63 @@ namespace BrickBreaker
 
         public void Print()
         {
+            bool isOverlapping = false;
+
             if (drawPen.Color == Color.Blue)
             {
-                rectangles.Add(newRect);
-
-                textbox = new TextBox();
-
-                if (color == 1)
+                for (int i = 0; i < rectangles.Count; i++)
                 {
-                    textbox.BackColor = Color.Green;
-                    textbox.Text = "1";
-                }
-                else if (color == 2)
-                {
-                    textbox.BackColor = Color.DarkCyan;
-                    textbox.Text = "2";
-                }
-                else if (color == 3)
-                {
-                    textbox.BackColor = Color.Orange;
-                    textbox.Text = "3";
-                }
-                else if (color == 4)
-                {
-                    textbox.BackColor = Color.Purple;
-                    textbox.Text = "4";
-                }
-                else if (color == 5)
-                {
-                    textbox.BackColor = Color.Gold;
-                    textbox.Text = "5";
+                    if (newRect.IntersectsWith(rectangles[i]))
+                    {
+                        isOverlapping = true;
+                    }
                 }
 
+                if (isOverlapping == false)
+                {
+                    rectangles.Add(newRect);
 
-                textbox.Font = new Font("Arial", 13);
-                textbox.Location = new Point(mouseX, mouseY);
-                textbox.Size = new Size(width, height);
-                textbox.ForeColor = Color.White;
-                textbox.TextAlign = HorizontalAlignment.Center;
-                textbox.ReadOnly = true;
+                    textbox = new TextBox();
 
-                textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
-                this.Controls.Add(textbox);
-                textbox.Focus();
-                textboxList.Add(textbox);
+                    if (color == 1)
+                    {
+                        textbox.BackColor = Color.Green;
+                        textbox.Text = "1";
+                    }
+                    else if (color == 2)
+                    {
+                        textbox.BackColor = Color.DarkCyan;
+                        textbox.Text = "2";
+                    }
+                    else if (color == 3)
+                    {
+                        textbox.BackColor = Color.Orange;
+                        textbox.Text = "3";
+                    }
+                    else if (color == 4)
+                    {
+                        textbox.BackColor = Color.Purple;
+                        textbox.Text = "4";
+                    }
+                    else if (color == 5)
+                    {
+                        textbox.BackColor = Color.Gold;
+                        textbox.Text = "5";
+                    }
 
-                //foreach (Rectangle rectangle in rectangles)
-                //{
-                //    if (newRect.IntersectsWith(rectangle))
-                //    {
 
-                //    }
+                    textbox.Font = new Font("Arial", 13);
+                    textbox.Location = new Point(mouseX, mouseY);
+                    textbox.Size = new Size(width, height);
+                    textbox.ForeColor = Color.White;
+                    textbox.TextAlign = HorizontalAlignment.Center;
+                    textbox.ReadOnly = true;
 
-                //    //if(rectangle.Contains(mouseX, mouseY))
-                //    //{
-
-                //    //}
-                //    else
-                //    {
-                //        textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
-                //        this.Controls.Add(textbox);
-                //        textbox.Focus();
-                //        textboxList.Add(textbox);
-                //        break;
-                //    }
-                //}
+                    textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                    this.Controls.Add(textbox);
+                    textbox.Focus();
+                    textboxList.Add(textbox);
+                }
             }
         }
 
@@ -332,7 +323,6 @@ namespace BrickBreaker
 
             for (int i = length - 13; i >= 0; i--)
             {
-                //this.Controls.RemoveAt(i);
                 this.Controls.Remove(textboxList[i]);
             }
 
@@ -342,7 +332,6 @@ namespace BrickBreaker
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
-            //level5Button.Enabled = false;
         }
     }
 }

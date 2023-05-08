@@ -217,16 +217,18 @@ namespace BrickBreaker
 
             reader.Close();
 
-            //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
-            //balls.Add(newBall);
-
             this.Focus();
             gameTimer.Enabled = true;
             this.Focus();
 
+
+            for(int i = 1; i < balls.Count; i++)
+            {
+                balls.RemoveAt(i);
+            }
+
             WritePowerupMessage(level);
             balls[0].canMove = false;
-
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -398,7 +400,6 @@ namespace BrickBreaker
 
             foreach (Block deadBlock in deadBlocks)
             {
-                //int y = deadBlock.y;
                 int speed = 4;
 
                 if (deadBlock.y < this.Height)
