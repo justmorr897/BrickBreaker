@@ -38,6 +38,7 @@ namespace BrickBreaker
         bool up = true;
         int gravity = 1;
         int shotgunShots = 0;
+        int clickCounter = 0;
 
         public bool awaitingLaunch = true;
         public static bool edgeProtector = false;
@@ -45,7 +46,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = true;
+        public static bool shotgunPowerUp = false;
 
         // timers
         public static int paddleSizeTimer = 0;
@@ -170,7 +171,7 @@ namespace BrickBreaker
             //balls.Clear();
             //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
-            string color;
+            string color, level;
 
             blocks.Clear();
             XmlReader reader;
@@ -179,11 +180,14 @@ namespace BrickBreaker
             {
                 string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
+                level = "Save Level" + saveLevel.ToString();
+
             }
             else
             {
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
+                level = "Level" + gameLevel.ToString();
             }
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
@@ -220,6 +224,8 @@ namespace BrickBreaker
             this.Focus();
             gameTimer.Enabled = true;
             this.Focus();
+
+            WritePowerupMessage(level);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -530,7 +536,17 @@ namespace BrickBreaker
 
         private void label1_Click(object sender, EventArgs e)
         {
-            Pause();
+            clickCounter++;
+
+            if(clickCounter % 2 == 0)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+
+            }
         }
 
         public void OnEnd()

@@ -47,7 +47,7 @@
             this.playButton.Font = new System.Drawing.Font("Chiller", 140.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.ForeColor = System.Drawing.Color.Black;
             this.playButton.Location = new System.Drawing.Point(78, -186);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(625, 625);
             this.playButton.TabIndex = 0;
@@ -67,7 +67,7 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.Location = new System.Drawing.Point(474, 591);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(312, 312);
             this.exitButton.TabIndex = 1;
@@ -87,7 +87,7 @@
             this.editorButton.Font = new System.Drawing.Font("Chiller", 48F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editorButton.ForeColor = System.Drawing.Color.Black;
             this.editorButton.Location = new System.Drawing.Point(138, 386);
-            this.editorButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.editorButton.Margin = new System.Windows.Forms.Padding(6);
             this.editorButton.Name = "editorButton";
             this.editorButton.Size = new System.Drawing.Size(486, 222);
             this.editorButton.TabIndex = 2;
@@ -98,7 +98,7 @@
             // leaderboardButton
             // 
             this.leaderboardButton.Location = new System.Drawing.Point(250, 28);
-            this.leaderboardButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.leaderboardButton.Margin = new System.Windows.Forms.Padding(4);
             this.leaderboardButton.Name = "leaderboardButton";
             this.leaderboardButton.Size = new System.Drawing.Size(234, 75);
             this.leaderboardButton.TabIndex = 3;
@@ -118,7 +118,7 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MenuScreen";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Size = new System.Drawing.Size(750, 875);
