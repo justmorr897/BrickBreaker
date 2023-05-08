@@ -76,7 +76,7 @@ namespace BrickBreaker
                     textbox.BackColor = Color.Gold;
                     textbox.Text = "5";
                 }
-                
+
 
                 textbox.Font = new Font("Arial", 13);
                 textbox.Location = new Point(mouseX, mouseY);
@@ -86,11 +86,30 @@ namespace BrickBreaker
                 textbox.ReadOnly = true;
 
                 textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
-
                 this.Controls.Add(textbox);
                 textbox.Focus();
-
                 textboxList.Add(textbox);
+
+                //foreach (Rectangle rectangle in rectangles)
+                //{
+                //    if (newRect.IntersectsWith(rectangle))
+                //    {
+
+                //    }
+
+                //    //if(rectangle.Contains(mouseX, mouseY))
+                //    //{
+
+                //    //}
+                //    else
+                //    {
+                //        textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                //        this.Controls.Add(textbox);
+                //        textbox.Focus();
+                //        textboxList.Add(textbox);
+                //        break;
+                //    }
+                //}
             }
         }
 
