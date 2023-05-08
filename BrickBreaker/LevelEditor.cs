@@ -224,7 +224,6 @@ namespace BrickBreaker
                 level5Button.Location = new Point(level5Button.Location.X + buttonSpeed, level5Button.Location.Y);
                 level5Button.Refresh();
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -316,7 +315,6 @@ namespace BrickBreaker
             }
 
             writer.WriteEndElement();
-
             writer.Close();
 
             int length = this.Controls.Count;
