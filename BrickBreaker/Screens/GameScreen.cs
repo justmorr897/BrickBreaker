@@ -46,7 +46,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = false;
+        public static bool shotgunPowerUp = true;
 
         // timers
         public static int paddleSizeTimer = 0;
@@ -162,7 +162,6 @@ namespace BrickBreaker
             #endregion
 
             // Just make sure the ball doesnt move on start
-            balls[0].canMove = false;
         }
 
 
@@ -226,6 +225,8 @@ namespace BrickBreaker
             this.Focus();
 
             WritePowerupMessage(level);
+            balls[0].canMove = false;
+
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
