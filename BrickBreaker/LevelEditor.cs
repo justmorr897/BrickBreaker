@@ -19,8 +19,7 @@ namespace BrickBreaker
         TextBox textbox = new TextBox();
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
-        int mouseX;
-        int mouseY;
+        int mouseX, mouseY;
         int width = 45;
         int height = 30;
         int level = 0;
@@ -30,8 +29,8 @@ namespace BrickBreaker
         public LevelEditor()
         {
             InitializeComponent();
-            Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
-            rectangles.Add(saveButtonRect);
+            Rectangle backButtonRect = new Rectangle(backButton.Location.X, backButton.Location.Y, width, height);
+            rectangles.Add(backButtonRect);
 
             // Set a default value
             color = 1;
@@ -87,7 +86,6 @@ namespace BrickBreaker
                         textbox.BackColor = Color.Gold;
                         textbox.Text = "5";
                     }
-
 
                     textbox.Font = new Font("Arial", 13);
                     textbox.Location = new Point(mouseX, mouseY);
@@ -191,15 +189,12 @@ namespace BrickBreaker
             level3Button.Visible = !level3Button.Visible;
             level4Button.Visible = !level4Button.Visible;
             level5Button.Visible = !level5Button.Visible;
-            backButton.Visible = !backButton.Visible;
-
 
             level1Button.Location = new Point(-140, level1Button.Location.Y);
             level2Button.Location = new Point(-140, level2Button.Location.Y);
             level3Button.Location = new Point(-140, level3Button.Location.Y);
             level4Button.Location = new Point(-140, level4Button.Location.Y);
             level5Button.Location = new Point(-140, level5Button.Location.Y);
-
 
             while (level1Button.Location.X < -15)
             {
@@ -230,73 +225,19 @@ namespace BrickBreaker
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Button button = sender as Button;
+            color = Convert.ToInt16(button.Tag);
         }
 
-        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        private void SaveButtonClick(object sender, EventArgs e)
         {
-            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
-        }
+            Button button = sender as Button;
+            level = Convert.ToInt16(button.Tag);
+            LevelButtonClick();
+        }      
 
-        private void oneHPButton_Click(object sender, EventArgs e)
+        public void LevelButtonClick()
         {
-            color = 1;
-        }
-
-        private void twoHPButton_Click(object sender, EventArgs e)
-        {
-            color = 2;
-        }
-
-        private void threeHPButton_Click(object sender, EventArgs e)
-        {
-            color = 3;
-        }
-
-        private void fourHPButton_Click(object sender, EventArgs e)
-        {
-            color = 4;
-        }
-
-        private void fiveHPButton_Click(object sender, EventArgs e)
-        {
-            color = 5;
-        }
-
-        private void level1Button_Click(object sender, EventArgs e)
-        {
-            level = 1;
-            LevelButtonClick(level);
-        }
-
-        private void level2Button_Click(object sender, EventArgs e)
-        {
-            level = 2;
-            LevelButtonClick(level);
-        }
-
-        private void level3Button_Click(object sender, EventArgs e)
-        {
-            level = 3;
-            LevelButtonClick(level);
-        }
-
-        private void level4Button_Click(object sender, EventArgs e)
-        {
-            level = 4;
-            LevelButtonClick(level);
-        }
-
-        private void level5Button_Click(object sender, EventArgs e)
-        {
-            level = 5;
-            LevelButtonClick(level);
-        }
-
-        public void LevelButtonClick(int _level)
-        {
-            level = _level;
-
             string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
 
@@ -332,6 +273,11 @@ namespace BrickBreaker
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
+        }
+
+        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
         }
 
         private void backButton_Click(object sender, EventArgs e)

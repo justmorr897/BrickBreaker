@@ -12,8 +12,7 @@ namespace BrickBreaker
 {
     public partial class Form1 : Form
     {
-        public static int formWidth;
-        public static int formHeight;
+        public static int formWidth, formHeight;
 
         public Form1()
         {

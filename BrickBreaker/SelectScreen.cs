@@ -27,11 +27,11 @@ namespace BrickBreaker
             if(e.KeyCode == Keys.Enter && usernameInput.Text != "")
             {
                 username = usernameInput.Text;
-                checkBox1.Checked = true;
+                usernameCheckbox.Checked = true;
             }
             else
             {
-                checkBox1.Checked = false;
+                usernameCheckbox.Checked = false;
             }
         }
 
@@ -42,7 +42,7 @@ namespace BrickBreaker
 
         private void levelsButton_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (usernameCheckbox.Checked == true)
             {
                 GameScreen.gameLevel = 1;
                 GameScreen.isSaveLevelSelcted = false;
@@ -58,7 +58,7 @@ namespace BrickBreaker
 
         public void ButtonClick(int _level)
         {
-            if (checkBox1.Checked == true)
+            if (usernameCheckbox.Checked == true)
             {
                 GameScreen.saveLevel = _level;
                 GameScreen.isSaveLevelSelcted = true;
@@ -114,6 +114,11 @@ namespace BrickBreaker
         private void backButton_Click(object sender, EventArgs e)
         {
             Form1.ChangeScreen(this, new MenuScreen());
+        }
+
+        private void partyModeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            GameScreen.partyMode = partyModeCheckbox.Checked;
         }
     }
 }

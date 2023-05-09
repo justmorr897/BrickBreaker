@@ -11,10 +11,7 @@ namespace BrickBreaker
     {
         public int width = 50;
         public int height = 25;
-
-        public int x;
-        public int y; 
-        public int hp;
+        public int x, y, hp;
         public Color colour;
 
         //animation

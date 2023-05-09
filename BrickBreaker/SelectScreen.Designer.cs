@@ -36,21 +36,22 @@
             this.SaveButton2 = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
             this.levelsButton = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.usernameCheckbox = new System.Windows.Forms.CheckBox();
             this.errorLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.partyModeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // usernameInput
             // 
-            this.usernameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameInput.Location = new System.Drawing.Point(215, 177);
+            this.usernameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.usernameInput.Location = new System.Drawing.Point(230, 143);
             this.usernameInput.Name = "usernameInput";
-            this.usernameInput.Size = new System.Drawing.Size(185, 26);
+            this.usernameInput.Size = new System.Drawing.Size(185, 29);
             this.usernameInput.TabIndex = 0;
             this.usernameInput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.textBox1_PreviewKeyDown);
             // 
@@ -118,7 +119,7 @@
             // 
             this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.Location = new System.Drawing.Point(215, 139);
+            this.titleLabel.Location = new System.Drawing.Point(215, 105);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(185, 35);
             this.titleLabel.TabIndex = 6;
@@ -136,22 +137,22 @@
             this.levelsButton.UseVisualStyleBackColor = true;
             this.levelsButton.Click += new System.EventHandler(this.levelsButton_Click);
             // 
-            // checkBox1
+            // usernameCheckbox
             // 
-            this.checkBox1.BackColor = System.Drawing.Color.Transparent;
-            this.checkBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox1.Location = new System.Drawing.Point(406, 177);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(19, 26);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox1.UseVisualStyleBackColor = false;
+            this.usernameCheckbox.BackColor = System.Drawing.Color.Transparent;
+            this.usernameCheckbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.usernameCheckbox.Location = new System.Drawing.Point(211, 143);
+            this.usernameCheckbox.Name = "usernameCheckbox";
+            this.usernameCheckbox.Size = new System.Drawing.Size(19, 26);
+            this.usernameCheckbox.TabIndex = 7;
+            this.usernameCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.usernameCheckbox.UseVisualStyleBackColor = false;
             // 
             // errorLabel
             // 
             this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(163, 74);
+            this.errorLabel.Location = new System.Drawing.Point(163, 40);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.Size = new System.Drawing.Size(311, 65);
             this.errorLabel.TabIndex = 8;
@@ -162,7 +163,7 @@
             // backButton
             // 
             this.backButton.Location = new System.Drawing.Point(22, 11);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(82, 34);
             this.backButton.TabIndex = 9;
@@ -174,7 +175,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::BrickBreaker.Properties.Resources.Duck01;
-            this.pictureBox1.Location = new System.Drawing.Point(42, 144);
+            this.pictureBox1.Location = new System.Drawing.Point(42, 110);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(155, 100);
             this.pictureBox1.TabIndex = 10;
@@ -184,11 +185,25 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::BrickBreaker.Properties.Resources.Duck01;
-            this.pictureBox2.Location = new System.Drawing.Point(431, 142);
+            this.pictureBox2.Location = new System.Drawing.Point(431, 108);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(155, 100);
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
+            // 
+            // partyModeCheckbox
+            // 
+            this.partyModeCheckbox.BackColor = System.Drawing.Color.Transparent;
+            this.partyModeCheckbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.partyModeCheckbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.partyModeCheckbox.Location = new System.Drawing.Point(211, 178);
+            this.partyModeCheckbox.Name = "partyModeCheckbox";
+            this.partyModeCheckbox.Size = new System.Drawing.Size(165, 46);
+            this.partyModeCheckbox.TabIndex = 13;
+            this.partyModeCheckbox.Text = "Party Mode";
+            this.partyModeCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.partyModeCheckbox.UseVisualStyleBackColor = false;
+            this.partyModeCheckbox.CheckedChanged += new System.EventHandler(this.partyModeCheckbox_CheckedChanged);
             // 
             // SelectScreen
             // 
@@ -196,11 +211,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
+            this.Controls.Add(this.partyModeCheckbox);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.errorLabel);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.usernameCheckbox);
             this.Controls.Add(this.levelsButton);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.SaveButton2);
@@ -229,10 +245,11 @@
         private System.Windows.Forms.Button SaveButton2;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Button levelsButton;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox usernameCheckbox;
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.CheckBox partyModeCheckbox;
     }
 }
