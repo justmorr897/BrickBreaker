@@ -24,7 +24,6 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
-        Boolean wDown, aDown, sDown, dDown = false;
         bool shotReady = false;    
 
         // Game values
@@ -34,8 +33,6 @@ namespace BrickBreaker
         int totalLevels = 5;
         int timerDrawLocation = 0;
         int crosshairX, crosshairY;
-        int placeHolder;
-        bool up = true;
         int gravity = 1;
         int shotgunShots = 0;
         int clickCounter = 0;
@@ -46,7 +43,7 @@ namespace BrickBreaker
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
-        public static bool shotgunPowerUp = true;
+        public static bool shotgunPowerUp = false;
 
         // timers
         public static int paddleSizeTimer = 0;
