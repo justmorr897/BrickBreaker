@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Xml;
+using System.IO;
+using System.Diagnostics;
 
 namespace BrickBreaker
 {
@@ -22,7 +24,7 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
-        Boolean wDown, aDown, sDown, dDown = false;
+        bool shotReady = false;    
 
         // Game values
         public static int lives;
@@ -31,9 +33,9 @@ namespace BrickBreaker
         int totalLevels = 5;
         int timerDrawLocation = 0;
         int crosshairX, crosshairY;
-        int placeHolder;
-        bool up = true;
         int gravity = 1;
+        int shotgunShots = 0;
+        int clickCounter = 0;
 
         public bool awaitingLaunch = true;
         public static bool edgeProtector = false;
@@ -102,6 +104,8 @@ namespace BrickBreaker
 
         // List of all colours for good power ups
         public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime };
+        Stopwatch stopwatch = new Stopwatch();
+
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
@@ -120,8 +124,6 @@ namespace BrickBreaker
             crosshairY = this.Height / 2;
 
             font = new Font("Arial", 24, FontStyle.Bold);
-
-            //Cursor.Hide();
 
             OnStart();
         }
@@ -163,23 +165,9 @@ namespace BrickBreaker
 
             LevelBuild();
 
-            //blocks.Clear();
-            //int x = 10;
-
-            //while (blocks.Count < 12) // Originally 12
-            //{
-            //    x += 57;
-            //    Block b1 = new Block(x, 10, 1, Color.White);
-            //    blocks.Add(b1);
-            //}
-
             #endregion
 
-            // start the game engine loop
-            //gameTimer.Enabled = true;
-
             // Just make sure the ball doesnt move on start
-            balls[0].canMove = false;
         }
 
 
@@ -188,7 +176,7 @@ namespace BrickBreaker
             //balls.Clear();
             //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
-            string color;
+            string color, level;
 
             blocks.Clear();
             XmlReader reader;
@@ -197,11 +185,14 @@ namespace BrickBreaker
             {
                 string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
+                level = "Save Level" + saveLevel.ToString();
+
             }
             else
             {
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
+                level = "Level" + gameLevel.ToString();
             }
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
@@ -232,12 +223,18 @@ namespace BrickBreaker
 
             reader.Close();
 
-            //Ball newBall = new Ball(this.Width / 2 - 10, this.Height - paddle.height - 80, 4, 4, 20);
-            //balls.Add(newBall);
-
             this.Focus();
             gameTimer.Enabled = true;
             this.Focus();
+
+
+            for(int i = 1; i < balls.Count; i++)
+            {
+                balls.RemoveAt(i);
+            }
+
+            WritePowerupMessage(level);
+            balls[0].canMove = false;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -256,7 +253,14 @@ namespace BrickBreaker
                     spaceDown = true;
                     break;
                 case Keys.P:
-                    shotgunPowerUp = false;
+                    if(pauseLabel.Visible == false)
+                    {
+                        Pause();
+                    }
+                    else
+                    {
+                        Resume();
+                    }
                     break;
                 default:
                     break;
@@ -355,7 +359,7 @@ namespace BrickBreaker
                         {
                             JustinCode();
 
-                            if (random.Next(1, 9) == 1)
+                            if (random.Next(1, 8) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -370,8 +374,6 @@ namespace BrickBreaker
                             deadBlocks.Add(b);
                             blocks.Remove(b);
                         }
-
-
 
                         break;
                     }
@@ -414,14 +416,12 @@ namespace BrickBreaker
 
             foreach (Block deadBlock in deadBlocks)
             {
-                //int y = deadBlock.y;
                 int speed = 4;
 
                 if (deadBlock.y < this.Height)
                 {
                     deadBlock.y += speed + gravity;
                     gravity += 1;
-
                 }
 
                 if (deadBlock.y > this.Height)
@@ -431,8 +431,18 @@ namespace BrickBreaker
                     //up = true;
                     break;
                 }
+            }
 
+            if (shotgunPowerUp && shotReady == true)
+            {
+                //if (stopwatch.ElapsedMilliseconds > 1500)
+                //{
+                    var reloadSound = new System.Windows.Media.MediaPlayer();
+                    reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                    reloadSound.Play();
 
+                    shotReady = false;
+                //}
             }
 
             foreach (Block b in blocks)
@@ -471,6 +481,7 @@ namespace BrickBreaker
 
             explosions.Clear();
 
+            //redraw the screen
             Refresh();
         }
 
@@ -503,14 +514,36 @@ namespace BrickBreaker
         {
             if (shotgunPowerUp && !moveBall)
             {
+              if (shotgunPowerUp && shotgunShots < 3)
+              {
+                string file = Application.StartupPath + "/Resources/Shot.wav";
+
+                var shotSound = new System.Windows.Media.MediaPlayer();
+                shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
+                shotSound.Play();
+
+                stopwatch.Start();
+                shotReady = true;
+
+                //var reloadSound = new System.Windows.Media.MediaPlayer();
+                //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                //reloadSound.Play();
+
                 for (int i = blocks.Count - 1; i >= 0; i--)
                 {
                     if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
                     {
                         deadBlocks.Add(blocks[i]);
                         blocks.Remove(blocks[i]);
+                        score++;
                     }
                 }
+
+            }
+            else
+            {
+                shotgunPowerUp = false;
+                shotgunShots = 0;
             }
 
             if (moveBall && Math.Abs(crosshairX - balls[0].x) < 150 && Math.Abs(crosshairY - balls[0].y) < 150)
@@ -519,11 +552,14 @@ namespace BrickBreaker
                 balls[0].y = crosshairY;
                 moveBall = false;
             }
+            }
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
 
+
+            shotgunShots++;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -533,15 +569,10 @@ namespace BrickBreaker
 
         private void resumeButton_Click(object sender, EventArgs e)
         {
-            gameTimer.Enabled = true;
-            pauseLabel.Visible = false;
-            pauseLivesLabel.Visible = false;
-            pauseScoreLabel.Visible = false;
-            exitButton.Visible = false;
-            resumeButton.Visible = false;
+            Resume();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public void Pause()
         {
             gameTimer.Enabled = false;
             pauseLabel.Visible = true;
@@ -558,6 +589,31 @@ namespace BrickBreaker
 
             pauseLivesLabel.Text = $"Lives: {lives}";
             pauseScoreLabel.Text = $"Score: {score}";
+        }
+
+        public void Resume()
+        {
+            gameTimer.Enabled = true;
+            pauseLabel.Visible = false;
+            pauseLivesLabel.Visible = false;
+            pauseScoreLabel.Visible = false;
+            exitButton.Visible = false;
+            resumeButton.Visible = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            clickCounter++;
+
+            if(clickCounter % 2 == 0)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+
+            }
         }
 
         public void OnEnd()
@@ -734,7 +790,8 @@ namespace BrickBreaker
         public void TheodoropoulosCode()
         {
             theoTracker++;
-            if (theoTracker == 30)
+            
+            if(theoTracker == 15)
             {
                 theoTracker = 0;
                 foreach (Block b in blocks)

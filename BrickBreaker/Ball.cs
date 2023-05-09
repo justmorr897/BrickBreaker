@@ -6,7 +6,7 @@ namespace BrickBreaker
 {
     public class Ball
     {
-        public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY;
+        public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY, startXSpeed, startYSpeed;
         public int speed = 1;
         public Color colour;
         public bool canMove = false;
@@ -21,6 +21,8 @@ namespace BrickBreaker
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
+            startXSpeed = xSpeed;
+            startYSpeed = ySpeed;
         }
 
         public void Move()
@@ -64,14 +66,6 @@ namespace BrickBreaker
                         x = prevX;
                         y = prevY;
 
-                        //if (xSpeed > 0)
-                        //{
-                        //    ball.x = ball.x - size;
-                        //}
-                        //else if (xSpeed < 0)
-                        //{
-                        //    ball.x = ball.x + size;
-                        //}
                     }
                     else // hits anywhere else
                     {
@@ -80,14 +74,6 @@ namespace BrickBreaker
                         x = prevX;
                         y = prevY;
                         
-                        //if (ySpeed > 0)
-                        //{
-                        //    ball.y = ball.y + size;
-                        //}
-                        //else if (ySpeed < 0)
-                        //{
-                        //    ball.y = ball.y - size;
-                        //}
                     }
                 }
             }
@@ -108,6 +94,9 @@ namespace BrickBreaker
                 }
 
                 ySpeed *= -1;
+
+                // Adjust Angle
+                AdjustAngle("X");
 
                 // Get Direction
                 if (GameScreen.leftArrowDown)
@@ -131,7 +120,9 @@ namespace BrickBreaker
                     stuck = true;
                     xStuck = x - GameScreen.paddle.x;
                 }
-            }   
+               
+            }
+       
         }
 
         public void WallCollision(UserControl UC)
@@ -141,20 +132,17 @@ namespace BrickBreaker
             {
                 xSpeed *= -1;
                 x = size;
-                AdjustAngle("Y");
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 xSpeed *= -1;
                 x = UC.Width - size;
-                AdjustAngle("Y");
             }
             // Collision with top wall
             if (y <= 2)
             {
                 ySpeed *= -1;
-                AdjustAngle("X");
             }
         }
 
@@ -166,8 +154,30 @@ namespace BrickBreaker
              * the initial value or reset it back to that
              */
 
-            int randomNum = rand.Next(0, 3);
+            int randomNum = rand.Next(0, 5);
 
+            if (direction == "X")
+            {
+                switch (randomNum)
+                {
+                    case 0:
+                        xSpeed = startXSpeed - 2;
+                        break;
+                    case 1:
+                        xSpeed = startXSpeed - 1;
+                        break;
+                    case 2:
+                        xSpeed = startXSpeed;
+                        break;
+                    case 3:
+                        xSpeed = startXSpeed + 1;
+                        break;
+                    case 4:
+                        xSpeed = startXSpeed + 2;
+                        break;
+                }
+
+            }
 
         }
 

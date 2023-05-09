@@ -83,6 +83,7 @@ namespace BrickBreaker
                 Rectangle PaddleRec = new Rectangle(GameScreen.paddle.x, GameScreen.paddle.y, GameScreen.paddle.width, GameScreen.paddle.height);
                 if (PowerUpRec.IntersectsWith(PaddleRec))
                 {
+
                     if (type > 0 && type < 99)
                     {
                         if (type == 1)

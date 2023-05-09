@@ -17,7 +17,6 @@ namespace BrickBreaker
         List<TextBox> textboxList = new List<TextBox>();
 
         TextBox textbox = new TextBox();
-        SolidBrush redbrush = new SolidBrush(Color.Red);
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
         int mouseX;
@@ -45,52 +44,63 @@ namespace BrickBreaker
 
         public void Print()
         {
+            bool isOverlapping = false;
+
             if (drawPen.Color == Color.Blue)
             {
-                rectangles.Add(newRect);
-
-                textbox = new TextBox();
-
-                if (color == 1)
+                for (int i = 0; i < rectangles.Count; i++)
                 {
-                    textbox.BackColor = Color.Green;
-                    textbox.Text = "1";
+                    if (newRect.IntersectsWith(rectangles[i]))
+                    {
+                        isOverlapping = true;
+                    }
                 }
-                else if (color == 2)
-                {
-                    textbox.BackColor = Color.DarkCyan;
-                    textbox.Text = "2";
-                }
-                else if (color == 3)
-                {
-                    textbox.BackColor = Color.Orange;
-                    textbox.Text = "3";
-                }
-                else if (color == 4)
-                {
-                    textbox.BackColor = Color.Purple;
-                    textbox.Text = "4";
-                }
-                else if (color == 5)
-                {
-                    textbox.BackColor = Color.Gold;
-                    textbox.Text = "5";
-                }
-                
 
-                textbox.Font = new Font("Arial", 13);
-                textbox.Location = new Point(mouseX, mouseY);
-                textbox.Size = new Size(width, height);
-                textbox.ForeColor = Color.White;
-                textbox.TextAlign = HorizontalAlignment.Center;
-                textbox.ReadOnly = true;
+                if (isOverlapping == false)
+                {
+                    rectangles.Add(newRect);
 
-                textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                    textbox = new TextBox();
 
-                this.Controls.Add(textbox);
-                textbox.Focus();
+                    if (color == 1)
+                    {
+                        textbox.BackColor = Color.Green;
+                        textbox.Text = "1";
+                    }
+                    else if (color == 2)
+                    {
+                        textbox.BackColor = Color.DarkCyan;
+                        textbox.Text = "2";
+                    }
+                    else if (color == 3)
+                    {
+                        textbox.BackColor = Color.Orange;
+                        textbox.Text = "3";
+                    }
+                    else if (color == 4)
+                    {
+                        textbox.BackColor = Color.Purple;
+                        textbox.Text = "4";
+                    }
+                    else if (color == 5)
+                    {
+                        textbox.BackColor = Color.Gold;
+                        textbox.Text = "5";
+                    }
 
-                textboxList.Add(textbox);
+
+                    textbox.Font = new Font("Arial", 13);
+                    textbox.Location = new Point(mouseX, mouseY);
+                    textbox.Size = new Size(width, height);
+                    textbox.ForeColor = Color.White;
+                    textbox.TextAlign = HorizontalAlignment.Center;
+                    textbox.ReadOnly = true;
+
+                    textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                    this.Controls.Add(textbox);
+                    textbox.Focus();
+                    textboxList.Add(textbox);
+                }
             }
         }
 
@@ -214,7 +224,6 @@ namespace BrickBreaker
                 level5Button.Location = new Point(level5Button.Location.X + buttonSpeed, level5Button.Location.Y);
                 level5Button.Refresh();
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -306,14 +315,12 @@ namespace BrickBreaker
             }
 
             writer.WriteEndElement();
-
             writer.Close();
 
             int length = this.Controls.Count;
 
             for (int i = length - 13; i >= 0; i--)
             {
-                //this.Controls.RemoveAt(i);
                 this.Controls.Remove(textboxList[i]);
             }
 
@@ -323,7 +330,6 @@ namespace BrickBreaker
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
-            //level5Button.Enabled = false;
         }
     }
 }
