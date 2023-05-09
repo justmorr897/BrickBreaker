@@ -36,12 +36,6 @@ namespace BrickBreaker
         public bool CrossHairCollision(Block block, Rectangle _crosshairRectangle)
         {
             Rectangle blockRec = new Rectangle(block.x, block.y, block.width, block.height);
-            //Rectangle ballRec = new Rectangle(x, y, size, size);
-
-            //if (_crosshairRectangle.IntersectsWith(blockRec))
-            //{
-               
-            //}
 
             return blockRec.IntersectsWith(_crosshairRectangle);
         }

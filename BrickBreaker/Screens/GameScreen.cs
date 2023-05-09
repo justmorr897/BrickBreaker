@@ -192,7 +192,7 @@ namespace BrickBreaker
             {
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
-                level = "Level" + gameLevel.ToString();
+                level = "Level" + " " + gameLevel.ToString();
             }
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
@@ -403,13 +403,8 @@ namespace BrickBreaker
             {
                 CooperCode();
                 gameTimer.Enabled = false;
-                Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
 
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
+                Form1.ChangeScreen(this, new MenuScreen());
                 //OnEnd();
             }
             TheodoropoulosCode();
@@ -622,13 +617,7 @@ namespace BrickBreaker
             else if (gameLevel >= totalLevels || saveLevel >= totalLevels)
             {
                 // Goes to the game over screen
-                Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
+                Form1.ChangeScreen(this, new MenuScreen());
             }
         }
 

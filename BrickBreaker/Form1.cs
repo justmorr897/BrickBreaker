@@ -18,7 +18,6 @@ namespace BrickBreaker
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -27,10 +26,7 @@ namespace BrickBreaker
             formHeight = this.Height;
 
             // Start the program centred on the Menu Screen
-            MenuScreen ms = new MenuScreen();
-            this.Controls.Add(ms);
-
-            ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
+            ChangeScreen(this, new MenuScreen());
         }
 
         public static void ChangeScreen(object sender, UserControl next)

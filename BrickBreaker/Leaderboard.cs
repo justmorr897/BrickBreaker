@@ -16,7 +16,6 @@ namespace BrickBreaker
         public Leaderboard()
         {
             InitializeComponent();
-            //CooperCode();
             PrintToScreen();
         }
 
@@ -25,15 +24,18 @@ namespace BrickBreaker
             nameLabelColumn.Text = "Username:";
             scoreLabelColumn.Text = "Score:";
 
-            //MenuScreen.scores.Sort();
             List<Scores> sortedScores = MenuScreen.scores.OrderByDescending(x => x.score).ToList();
 
             foreach (Scores s in sortedScores)
             {
                 nameLabelColumn.Text += $"\n{s.name}";
                 scoreLabelColumn.Text += $"\n{s.score}";
-
             }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
         }
     }
 }

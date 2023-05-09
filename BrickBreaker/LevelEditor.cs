@@ -191,6 +191,8 @@ namespace BrickBreaker
             level3Button.Visible = !level3Button.Visible;
             level4Button.Visible = !level4Button.Visible;
             level5Button.Visible = !level5Button.Visible;
+            backButton.Visible = !backButton.Visible;
+
 
             level1Button.Location = new Point(-140, level1Button.Location.Y);
             level2Button.Location = new Point(-140, level2Button.Location.Y);
@@ -330,6 +332,11 @@ namespace BrickBreaker
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
         }
     }
 }

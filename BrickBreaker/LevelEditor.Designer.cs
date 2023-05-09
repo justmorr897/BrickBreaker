@@ -40,14 +40,15 @@
             this.level4Button = new System.Windows.Forms.Button();
             this.level5Button = new System.Windows.Forms.Button();
             this.outputLabel = new System.Windows.Forms.Label();
+            this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 608);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button1.Location = new System.Drawing.Point(4, 748);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 30);
+            this.button1.Size = new System.Drawing.Size(139, 37);
             this.button1.TabIndex = 0;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
@@ -58,9 +59,10 @@
             // 
             this.oneHPButton.BackColor = System.Drawing.Color.Green;
             this.oneHPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oneHPButton.Location = new System.Drawing.Point(55, 642);
+            this.oneHPButton.Location = new System.Drawing.Point(73, 790);
+            this.oneHPButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.oneHPButton.Name = "oneHPButton";
-            this.oneHPButton.Size = new System.Drawing.Size(95, 45);
+            this.oneHPButton.Size = new System.Drawing.Size(127, 55);
             this.oneHPButton.TabIndex = 1;
             this.oneHPButton.Text = "1 HP";
             this.oneHPButton.UseVisualStyleBackColor = false;
@@ -70,9 +72,10 @@
             // 
             this.twoHPButton.BackColor = System.Drawing.Color.DarkCyan;
             this.twoHPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.twoHPButton.Location = new System.Drawing.Point(155, 642);
+            this.twoHPButton.Location = new System.Drawing.Point(207, 790);
+            this.twoHPButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.twoHPButton.Name = "twoHPButton";
-            this.twoHPButton.Size = new System.Drawing.Size(95, 45);
+            this.twoHPButton.Size = new System.Drawing.Size(127, 55);
             this.twoHPButton.TabIndex = 2;
             this.twoHPButton.Text = "2 HP";
             this.twoHPButton.UseVisualStyleBackColor = false;
@@ -82,9 +85,10 @@
             // 
             this.threeHPButton.BackColor = System.Drawing.Color.Orange;
             this.threeHPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.threeHPButton.Location = new System.Drawing.Point(255, 642);
+            this.threeHPButton.Location = new System.Drawing.Point(340, 790);
+            this.threeHPButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.threeHPButton.Name = "threeHPButton";
-            this.threeHPButton.Size = new System.Drawing.Size(95, 45);
+            this.threeHPButton.Size = new System.Drawing.Size(127, 55);
             this.threeHPButton.TabIndex = 3;
             this.threeHPButton.Text = "3 HP";
             this.threeHPButton.UseVisualStyleBackColor = false;
@@ -94,9 +98,10 @@
             // 
             this.fiveHPButton.BackColor = System.Drawing.Color.Gold;
             this.fiveHPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fiveHPButton.Location = new System.Drawing.Point(455, 642);
+            this.fiveHPButton.Location = new System.Drawing.Point(607, 790);
+            this.fiveHPButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fiveHPButton.Name = "fiveHPButton";
-            this.fiveHPButton.Size = new System.Drawing.Size(95, 45);
+            this.fiveHPButton.Size = new System.Drawing.Size(127, 55);
             this.fiveHPButton.TabIndex = 4;
             this.fiveHPButton.Text = "5 HP";
             this.fiveHPButton.UseVisualStyleBackColor = false;
@@ -106,9 +111,10 @@
             // 
             this.fourHPButton.BackColor = System.Drawing.Color.Purple;
             this.fourHPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fourHPButton.Location = new System.Drawing.Point(355, 642);
+            this.fourHPButton.Location = new System.Drawing.Point(473, 790);
+            this.fourHPButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fourHPButton.Name = "fourHPButton";
-            this.fourHPButton.Size = new System.Drawing.Size(95, 45);
+            this.fourHPButton.Size = new System.Drawing.Size(127, 55);
             this.fourHPButton.TabIndex = 7;
             this.fourHPButton.Text = "4 HP";
             this.fourHPButton.UseVisualStyleBackColor = false;
@@ -121,9 +127,10 @@
             this.level1Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.level1Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.level1Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level1Button.Location = new System.Drawing.Point(-140, 250);
+            this.level1Button.Location = new System.Drawing.Point(-187, 308);
+            this.level1Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level1Button.Name = "level1Button";
-            this.level1Button.Size = new System.Drawing.Size(174, 41);
+            this.level1Button.Size = new System.Drawing.Size(232, 50);
             this.level1Button.TabIndex = 9;
             this.level1Button.Text = "Save Level 1";
             this.level1Button.UseVisualStyleBackColor = false;
@@ -137,9 +144,10 @@
             this.level2Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.level2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.level2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level2Button.Location = new System.Drawing.Point(-140, 320);
+            this.level2Button.Location = new System.Drawing.Point(-187, 394);
+            this.level2Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level2Button.Name = "level2Button";
-            this.level2Button.Size = new System.Drawing.Size(174, 41);
+            this.level2Button.Size = new System.Drawing.Size(232, 50);
             this.level2Button.TabIndex = 10;
             this.level2Button.Text = "Save Level 2";
             this.level2Button.UseVisualStyleBackColor = false;
@@ -153,9 +161,10 @@
             this.level3Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.level3Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.level3Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level3Button.Location = new System.Drawing.Point(-140, 390);
+            this.level3Button.Location = new System.Drawing.Point(-187, 480);
+            this.level3Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level3Button.Name = "level3Button";
-            this.level3Button.Size = new System.Drawing.Size(174, 41);
+            this.level3Button.Size = new System.Drawing.Size(232, 50);
             this.level3Button.TabIndex = 11;
             this.level3Button.Text = "Save Level 3";
             this.level3Button.UseVisualStyleBackColor = false;
@@ -169,9 +178,10 @@
             this.level4Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.level4Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.level4Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level4Button.Location = new System.Drawing.Point(-140, 460);
+            this.level4Button.Location = new System.Drawing.Point(-187, 566);
+            this.level4Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level4Button.Name = "level4Button";
-            this.level4Button.Size = new System.Drawing.Size(174, 41);
+            this.level4Button.Size = new System.Drawing.Size(232, 50);
             this.level4Button.TabIndex = 12;
             this.level4Button.Text = "Save Level 4";
             this.level4Button.UseVisualStyleBackColor = false;
@@ -185,9 +195,10 @@
             this.level5Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.level5Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.level5Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.level5Button.Location = new System.Drawing.Point(-140, 530);
+            this.level5Button.Location = new System.Drawing.Point(-187, 652);
+            this.level5Button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.level5Button.Name = "level5Button";
-            this.level5Button.Size = new System.Drawing.Size(174, 41);
+            this.level5Button.Size = new System.Drawing.Size(232, 50);
             this.level5Button.TabIndex = 13;
             this.level5Button.Text = "Save Level 5";
             this.level5Button.UseVisualStyleBackColor = false;
@@ -200,19 +211,32 @@
             this.outputLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.outputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outputLabel.ForeColor = System.Drawing.Color.Black;
-            this.outputLabel.Location = new System.Drawing.Point(155, 594);
+            this.outputLabel.Location = new System.Drawing.Point(207, 731);
+            this.outputLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.outputLabel.Name = "outputLabel";
-            this.outputLabel.Size = new System.Drawing.Size(295, 44);
+            this.outputLabel.Size = new System.Drawing.Size(393, 54);
             this.outputLabel.TabIndex = 14;
             this.outputLabel.Text = "Level 1 Saved";
             this.outputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.outputLabel.Visible = false;
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(30, 13);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(110, 42);
+            this.backButton.TabIndex = 15;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Visible = false;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // LevelEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.outputLabel);
             this.Controls.Add(this.level5Button);
             this.Controls.Add(this.level4Button);
@@ -225,9 +249,9 @@
             this.Controls.Add(this.twoHPButton);
             this.Controls.Add(this.oneHPButton);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.Name = "LevelEditor";
-            this.Size = new System.Drawing.Size(600, 701);
+            this.Size = new System.Drawing.Size(800, 863);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.LevelEditor_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseClick);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LevelEditor_MouseMove);
@@ -249,5 +273,6 @@
         private System.Windows.Forms.Button level4Button;
         private System.Windows.Forms.Button level5Button;
         private System.Windows.Forms.Label outputLabel;
+        private System.Windows.Forms.Button backButton;
     }
 }

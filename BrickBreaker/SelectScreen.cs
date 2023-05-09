@@ -13,7 +13,7 @@ namespace BrickBreaker
     public partial class SelectScreen : UserControl
     {
         public static string username;
-        bool usernameEntered = false;
+        int level; 
 
         public SelectScreen()
         {
@@ -37,13 +37,7 @@ namespace BrickBreaker
 
         public void ChangeScreen()
         {
-            GameScreen gs = new GameScreen();
-            Form form = this.FindForm();
-
-            form.Controls.Add(gs);
-            form.Controls.Remove(this);
-
-            gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+            Form1.ChangeScreen(this, new GameScreen());
         }
 
         private void levelsButton_Click(object sender, EventArgs e)
@@ -60,98 +54,66 @@ namespace BrickBreaker
                 Error();
 
             }
+        }
 
+        public void ButtonClick(int _level)
+        {
+            if (checkBox1.Checked == true)
+            {
+                GameScreen.saveLevel = _level;
+                GameScreen.isSaveLevelSelcted = true;
+                Form1.ChangeScreen(this, new GameScreen());
 
+            }
+            else
+            {
+                Error();
+            }
         }
 
         private void SaveButton1_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 1;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
+            Button button = sender as Button;
+            level = Convert.ToInt32(button.Tag);
+            ButtonClick(level);
 
-            }
-            else
-            {
-                Error();
-
-            }
-
+            //level = 1;
+            //ButtonClick(level);
         }
 
         private void SaveButton2_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 2;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
+            level = 2;
+            ButtonClick(level);
         }
 
         private void SaveButton3_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 3;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
+            level = 3;
+            ButtonClick(level);
         }
 
         private void SaveButton4_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 4;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
+            level = 4;
+            ButtonClick(level);
         }
 
         private void SaveButton5_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 5;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-            }
-
+            level = 5;
+            ButtonClick(level);
         }
 
         public void Error()
         {
             errorLabel.Visible = true;
             usernameInput.Focus();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
         }
     }
 }
