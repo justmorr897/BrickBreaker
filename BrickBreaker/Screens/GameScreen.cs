@@ -24,7 +24,7 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
-        bool shotReady = false;    
+        bool shotReady = false;
 
         // Game values
         public static int lives;
@@ -228,7 +228,7 @@ namespace BrickBreaker
             this.Focus();
 
 
-            for(int i = 1; i < balls.Count; i++)
+            for (int i = 1; i < balls.Count; i++)
             {
                 balls.RemoveAt(i);
             }
@@ -253,7 +253,7 @@ namespace BrickBreaker
                     spaceDown = true;
                     break;
                 case Keys.P:
-                    if(pauseLabel.Visible == false)
+                    if (pauseLabel.Visible == false)
                     {
                         Pause();
                     }
@@ -359,7 +359,7 @@ namespace BrickBreaker
                         {
                             JustinCode();
 
-                            if (random.Next(1, 8) == 1)
+                            if (random.Next(1, 2) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
                                 {
@@ -437,11 +437,11 @@ namespace BrickBreaker
             {
                 //if (stopwatch.ElapsedMilliseconds > 1500)
                 //{
-                    var reloadSound = new System.Windows.Media.MediaPlayer();
-                    reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
-                    reloadSound.Play();
+                var reloadSound = new System.Windows.Media.MediaPlayer();
+                reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                reloadSound.Play();
 
-                    shotReady = false;
+                shotReady = false;
                 //}
             }
 
@@ -514,36 +514,38 @@ namespace BrickBreaker
         {
             if (shotgunPowerUp && !moveBall)
             {
-              if (shotgunPowerUp && shotgunShots < 3)
-              {
-                string file = Application.StartupPath + "/Resources/Shot.wav";
-
-                var shotSound = new System.Windows.Media.MediaPlayer();
-                shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
-                shotSound.Play();
-
-                stopwatch.Start();
-                shotReady = true;
-
-                //var reloadSound = new System.Windows.Media.MediaPlayer();
-                //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
-                //reloadSound.Play();
-
-                for (int i = blocks.Count - 1; i >= 0; i--)
+                if (shotgunPowerUp && shotgunShots < 3)
                 {
-                    if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
+                    string file = Application.StartupPath + "/Resources/Shot.wav";
+
+                    var shotSound = new System.Windows.Media.MediaPlayer();
+                    shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
+                    shotSound.Play();
+
+                    stopwatch.Start();
+                    shotReady = true;
+
+                    //var reloadSound = new System.Windows.Media.MediaPlayer();
+                    //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
+                    //reloadSound.Play();
+
+                    for (int i = blocks.Count - 1; i >= 0; i--)
                     {
-                        deadBlocks.Add(blocks[i]);
-                        blocks.Remove(blocks[i]);
-                        score++;
+                        if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
+                        {
+                            deadBlocks.Add(blocks[i]);
+                            blocks.Remove(blocks[i]);
+                            score++;
+                        }
                     }
+
+                }
+                else
+                {
+                    shotgunPowerUp = false;
+                    shotgunShots = 0;
                 }
 
-            }
-            else
-            {
-                shotgunPowerUp = false;
-                shotgunShots = 0;
             }
 
             if (moveBall && Math.Abs(crosshairX - balls[0].x) < 150 && Math.Abs(crosshairY - balls[0].y) < 150)
@@ -552,14 +554,6 @@ namespace BrickBreaker
                 balls[0].y = crosshairY;
                 moveBall = false;
             }
-            }
-        }
-
-        private void pauseButton_Click(object sender, EventArgs e)
-        {
-
-
-            shotgunShots++;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -605,7 +599,7 @@ namespace BrickBreaker
         {
             clickCounter++;
 
-            if(clickCounter % 2 == 0)
+            if (clickCounter % 2 == 0)
             {
                 Resume();
             }
@@ -677,8 +671,6 @@ namespace BrickBreaker
                 e.Graphics.DrawRectangle(moveBallPen, balls[0].x - 150, balls[0].y - 150, 300, 300);
             }
 
-            //e.Graphics.FillRectangle(ballBrush, CrosshairRectangle); 
-
             // Draws Fire for fireball powerup
             foreach (Fire f in flames)
             {
@@ -686,8 +678,6 @@ namespace BrickBreaker
             }
 
             // Draws paddle
-            //paddleBrush.Color = paddle.colour;
-            //e.Graphics.FillRectangle(paddleBrush, paddle.x, paddle.y, paddle.width, paddle.height);
             e.Graphics.DrawImage(paddleImage, paddle.x, paddle.y, paddle.width, paddle.width * 1.1f);
 
 
@@ -790,8 +780,8 @@ namespace BrickBreaker
         public void TheodoropoulosCode()
         {
             theoTracker++;
-            
-            if(theoTracker == 15)
+
+            if (theoTracker == 15)
             {
                 theoTracker = 0;
                 foreach (Block b in blocks)
