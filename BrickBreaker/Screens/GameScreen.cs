@@ -77,7 +77,6 @@ namespace BrickBreaker
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
 
-
         // fire ball power up
         List<Fire> flames = new List<Fire>();
 
@@ -86,9 +85,7 @@ namespace BrickBreaker
 
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
-
         SolidBrush ballBrush = new SolidBrush(Color.Red);
-
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
@@ -106,7 +103,6 @@ namespace BrickBreaker
         public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime };
         Stopwatch stopwatch = new Stopwatch();
 
-
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
         // Font
@@ -123,7 +119,7 @@ namespace BrickBreaker
             crosshairX = this.Width / 2;
             crosshairY = this.Height / 2;
 
-            font = new Font("Arial", 24, FontStyle.Bold);
+            //font = new Font("Arial", 24, FontStyle.Bold);
 
             OnStart();
         }
@@ -132,7 +128,6 @@ namespace BrickBreaker
         {
             //set life counter
             lives = 3;
-
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;
@@ -159,22 +154,11 @@ namespace BrickBreaker
             balls.Clear();
             balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
-            #region Creates blocks for generic level. Need to replace with code that loads levels.
-
-            //TODO - replace all the code in this region eventually with code that loads levels from xml files
-
             LevelBuild();
-
-            #endregion
-
-            // Just make sure the ball doesnt move on start
         }
-
 
         public void LevelBuild()
         {
-            //balls.Clear();
-            //balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
             int x, y, hp;
             string color, level;
 
@@ -194,8 +178,6 @@ namespace BrickBreaker
                 reader = XmlReader.Create(levelFile);
                 level = "Level" + " " + gameLevel.ToString();
             }
-
-            //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
 
             reader.ReadToFollowing("Level");
 
@@ -227,13 +209,14 @@ namespace BrickBreaker
             gameTimer.Enabled = true;
             this.Focus();
 
-
             for (int i = 1; i < balls.Count; i++)
             {
                 balls.RemoveAt(i);
             }
 
             WritePowerupMessage(level);
+
+            // Just to make sure the ball doesnt move on start
             balls[0].canMove = false;
         }
 
@@ -520,6 +503,8 @@ namespace BrickBreaker
                     stopwatch.Start();
                     shotReady = true;
 
+                    shotgunShots++;
+
                     //var reloadSound = new System.Windows.Media.MediaPlayer();
                     //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
                     //reloadSound.Play();
@@ -715,10 +700,30 @@ namespace BrickBreaker
             //}
 
             // Draws powerup message
-            if (messageTimer > 0)
+            //if (messageTimer > 0)
+            //{
+            //    e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height / 2);
+            //}
+
+            if (messageTimer > 50)
             {
-                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height / 2);
+                string text = powerupMessage;
+                using (Font font = new Font($"{powerupMessageFont}", 45, FontStyle.Bold, GraphicsUnit.Point))
+                {
+                    Rectangle rect1 = new Rectangle(0, 25, this.Width, 100);
+
+                    // Create a StringFormat object with the each line of text, and the block
+                    // of text centered on the page.
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+
+                    // Draw the text and the surrounding rectangle.
+                    e.Graphics.DrawString(text, font, Brushes.DarkBlue, rect1, stringFormat);
+                    //e.Graphics.DrawRectangle(Pens.Black, rect1);
+                }
             }
+
 
             // Draw timers
 
