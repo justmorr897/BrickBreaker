@@ -17,7 +17,7 @@ namespace BrickBreaker
         public MenuScreen()
         {
             InitializeComponent();
-            CooperCode();
+            //CooperCode();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
