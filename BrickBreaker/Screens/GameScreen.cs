@@ -40,6 +40,7 @@ namespace BrickBreaker
         public bool awaitingLaunch = true;
         public static bool edgeProtector = false;
         public static bool stickyPaddle = false;
+        public static bool moveBall = false;
         public static int ballDamage = 1;
         public static string powerupMessage = "";
         public static bool isSaveLevelSelcted = false;
@@ -51,6 +52,8 @@ namespace BrickBreaker
         public static int speedBallTimer = 0;
         public static int damageTimer = 0;
         public static int fireBallTimer = 0;
+        public static int explosiveHitTimer = 0;
+        public static int magnetTimer = 0;
         public static int messageTimer = 0;
 
         //pictures for blocks
@@ -69,7 +72,7 @@ namespace BrickBreaker
 
         // list of all blocks for current level
         List<Block> blocks = new List<Block>();
-        List <Block> deadBlocks = new List<Block>();
+        List<Block> deadBlocks = new List<Block>();
 
         // list of power ups
         List<PowerUp> powerups = new List<PowerUp>();
@@ -77,31 +80,37 @@ namespace BrickBreaker
 
         // fire ball power up
         List<Fire> flames = new List<Fire>();
-        
+
+        // explosive hit power up
+        List<Point> explosions = new List<Point>();
+
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.Transparent);
 
         SolidBrush ballBrush = new SolidBrush(Color.Red);
-        
+
         SolidBrush red = new SolidBrush(Color.Red);
         SolidBrush orange = new SolidBrush(Color.Orange);
         SolidBrush yellow = new SolidBrush(Color.Yellow);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
-        SolidBrush timerBrush = new SolidBrush(Color.White);
+        SolidBrush brush = new SolidBrush(Color.White);
+        Color colour = Color.White;
 
-        Pen pen = new Pen(Color.Black);
+        Pen shotgunPen = new Pen(Color.Black);
+        Pen moveBallPen = new Pen(Color.Lime, 3);
 
         Font font;
 
+        // List of all colours for good power ups
+        public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime };
         Stopwatch stopwatch = new Stopwatch();
 
-        public static List<Color> powerupColours = new List<Color>{ Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta };
 
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
 
         // Font
-        Font powerupMessageFont = new Font("Arial", 50);
+        Font powerupMessageFont = new Font("Forte", 50);
 
         Rectangle CrosshairRectangle = new Rectangle();
 
@@ -140,7 +149,7 @@ namespace BrickBreaker
             int ballX = this.Width / 2 - 10;
             int ballY = this.Height - paddle.height - 80;
 
- 
+
             /**
              * Set the ball speed to 0 so it doesnt move upon start so it can be launched
              */
@@ -279,13 +288,13 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            CrosshairRectangle = new Rectangle(crosshairX - 10, crosshairY -10, 20, 20);
+            CrosshairRectangle = new Rectangle(crosshairX - 10, crosshairY - 10, 20, 20);
 
             // Call Ball Launch
             BallLaunch();
 
             livesLabel.Text = $"Lives: {lives}";
-            scoreLabel.Text = $"Score: {score}";    
+            scoreLabel.Text = $"Score: {score}";
 
             // Move the paddle
             if (leftArrowDown && paddle.x > 0)
@@ -300,7 +309,10 @@ namespace BrickBreaker
             foreach (Ball b in balls)
             {
                 b.PaddleCollision(paddle);
-                b.Move();
+                if (!moveBall)
+                {
+                    b.Move();
+                }
                 b.WallCollision(this);
                 if (b.BottomCollision(this))
                 {
@@ -336,8 +348,14 @@ namespace BrickBreaker
                 {
                     if (ball.BlockCollision(b, ball))
                     {
+                        if (explosiveHitTimer > 0)
+                        {
+                            explosions.Add(new Point(ball.x, ball.y));
+                        }
+
                         b.hp -= ballDamage;
-                        if(b.hp <= 0)
+
+                        if (b.hp <= 0)
                         {
                             JustinCode();
 
@@ -361,6 +379,7 @@ namespace BrickBreaker
                     }
                 }
             }
+
 
             if (blocks.Count == 0)
             {
@@ -426,6 +445,41 @@ namespace BrickBreaker
                 //}
             }
 
+            foreach (Block b in blocks)
+            {
+                foreach (Point p in explosions)
+                {
+                    if (p.X - (b.x + b.width / 2) < 160 && p.Y - (b.y + b.height / 2) < 80)
+                    {
+                        b.hp -= ballDamage;
+
+
+                    }
+                }
+                if (b.hp <= 0)
+                {
+                    JustinCode();
+
+                    if (random.Next(1, 9) == 1)
+                    {
+                        if (random.Next(1, 4) == 1)
+                        {
+                            powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
+                        }
+                        else
+                        {
+                            powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
+                        }
+                    }
+
+                    deadBlocks.Add(b);
+                    blocks.Remove(b);
+
+                    break;
+                }
+            }
+
+            explosions.Clear();
 
             //redraw the screen
             Refresh();
@@ -458,8 +512,10 @@ namespace BrickBreaker
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            if (shotgunPowerUp && shotgunShots < 3)
+            if (shotgunPowerUp && !moveBall)
             {
+              if (shotgunPowerUp && shotgunShots < 3)
+              {
                 string file = Application.StartupPath + "/Resources/Shot.wav";
 
                 var shotSound = new System.Windows.Media.MediaPlayer();
@@ -472,7 +528,6 @@ namespace BrickBreaker
                 //var reloadSound = new System.Windows.Media.MediaPlayer();
                 //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
                 //reloadSound.Play();
-
 
                 for (int i = blocks.Count - 1; i >= 0; i--)
                 {
@@ -490,6 +545,19 @@ namespace BrickBreaker
                 shotgunPowerUp = false;
                 shotgunShots = 0;
             }
+
+            if (moveBall && Math.Abs(crosshairX - balls[0].x) < 150 && Math.Abs(crosshairY - balls[0].y) < 150)
+            {
+                balls[0].x = crosshairX;
+                balls[0].y = crosshairY;
+                moveBall = false;
+            }
+            }
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+
 
             shotgunShots++;
         }
@@ -552,13 +620,13 @@ namespace BrickBreaker
         {
             CooperCode();
 
-            if(gameLevel < totalLevels)
+            if (gameLevel < totalLevels)
             {
                 JustinCode2();
 
             }
-            else if(gameLevel >= totalLevels || saveLevel >= totalLevels)
-            {            
+            else if (gameLevel >= totalLevels || saveLevel >= totalLevels)
+            {
                 // Goes to the game over screen
                 Form form = this.FindForm();
                 MenuScreen ps = new MenuScreen();
@@ -577,7 +645,7 @@ namespace BrickBreaker
                 saveLevel++;
                 LevelBuild();
             }
-            else 
+            else
             {
                 gameLevel++;
                 LevelBuild();
@@ -586,12 +654,27 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            if (shotgunPowerUp)
+            if (shotgunPowerUp && !moveBall)
             {
-                e.Graphics.DrawEllipse(pen, crosshairX - 25, crosshairY -25, 50, 50);
-                e.Graphics.DrawLine(pen, crosshairX - 25, crosshairY, crosshairX + 25, crosshairY);
-                e.Graphics.DrawLine(pen, crosshairX , crosshairY - 25, crosshairX, crosshairY + 25);
+                e.Graphics.DrawEllipse(shotgunPen, crosshairX - 25, crosshairY - 25, 50, 50);
+                e.Graphics.DrawLine(shotgunPen, crosshairX - 25, crosshairY, crosshairX + 25, crosshairY);
+                e.Graphics.DrawLine(shotgunPen, crosshairX, crosshairY - 25, crosshairX, crosshairY + 25);
 
+            }
+            if (moveBall)
+            {
+                if (Math.Abs(crosshairX - balls[0].x) < 150 && Math.Abs(crosshairY - balls[0].y) < 150)
+                {
+                    e.Graphics.DrawLine(moveBallPen, crosshairX - 15, crosshairY - 15, crosshairX + 15, crosshairY + 15);
+                    e.Graphics.DrawLine(moveBallPen, crosshairX + 15, crosshairY - 15, crosshairX - 15, crosshairY + 15);
+                }
+                else
+                {
+                    e.Graphics.DrawLine(shotgunPen, crosshairX - 15, crosshairY - 15, crosshairX + 15, crosshairY + 15);
+                    e.Graphics.DrawLine(shotgunPen, crosshairX + 15, crosshairY - 15, crosshairX - 15, crosshairY + 15);
+                }
+
+                e.Graphics.DrawRectangle(moveBallPen, balls[0].x - 150, balls[0].y - 150, 300, 300);
             }
 
             //e.Graphics.FillRectangle(ballBrush, CrosshairRectangle); 
@@ -646,38 +729,75 @@ namespace BrickBreaker
                 e.Graphics.FillRectangle(purple, 0, Height - 5, Width, 5);
             }
 
-            //e.Graphics.DrawImage(Properties.Resources.Paddle, paddle.x, paddle.y, 70, 80);
+            //brush.Color = powerupColours[8];
+            //foreach (Point p in explosions)
+            //{
+            //    e.Graphics.FillEllipse(brush, p.X - 80, p.Y - 40, 160, 80);
+            //}
 
             // Draws powerup message
             if (messageTimer > 0)
             {
-                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height/2);
+                e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height / 2);
             }
 
             // Draw timers
 
-            float pie;
             timerDrawLocation = 0;
 
-            if (paddleSizeTimer > 0)
+            if (random.Next(1, 5) == 1) // Bad power up flash
             {
-                timerDrawLocation += 30;
-                timerBrush.Color = powerupColours[1];
-                pie = paddleSizeTimer / 1000 * 360;
-                e.Graphics.FillPie(timerBrush, Width - 30, timerDrawLocation, 20, 20, 0, pie);
+                if (colour == Color.FromArgb(255, 200, 0))
+                {
+                    colour = Color.FromArgb(255, 100, 0);
+                }
+                else
+                {
+                    colour = Color.FromArgb(255, 200, 0);
+                }
+            }
+
+            if (paddle.width == 160)
+            {
+                DrawTimer(paddleSizeTimer, 1000, powerupColours[1], e);
+            }
+            else
+            {
+                DrawTimer(paddleSizeTimer, 1000, colour, e);
+            }
+            DrawTimer(paddleSpeedTimer, 750, colour, e);
+            DrawTimer(speedBallTimer, 500, colour, e);
+            DrawTimer(damageTimer, 750, powerupColours[6], e);
+            DrawTimer(fireBallTimer, 600, powerupColours[2], e);
+            DrawTimer(explosiveHitTimer, 1000, powerupColours[8], e);
+            DrawTimer(magnetTimer, 2000, powerupColours[9], e);
+
+        }
+
+        public void DrawTimer(int timer, int max, Color colour, PaintEventArgs e)
+        {
+            double pie;
+
+            if (timer > 0)
+            {
+                timerDrawLocation += 40;
+                brush.Color = colour;
+                pie = Math.Round(Convert.ToDouble(timer * 360 / max));
+                e.Graphics.FillPie(brush, Width - 50, timerDrawLocation, 40, 40, -90, Convert.ToInt16(pie));
             }
         }
 
         public void TheodoropoulosCode()
         {
             theoTracker++;
+            
             if(theoTracker == 15)
             {
                 theoTracker = 0;
-                foreach(Block b in blocks)
+                foreach (Block b in blocks)
                 {
-                    if(b.frame == 1) { b.flow = 1; }
-                    else if(b.frame == 3) { b.flow = -1; }
+                    if (b.frame == 1) { b.flow = 1; }
+                    else if (b.frame == 3) { b.flow = -1; }
                     b.frame += b.flow;
                 }
             }
@@ -697,7 +817,7 @@ namespace BrickBreaker
             XmlWriter writer = XmlWriter.Create("HighScoreXML.xml", null);
             writer.WriteStartElement("HighScores");
 
-            foreach(Scores s in MenuScreen.scores)
+            foreach (Scores s in MenuScreen.scores)
             {
                 writer.WriteElementString("Name", s.name);
                 writer.WriteElementString("Score", s.score.ToString());
@@ -771,6 +891,16 @@ namespace BrickBreaker
             else
             {
                 damageTimer--;
+            }
+
+            if (explosiveHitTimer > 0)
+            {
+                explosiveHitTimer--;
+            }
+
+            if (magnetTimer > 0)
+            {
+                magnetTimer--;
             }
 
             if (messageTimer > 0)

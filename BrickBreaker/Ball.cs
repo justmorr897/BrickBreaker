@@ -114,11 +114,13 @@ namespace BrickBreaker
                     GameScreen.balls[0].canMove = true;
                 }
 
+                // Get stuck if the paddle is sticky
                 if (GameScreen.stickyPaddle && !stuck)
                 {
                     stuck = true;
                     xStuck = x - GameScreen.paddle.x;
                 }
+               
             }
        
         }
