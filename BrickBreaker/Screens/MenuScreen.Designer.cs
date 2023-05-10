@@ -46,10 +46,9 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.playButton.Font = new System.Drawing.Font("Chiller", 140.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.ForeColor = System.Drawing.Color.Black;
-            this.playButton.Location = new System.Drawing.Point(78, -186);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4);
+            this.playButton.Location = new System.Drawing.Point(62, -149);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(625, 625);
+            this.playButton.Size = new System.Drawing.Size(500, 500);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "\r\nPlay";
             this.playButton.UseVisualStyleBackColor = false;
@@ -66,10 +65,9 @@
             this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(474, 591);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(4);
+            this.exitButton.Location = new System.Drawing.Point(379, 473);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(312, 312);
+            this.exitButton.Size = new System.Drawing.Size(250, 250);
             this.exitButton.TabIndex = 1;
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
@@ -86,10 +84,10 @@
             this.editorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editorButton.Font = new System.Drawing.Font("Chiller", 48F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editorButton.ForeColor = System.Drawing.Color.Black;
-            this.editorButton.Location = new System.Drawing.Point(138, 386);
-            this.editorButton.Margin = new System.Windows.Forms.Padding(6);
+            this.editorButton.Location = new System.Drawing.Point(110, 309);
+            this.editorButton.Margin = new System.Windows.Forms.Padding(5);
             this.editorButton.Name = "editorButton";
-            this.editorButton.Size = new System.Drawing.Size(486, 222);
+            this.editorButton.Size = new System.Drawing.Size(389, 178);
             this.editorButton.TabIndex = 2;
             this.editorButton.Text = "\r\nLevel Editor";
             this.editorButton.UseVisualStyleBackColor = false;
@@ -97,10 +95,10 @@
             // 
             // leaderboardButton
             // 
-            this.leaderboardButton.Location = new System.Drawing.Point(250, 28);
-            this.leaderboardButton.Margin = new System.Windows.Forms.Padding(4);
+            this.leaderboardButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leaderboardButton.Location = new System.Drawing.Point(7, 10);
             this.leaderboardButton.Name = "leaderboardButton";
-            this.leaderboardButton.Size = new System.Drawing.Size(234, 75);
+            this.leaderboardButton.Size = new System.Drawing.Size(134, 45);
             this.leaderboardButton.TabIndex = 3;
             this.leaderboardButton.Text = "Leaderboard";
             this.leaderboardButton.UseVisualStyleBackColor = true;
@@ -108,7 +106,7 @@
             // 
             // MenuScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
@@ -118,10 +116,9 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MenuScreen";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Size = new System.Drawing.Size(750, 875);
+            this.Size = new System.Drawing.Size(600, 700);
             this.ResumeLayout(false);
 
         }

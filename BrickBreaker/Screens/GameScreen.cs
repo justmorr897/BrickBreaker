@@ -24,7 +24,6 @@ namespace BrickBreaker
 
         //player1 button control keys - DO NOT CHANGE
         public static Boolean leftArrowDown, rightArrowDown, spaceDown;
-        bool shotReady = false;
 
         // Game values
         int mouseX, mouseY, score, powerUpChance;
@@ -34,11 +33,15 @@ namespace BrickBreaker
         int totalLevels = 5;
         int gravity = 1;
 
-        public bool awaitingLaunch = true;
-        public static bool edgeProtector, stickyPaddle, moveBall, isSaveLevelSelcted, shotgunPowerUp, partyMode = false;
+        //Set all power ups bools to false
+        public static bool edgeProtector, stickyPaddle, moveBall, isSaveLevelSelcted, partyMode, shotReady = false;
+        public static bool shotgunPowerUp = true;
         public static string powerupMessage = "";
 
-        // timers
+        //Ball will be launched by player by pressing space
+        public bool awaitingLaunch = true;
+
+        // initialize all timers to 0
         public static int paddleSizeTimer, paddleSpeedTimer, speedBallTimer, damageTimer, fireBallTimer, explosiveHitTimer, magnetTimer, messageTimer = 0;
 
         //pictures for blocks
@@ -70,20 +73,21 @@ namespace BrickBreaker
         // List of all colours for good power ups
         public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime };
 
-        // Brushes
+        // Brushes and Pens
         SolidBrush ballBrush = new SolidBrush(Color.Red);
         SolidBrush purple = new SolidBrush(Color.Purple);
         SolidBrush darkBlue = new SolidBrush(Color.FromArgb(0, 0, 200));
         SolidBrush brush = new SolidBrush(Color.White);
-        Color colour = Color.White;
-
         Pen shotgunPen = new Pen(Color.Black);
         Pen moveBallPen = new Pen(Color.Lime, 3);
+        Color colour = Color.White;
 
         // Fonts
         Font powerupMessageFont = new Font("Forte", 50);
 
         Stopwatch stopwatch = new Stopwatch();
+        Stopwatch gameTimeStopwatch = new Stopwatch();
+
 
         Rectangle CrosshairRectangle = new Rectangle();
         #endregion
@@ -91,11 +95,6 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
-
-            //Add Party Mode - 100% powerup drop chance
-
-            mouseX = this.Width / 2;
-            mouseY = this.Height / 2;
 
             OnStart();
         }
@@ -119,7 +118,6 @@ namespace BrickBreaker
             // setup starting ball values
             int ballX = this.Width / 2 - 10;
             int ballY = this.Height - paddle.height - 80;
-
 
             /**
              * Set the ball speed to 0 so it doesnt move upon start so it can be launched
@@ -150,12 +148,11 @@ namespace BrickBreaker
             blocks.Clear();
             XmlReader reader;
 
-
             if (isSaveLevelSelcted)
             {
                 string levelFile = "Resources/UserLevel" + saveLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
-                level = "Save Level" + saveLevel.ToString();
+                level = "Save Level" + " " + saveLevel.ToString();
             }
             else
             {
@@ -190,24 +187,25 @@ namespace BrickBreaker
 
             reader.Close();
 
-            this.Focus();
-            gameTimer.Enabled = true;
-            this.Focus();
-
             for (int i = 1; i < balls.Count; i++)
             {
                 balls.RemoveAt(i);
             }
 
+            //Write the level to the screen
             WritePowerupMessage(level);
 
             // Just to make sure the ball doesnt move on start
             balls[0].canMove = false;
+
+            //start game timer 
+            gameTimer.Enabled = true;
+            gameTimeStopwatch.Start();
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            //player 1 button presses
+            //player button presses
             switch (e.KeyCode)
             {
                 case Keys.Left:
@@ -230,7 +228,7 @@ namespace BrickBreaker
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
-            //player 1 button releases
+            //player button releases
             switch (e.KeyCode)
             {
                 case Keys.Left:
@@ -249,6 +247,7 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            //make a rectangle around the mouse when the shotgun power is on
             if (shotgunPowerUp)
             {
                 CrosshairRectangle = new Rectangle(mouseX - 10, mouseY - 10, 20, 20);
@@ -309,17 +308,22 @@ namespace BrickBreaker
                 {
                     if (ball.BlockCollision(b, ball))
                     {
+                        //if the explosive timer is on, add an effect at that point
                         if (explosiveHitTimer > 0)
                         {
                             explosions.Add(new Point(ball.x, ball.y));
                         }
 
+                        //reduce block health
                         b.hp -= ballDamage;
 
+                        //Check if the block's health is 0
                         if (b.hp <= 0)
                         {
+                            //if it is, add to score
                             score++;
 
+                            //randomize for powerups
                             if (random.Next(1, powerUpChance) == 1)
                             {
                                 if (random.Next(1, 4) == 1)
@@ -332,6 +336,7 @@ namespace BrickBreaker
                                 }
                             }
 
+                            //add to deadblocks, remove from blocks
                             deadBlocks.Add(b);
                             blocks.Remove(b);
                         }
@@ -342,12 +347,53 @@ namespace BrickBreaker
             }
 
 
+            foreach (Block b in blocks)
+            {
+                foreach (Point p in explosions)
+                {
+                    if (p.X - (b.x + b.width / 2) < 160 && p.Y - (b.y + b.height / 2) < 80)
+                    {
+                        b.hp -= ballDamage;
+                    }
+                }
+
+                //if any blocks health is 0
+                if (b.hp <= 0)
+                {
+                    //add score
+                    score++;
+
+                    //have a random chance to drop a power
+                    if (random.Next(1, powerUpChance) == 1)
+                    {
+                        //randomize what the power will be
+                        if (random.Next(1, 4) == 1)
+                        {
+                            powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
+                        }
+                        else
+                        {
+                            powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
+                        }
+                    }
+
+                    //add the block to deadblocks once it is at 0 health
+                    //remove it from the blocks list
+                    deadBlocks.Add(b);
+                    blocks.Remove(b);
+
+                    break;
+                }
+            }
+
+            //If all the blocks are gone the level is done
             if (blocks.Count == 0)
             {
                 gameTimer.Enabled = false;
                 OnEnd();
             }
 
+            //move the powerups
             foreach (PowerUp p in powerups)
             {
                 p.Move();
@@ -358,24 +404,29 @@ namespace BrickBreaker
                 }
             }
 
+            //decremnt all active powerup timers
             CountTimers();
 
+            //If the player runs out of lives the game ends
             if (lives == 0)
             {
                 CooperCode();
                 gameTimer.Enabled = false;
-
                 Form1.ChangeScreen(this, new Leaderboard());
                 //OnEnd();
             }
+
+            //Animate the ducks
             TheodoropoulosCode();
 
+            //animation for the dead ducks
             foreach (Block deadBlock in deadBlocks)
             {
                 int speed = 4;
 
                 if (deadBlock.y < this.Height)
                 {
+                    //add to the falling speed the further they fall with gravity
                     deadBlock.y += speed + gravity;
                     gravity += 1;
                 }
@@ -389,6 +440,7 @@ namespace BrickBreaker
                 }
             }
 
+            //Play the reload sound when the player gets the shotgun powerup
             if (shotgunPowerUp && shotReady == true)
             {
                 //if (stopwatch.ElapsedMilliseconds > 1500)
@@ -401,45 +453,11 @@ namespace BrickBreaker
                 //}
             }
 
-            foreach (Block b in blocks)
-            {
-                foreach (Point p in explosions)
-                {
-                    if (p.X - (b.x + b.width / 2) < 160 && p.Y - (b.y + b.height / 2) < 80)
-                    {
-                        b.hp -= ballDamage;
-
-
-                    }
-                }
-                if (b.hp <= 0)
-                {
-                    score++;
-
-                    if (random.Next(1, 9) == 1)
-                    {
-                        if (random.Next(1, 4) == 1)
-                        {
-                            powerups.Add(new PowerUp(random.Next(PowerUp.badPowerups.Length * -1, 0), b.x, b.y));
-                        }
-                        else
-                        {
-                            powerups.Add(new PowerUp(random.Next(1, PowerUp.goodPowerups.Length + 1), b.x, b.y));
-                        }
-                    }
-
-                    deadBlocks.Add(b);
-                    blocks.Remove(b);
-
-                    break;
-                }
-            }
-
             explosions.Clear();
 
+            //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";
-
 
             //redraw the screen
             Refresh();
@@ -447,12 +465,14 @@ namespace BrickBreaker
 
         public void BallLaunch()
         {
+            //At the start of each level place the ball in the middle of the paddle
             if (balls[0].canMove == false)
             {
                 balls[0].x = paddle.x + (paddle.width / 2) - (balls[0].size / 2);
                 balls[0].y = paddle.y - (paddle.height);
             }
 
+            //Once space is pressed, release the ball
             if (spaceDown)
             {
                 balls[0].canMove = true;
@@ -461,6 +481,7 @@ namespace BrickBreaker
 
         private void GameScreen_MouseMove(object sender, MouseEventArgs e)
         {
+            //Store where the mouse is on the screen for powerups
             mouseX = e.X;
             mouseY = e.Y;
         }
@@ -469,23 +490,31 @@ namespace BrickBreaker
         {
             if (shotgunPowerUp && !moveBall)
             {
+                //check if the shotgun power is active and 3 shots haven't been shot
                 if (shotgunPowerUp && shotgunShots < 3)
                 {
-                    string file = Application.StartupPath + "/Resources/Shot.wav";
-
+                    //Play shot sound
                     var shotSound = new System.Windows.Media.MediaPlayer();
                     shotSound.Open(new Uri(Application.StartupPath + "/Resources/shotgunShotEdited.wav"));
                     shotSound.Play();
 
+                    //start a stopwatch for the reload sound
                     stopwatch.Start();
+
+                    //The shotgun is now ready to be fired again
                     shotReady = true;
 
+                    //add to the shot counter
                     shotgunShots++;
 
                     //var reloadSound = new System.Windows.Media.MediaPlayer();
                     //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
                     //reloadSound.Play();
 
+
+                    //Check if any blocks are hit by the shot
+                    //If they are remove them from blocks and add them to deadblocks
+                    //Also increase score
                     for (int i = blocks.Count - 1; i >= 0; i--)
                     {
                         if (blocks[i].CrossHairCollision(blocks[i], CrosshairRectangle))
@@ -515,7 +544,6 @@ namespace BrickBreaker
         {
             Application.Exit();
         }
-
 
         public void PauseAndResume()
         {
@@ -571,7 +599,7 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            if (shotgunPowerUp && !moveBall)
+            if (shotgunPowerUp && shotgunShots < 3 && !moveBall)
             {
                 e.Graphics.DrawEllipse(shotgunPen, mouseX - 25, mouseY - 25, 50, 50);
                 e.Graphics.DrawLine(shotgunPen, mouseX - 25, mouseY, mouseX + 25, mouseY);
@@ -736,8 +764,9 @@ namespace BrickBreaker
             name = SelectScreen.username;
             string HS = score.ToString();
             int intScore = Convert.ToInt32(HS);
+            int time = Convert.ToInt16(gameTimeStopwatch.ElapsedMilliseconds/1000);
 
-            Scores newScore = new Scores(name, intScore);
+            Scores newScore = new Scores(name, intScore, time);
 
             MenuScreen.scores.Add(newScore);
 
@@ -748,11 +777,11 @@ namespace BrickBreaker
             {
                 writer.WriteElementString("Name", s.name);
                 writer.WriteElementString("Score", s.score.ToString());
+                writer.WriteElementString("Time", s.time.ToString());
             }
 
             writer.WriteEndElement();
             writer.Close();
-
         }
 
         public static void WritePowerupMessage(string message)

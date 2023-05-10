@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace BrickBreaker
 {
@@ -17,6 +18,34 @@ namespace BrickBreaker
         public Form1()
         {
             InitializeComponent();
+            ReadXmlFile();
+        }
+
+        public void ReadXmlFile()
+        {
+            string name;
+            int score, time;
+            string levelFile = "HighScoreXML.xml";
+            XmlReader reader = XmlReader.Create(levelFile);
+
+            reader.ReadToFollowing("HighScores");
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    name = reader.ReadString();
+
+                    reader.ReadToNextSibling("Score");
+                    score = Convert.ToInt32(reader.ReadString());
+
+                    reader.ReadToNextSibling("Time");
+                    time = Convert.ToInt32(reader.ReadString());
+
+                    Scores newScore = new Scores(name, score, time);
+                    MenuScreen.scores.Add(newScore);
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -27,7 +27,7 @@ namespace BrickBreaker
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            // Goes to the game screen'
+            // Goes to the game screen
             Form1.ChangeScreen(this, new SelectScreen());
         }
 
@@ -35,38 +35,9 @@ namespace BrickBreaker
         {
             Form1.ChangeScreen(this, new LevelEditor());
         }
-
-        public void CooperCode()
-        {
-            //scores.Clear();
-
-            //string name, score;
-
-            //XmlReader reader = XmlReader.Create("HighScoreXML.xml");
-            //while (reader.Read())
-            //{
-            //    if (reader.NodeType == XmlNodeType.Text)
-            //    {
-            //        name = reader.ReadString();
-
-            //        reader.ReadToNextSibling("Score");
-
-            //        score = reader.ReadString();
-
-            //        int newScore = Convert.ToInt32(score);
-
-            //        Scores s = new Scores(name, newScore);
-
-            //        scores.Add(s);
-            //    }
-            //}
-            //reader.Close();
-        }
-
         private void leaderboardButton_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new Leaderboard());     
+            Form1.ChangeScreen(this, new Leaderboard());
         }
     }
-    
 }
