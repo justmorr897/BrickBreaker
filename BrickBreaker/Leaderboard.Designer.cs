@@ -72,7 +72,7 @@
             // 
             this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.Location = new System.Drawing.Point(22, 17);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(82, 34);
             this.backButton.TabIndex = 10;
@@ -117,6 +117,7 @@
             this.Controls.Add(this.scoreLabelColumn);
             this.Controls.Add(this.nameLabelColumn);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Name = "Leaderboard";
             this.Size = new System.Drawing.Size(600, 700);
             this.ResumeLayout(false);

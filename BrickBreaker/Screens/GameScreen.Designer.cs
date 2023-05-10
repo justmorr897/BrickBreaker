@@ -48,7 +48,7 @@
             // livesLabel
             // 
             this.livesLabel.BackColor = System.Drawing.Color.Transparent;
-            this.livesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.livesLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.livesLabel.ForeColor = System.Drawing.Color.Black;
             this.livesLabel.Location = new System.Drawing.Point(3, 0);
             this.livesLabel.Name = "livesLabel";
@@ -60,7 +60,7 @@
             // scoreLabel
             // 
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
-            this.scoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.Black;
             this.scoreLabel.Location = new System.Drawing.Point(484, 0);
             this.scoreLabel.Name = "scoreLabel";
@@ -72,7 +72,7 @@
             // pauseLabel
             // 
             this.pauseLabel.BackColor = System.Drawing.Color.Gray;
-            this.pauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseLabel.Location = new System.Drawing.Point(186, 203);
             this.pauseLabel.Name = "pauseLabel";
             this.pauseLabel.Size = new System.Drawing.Size(219, 277);
@@ -83,7 +83,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitButton.Location = new System.Drawing.Point(220, 386);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(152, 42);
@@ -96,7 +96,7 @@
             // pauseLivesLabel
             // 
             this.pauseLivesLabel.BackColor = System.Drawing.Color.DimGray;
-            this.pauseLivesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLivesLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseLivesLabel.ForeColor = System.Drawing.Color.Black;
             this.pauseLivesLabel.Location = new System.Drawing.Point(237, 273);
             this.pauseLivesLabel.Name = "pauseLivesLabel";
@@ -109,7 +109,7 @@
             // pauseScoreLabel
             // 
             this.pauseScoreLabel.BackColor = System.Drawing.Color.DimGray;
-            this.pauseScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseScoreLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseScoreLabel.ForeColor = System.Drawing.Color.Black;
             this.pauseScoreLabel.Location = new System.Drawing.Point(237, 325);
             this.pauseScoreLabel.Name = "pauseScoreLabel";
@@ -122,7 +122,7 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(237, 0);
             this.label1.Name = "label1";
