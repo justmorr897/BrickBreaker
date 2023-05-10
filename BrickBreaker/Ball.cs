@@ -154,38 +154,58 @@ namespace BrickBreaker
 
         public void AdjustAngle(string direction)
         {
-            /**
-             * Generate 3 numbers and depending on the result change the angle of the ball
-             * The ball has its inital value and upon hitting a wall, it can adjust one of the speeds to be 1 above or below
-             * the initial value or reset it back to that
-             */
 
-            int randomNum = rand.Next(0, 5);
+            // Declare Paddle
+            Paddle paddle = GameScreen.paddle;
 
-            if (direction == "X")
+            // Max Speed is 8
+
+            // If player doesnt move
+            if (paddle.acceleration == 0)
             {
-                switch (randomNum)
-                {
-                    case 0:
-                        xSpeed = startXSpeed - 2;
-                        break;
-                    case 1:
-                        xSpeed = startXSpeed - 1;
-                        break;
-                    case 2:
-                        xSpeed = startXSpeed;
-                        break;
-                    case 3:
-                        xSpeed = startXSpeed + 1;
-                        break;
-                    case 4:
-                        xSpeed = startXSpeed + 2;
-                        break;
-                }
-
+                // Do nothing
+                return;
+            }
+            else if (Math.Abs(paddle.acceleration) <= 3)
+            {
+                // Small Launch
+                xSpeed = startXSpeed - 1;
+            }
+            else if (Math.Abs(paddle.acceleration) <= 6)
+            {
+                // Normal Launch
+                xSpeed = startXSpeed;
+            } else if (Math.Abs(paddle.acceleration) > 6)
+            {
+                // Big Launch
+                xSpeed = startXSpeed + 1;
             }
 
-        }
+
+                //if (direction == "X")
+                //{
+                //    switch (randomNum)
+                //    {
+                //        case 0:
+                //            xSpeed = startXSpeed - 2;
+                //            break;
+                //        case 1:
+                //            xSpeed = startXSpeed - 1;
+                //            break;
+                //        case 2:
+                //            xSpeed = startXSpeed;
+                //            break;
+                //        case 3:
+                //            xSpeed = startXSpeed + 1;
+                //            break;
+                //        case 4:
+                //            xSpeed = startXSpeed + 2;
+                //            break;
+                //    }
+
+                //}
+
+            }
 
         public bool BottomCollision(UserControl UC)
         {
