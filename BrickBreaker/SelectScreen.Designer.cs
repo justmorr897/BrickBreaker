@@ -202,7 +202,7 @@
             // 
             this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(161, 11);
+            this.errorLabel.Location = new System.Drawing.Point(148, 11);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.Size = new System.Drawing.Size(311, 65);
             this.errorLabel.TabIndex = 8;
