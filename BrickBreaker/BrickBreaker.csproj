@@ -102,6 +102,12 @@
     <Compile Include="SelectScreen.Designer.cs">
       <DependentUpon>SelectScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExitScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExitScreen.Designer.cs">
+      <DependentUpon>ExitScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectScreen.resx">
       <DependentUpon>SelectScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExitScreen.resx">
+      <DependentUpon>ExitScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">

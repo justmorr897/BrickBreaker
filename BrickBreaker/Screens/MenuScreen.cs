@@ -79,6 +79,5 @@ namespace BrickBreaker
             }
             reader.Close();
         }
-
     }
 }

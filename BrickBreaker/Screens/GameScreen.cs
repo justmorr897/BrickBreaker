@@ -140,7 +140,7 @@ namespace BrickBreaker
             #endregion
 
             // start the game engine loop
-            //gameTimer.Enabled = true;
+            gameTimer.Enabled = true;
         }
 
 
@@ -163,6 +163,7 @@ namespace BrickBreaker
             {
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
+                ExitScreen ps = new ExitScreen();
             }
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
@@ -387,13 +388,15 @@ namespace BrickBreaker
             {
                 gameTimer.Enabled = false;
                 Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
+                ExitScreen ps = new ExitScreen();
 
                 ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
 
                 form.Controls.Add(ps);
                 form.Controls.Remove(this);
-                //OnEnd();
+
+
+                OnEnd();
             }
             TheodoropoulosCode();
 
@@ -425,7 +428,7 @@ namespace BrickBreaker
                 // Goes to the game over screen
 
                 Form form = this.FindForm();
-                MenuScreen ps = new MenuScreen();
+                ExitScreen ps = new ExitScreen();
 
                 ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
 
