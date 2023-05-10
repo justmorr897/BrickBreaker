@@ -71,24 +71,7 @@
             this.scoreLabelColumn.TabIndex = 2;
             this.scoreLabelColumn.Text = "Score:\r\n10";
             this.scoreLabelColumn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // scoreLabelBorder
-            // 
-            this.scoreLabelBorder.BackColor = System.Drawing.Color.Maroon;
-            this.scoreLabelBorder.Location = new System.Drawing.Point(95, 120);
-            this.scoreLabelBorder.Name = "scoreLabelBorder";
-            this.scoreLabelBorder.Size = new System.Drawing.Size(160, 485);
-            this.scoreLabelBorder.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Maroon;
-            this.label2.Location = new System.Drawing.Point(345, 120);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(160, 485);
-            this.label2.TabIndex = 4;
-            // backButton
-            // 
+            //
             this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.Location = new System.Drawing.Point(22, 17);
             this.backButton.Margin = new System.Windows.Forms.Padding(2);

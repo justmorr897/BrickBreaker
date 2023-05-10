@@ -456,17 +456,17 @@ namespace BrickBreaker
 
             explosions.Clear();
 
-            if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
-            {
-                if (paddle.acceleration > 0)
-                {
-                    paddle.acceleration--;
-                }
-                else
-                {
-                    paddle.acceleration++;
-                }
-            }
+            //if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
+            //{
+            //    if (paddle.acceleration > 0)
+            //    {
+            //        paddle.acceleration--;
+            //    }
+            //    else
+            //    {
+            //        paddle.acceleration++;
+            //    }
+            //}
             //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";

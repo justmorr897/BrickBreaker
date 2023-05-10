@@ -237,7 +237,7 @@
             this.Controls.Add(this.threeHPButton);
             this.Controls.Add(this.twoHPButton);
             this.Controls.Add(this.oneHPButton);
-            this.Controls.Add(this.button1);
+            //this.Controls.Add(this.button1);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "LevelEditor";
