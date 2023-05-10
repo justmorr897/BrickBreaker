@@ -35,14 +35,14 @@ namespace BrickBreaker
 
         //Set all power ups bools to false
         public static bool edgeProtector, stickyPaddle, moveBall, isSaveLevelSelcted, partyMode, shotReady = false;
-        public static bool shotgunPowerUp = true;
         public static string powerupMessage = "";
+        public static bool shotgunPowerUp = false;
 
         //Ball will be launched by player by pressing space
         public bool awaitingLaunch = true;
 
         // initialize all timers to 0
-        public static int paddleSizeTimer, paddleSpeedTimer, speedBallTimer, damageTimer, fireBallTimer, explosiveHitTimer, magnetTimer, messageTimer = 0;
+        public static int paddleSizeTimer, paddleSpeedTimer, speedBallTimer, damageTimer, fireBallTimer, explosiveHitTimer, magnetTimer, messageTimer, stickyPaddleTimer = 0;
 
         //pictures for blocks
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
@@ -71,7 +71,7 @@ namespace BrickBreaker
         List<Point> explosions = new List<Point>();
 
         // List of all colours for good power ups
-        public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime };
+        public static List<Color> powerupColours = new List<Color> { Color.Green, Color.Cyan, Color.Red, Color.Pink, Color.Purple, Color.Yellow, Color.Magenta, Color.Beige, Color.Orange, Color.Maroon, Color.Lime, Color.DodgerBlue };
 
         // Brushes and Pens
         SolidBrush ballBrush = new SolidBrush(Color.Red);
@@ -87,7 +87,6 @@ namespace BrickBreaker
 
         Stopwatch stopwatch = new Stopwatch();
         Stopwatch gameTimeStopwatch = new Stopwatch();
-
 
         Rectangle CrosshairRectangle = new Rectangle();
         #endregion
@@ -122,8 +121,8 @@ namespace BrickBreaker
             /**
              * Set the ball speed to 0 so it doesnt move upon start so it can be launched
              */
-            int xSpeed = 4;
-            int ySpeed = 4;
+            int xSpeed = 2;
+            int ySpeed = 2;
             int ballSize = 20;
             balls.Clear();
             balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
@@ -187,6 +186,7 @@ namespace BrickBreaker
 
             reader.Close();
 
+
             for (int i = 1; i < balls.Count; i++)
             {
                 balls.RemoveAt(i);
@@ -216,9 +216,10 @@ namespace BrickBreaker
                     break;
                 case Keys.Space:
                     stickyPaddle = false;
+                    stickyPaddleTimer = 0;
                     spaceDown = true;
                     break;
-                case Keys.P:
+                case Keys.P:               
                     PauseAndResume();
                     break;
                 default:
@@ -455,6 +456,17 @@ namespace BrickBreaker
 
             explosions.Clear();
 
+            if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
+            {
+                if (paddle.acceleration > 0)
+                {
+                    paddle.acceleration--;
+                }
+                else
+                {
+                    paddle.acceleration++;
+                }
+            }
             //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";
@@ -524,6 +536,7 @@ namespace BrickBreaker
                             score++;
                         }
                     }
+
                 }
                 else
                 {
@@ -538,6 +551,11 @@ namespace BrickBreaker
                 balls[0].y = mouseY;
                 moveBall = false;
             }
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            shotgunShots++;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -610,6 +628,9 @@ namespace BrickBreaker
             {
                 if (Math.Abs(mouseX - balls[0].x) < 150 && Math.Abs(mouseY - balls[0].y) < 150)
                 {
+                  
+                    e.Graphics.DrawLine(moveBallPen, balls[0].x + balls[0].size / 2, balls[0].y + balls[0].size / 2, mouseX, mouseY);
+
                     e.Graphics.DrawLine(moveBallPen, mouseX - 15, mouseY - 15, mouseX + 15, mouseY + 15);
                     e.Graphics.DrawLine(moveBallPen, mouseX + 15, mouseY - 15, mouseX - 15, mouseY + 15);
                 }
@@ -719,12 +740,20 @@ namespace BrickBreaker
             }
             else
             {
-                DrawTimer(paddleSizeTimer, 1000, colour, e);
+                DrawTimer(paddleSizeTimer, 750, colour, e);
             }
             DrawTimer(paddleSpeedTimer, 750, colour, e);
-            DrawTimer(speedBallTimer, 500, colour, e);
+            if (balls[0].speed == 1)
+            {
+                DrawTimer(speedBallTimer, 750, powerupColours[11], e);
+            }
+            else
+            {
+                DrawTimer(speedBallTimer, 500, colour, e);
+            }
             DrawTimer(damageTimer, 750, powerupColours[6], e);
             DrawTimer(fireBallTimer, 600, powerupColours[2], e);
+            DrawTimer(stickyPaddleTimer, 500, powerupColours[5], e);
             DrawTimer(explosiveHitTimer, 1000, powerupColours[8], e);
             DrawTimer(magnetTimer, 2000, powerupColours[9], e);
         }
@@ -792,11 +821,11 @@ namespace BrickBreaker
 
         public void CountTimers()
         {
-            if (speedBallTimer == 0 && balls[0].speed == 2)
+            if (speedBallTimer == 0 && balls[0].speed != 2)
             {
                 foreach (Ball b in balls)
                 {
-                    b.speed = 1;
+                    b.speed = 2;
                 }
             }
             else
@@ -847,6 +876,21 @@ namespace BrickBreaker
             else
             {
                 damageTimer--;
+            }
+
+            if (stickyPaddleTimer == 0)
+            {
+                foreach (Ball b in balls)
+                {
+                    if (b.stuck)
+                    {
+                        stickyPaddle = false;
+                    }
+                }
+            }
+            else
+            {
+                stickyPaddleTimer--;
             }
 
             if (explosiveHitTimer > 0)

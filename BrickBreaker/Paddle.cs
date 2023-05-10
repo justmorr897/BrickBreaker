@@ -4,7 +4,7 @@ namespace BrickBreaker
 {
     public class Paddle
     {
-        public int x, y, width, height, speed;
+        public int x, y, width, height, speed, acceleration;
         public Color colour;
 
         public Paddle(int _x, int _y, int _width, int _height, int _speed, Color _colour)
@@ -21,11 +21,19 @@ namespace BrickBreaker
         {
             if (direction == "left")
             {
-                x -= speed;
+                if (acceleration > -speed)
+                {
+                    acceleration--;
+                }
+                x += acceleration;
             }
             if (direction == "right")
             {
-                x += speed;
+                if (acceleration < speed)
+                {
+                    acceleration++;
+                }
+                x += acceleration;
             }
         }
     }

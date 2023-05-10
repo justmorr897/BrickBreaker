@@ -7,7 +7,7 @@ namespace BrickBreaker
     public class Ball
     {
         public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY, startXSpeed, startYSpeed;
-        public int speed = 1;
+        public int speed = 2;
         public Color colour;
         public bool canMove = false;
         public Random rand = new Random();
@@ -117,6 +117,13 @@ namespace BrickBreaker
                 // Get stuck if the paddle is sticky
                 if (GameScreen.stickyPaddle && !stuck)
                 {
+                    foreach (Ball b in GameScreen.balls)
+                    {
+                        if (!b.stuck)
+                        {
+                            GameScreen.stickyPaddleTimer = 500;
+                        }
+                    }
                     stuck = true;
                     xStuck = x - GameScreen.paddle.x;
                 }
