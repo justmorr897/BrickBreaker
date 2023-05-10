@@ -12,7 +12,7 @@ namespace BrickBreaker
         public int type, x, y;
         public int size = 20;
         public SolidBrush powerupBrush = new SolidBrush(Color.White);
-        public static string[] goodPowerups = { "Multi Ball!", "Large Paddle!", "Fire Ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Double Damage!", "Shotgun!!!", "Explosive Hit!", "Magnet!", "Move Ball!" };
+        public static string[] goodPowerups = { "Multi Ball!", "Large Paddle!", "Fire Ball!", "Extra Life!", "Edge Protector!", "Sticky Paddle!", "Double Damage!", "Shotgun!!!", "Explosive Hit!", "Magnet!", "Move Ball!", "Slow Ball!" };
 
         public static string[] badPowerups = { "Small Paddle!", "Fast Ball!", "Disorientation!", "Lose a Life!", "Slow Paddle!" };
         Random random = new Random();
@@ -52,6 +52,7 @@ namespace BrickBreaker
             // 9 = explosive hit (Orange)
             // 10 = magnet (Maroon)
             // 11 = move ball (Lime)
+            // 12 = slow ball (Dodger Blue)
 
             /// Bad powerups (< 0) (Red and orange flash)
             // -1 = small paddle
@@ -88,8 +89,8 @@ namespace BrickBreaker
                     {
                         if (type == 1)
                         {
-                            GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, 4, -4, 20));
-                            GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, -4, -4, 20));
+                            GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, 2, -2, 20));
+                            GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, -2, -2, 20));
                         }
                         else if (type == 2)
                         {
@@ -141,6 +142,25 @@ namespace BrickBreaker
                             GameScreen.moveBall = true;
                             GameScreen.stickyPaddle = false;
                         }
+                        else if (type == 12)
+                        {
+                            if (GameScreen.balls[0].speed == 4)
+                            {
+                                foreach (Ball b in GameScreen.balls)
+                                {
+                                    b.speed = 2;
+                                }
+                                GameScreen.speedBallTimer = 0;
+                            }
+                            else
+                            {
+                                foreach (Ball b in GameScreen.balls)
+                                {
+                                    b.speed = 1;
+                                }
+                                GameScreen.speedBallTimer = 750;
+                            }
+                        }
 
                         GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
                         type = 0;
@@ -161,9 +181,20 @@ namespace BrickBreaker
                         }
                         else if (type == -2)
                         {
-                            foreach (Ball b in GameScreen.balls)
+                            if (GameScreen.balls[0].speed == 1)
                             {
-                                b.speed = 2;
+                                foreach (Ball b in GameScreen.balls)
+                                {
+                                    b.speed = 2;
+                                }
+                                GameScreen.speedBallTimer = 0;
+                            }
+                            else
+                            {
+                                foreach (Ball b in GameScreen.balls)
+                                {
+                                    b.speed = 4;
+                                }
                                 GameScreen.speedBallTimer = 500;
                             }
                         }
