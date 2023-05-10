@@ -42,7 +42,7 @@ namespace BrickBreaker
         public bool awaitingLaunch = true;
 
         // initialize all timers to 0
-        public static int paddleSizeTimer, paddleSpeedTimer, speedBallTimer, damageTimer, fireBallTimer, explosiveHitTimer, magnetTimer, messageTimer = 0;
+        public static int paddleSizeTimer, paddleSpeedTimer, speedBallTimer, damageTimer, fireBallTimer, explosiveHitTimer, magnetTimer, messageTimer, stickyPaddleTimer = 0;
 
         //pictures for blocks
         Bitmap paddleImage = new Bitmap(Properties.Resources.Paddle);
@@ -628,9 +628,8 @@ namespace BrickBreaker
             {
                 if (Math.Abs(mouseX - balls[0].x) < 150 && Math.Abs(mouseY - balls[0].y) < 150)
                 {
-                    e.Graphics.DrawLine(moveBallPen, crosshairX - 15, crosshairY - 15, crosshairX + 15, crosshairY + 15);
-                    e.Graphics.DrawLine(moveBallPen, crosshairX + 15, crosshairY - 15, crosshairX - 15, crosshairY + 15);
-                    e.Graphics.DrawLine(moveBallPen, balls[0].x + balls[0].size / 2, balls[0].y + balls[0].size / 2, crosshairX, crosshairY);
+                  
+                    e.Graphics.DrawLine(moveBallPen, balls[0].x + balls[0].size / 2, balls[0].y + balls[0].size / 2, mouseX, mouseY);
 
                     e.Graphics.DrawLine(moveBallPen, mouseX - 15, mouseY - 15, mouseX + 15, mouseY + 15);
                     e.Graphics.DrawLine(moveBallPen, mouseX + 15, mouseY - 15, mouseX - 15, mouseY + 15);
