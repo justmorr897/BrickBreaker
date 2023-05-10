@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nameLabelColumn = new System.Windows.Forms.Label();
             this.scoreLabelColumn = new System.Windows.Forms.Label();
+
             this.backButton = new System.Windows.Forms.Button();
             this.timeLabelColumn = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
             this.label1.Location = new System.Drawing.Point(3, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(597, 49);
@@ -48,6 +50,7 @@
             // 
             // nameLabelColumn
             // 
+
             this.nameLabelColumn.BackColor = System.Drawing.Color.Transparent;
             this.nameLabelColumn.Font = new System.Drawing.Font("Algerian", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabelColumn.Location = new System.Drawing.Point(69, 141);
@@ -59,6 +62,7 @@
             // 
             // scoreLabelColumn
             // 
+
             this.scoreLabelColumn.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabelColumn.Font = new System.Drawing.Font("Algerian", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabelColumn.Location = new System.Drawing.Point(243, 141);
@@ -68,6 +72,21 @@
             this.scoreLabelColumn.Text = "Score:\r\n10";
             this.scoreLabelColumn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // scoreLabelBorder
+            // 
+            this.scoreLabelBorder.BackColor = System.Drawing.Color.Maroon;
+            this.scoreLabelBorder.Location = new System.Drawing.Point(95, 120);
+            this.scoreLabelBorder.Name = "scoreLabelBorder";
+            this.scoreLabelBorder.Size = new System.Drawing.Size(160, 485);
+            this.scoreLabelBorder.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Maroon;
+            this.label2.Location = new System.Drawing.Point(345, 120);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(160, 485);
+            this.label2.TabIndex = 4;
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -111,6 +130,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
+
             this.Controls.Add(this.button1);
             this.Controls.Add(this.timeLabelColumn);
             this.Controls.Add(this.backButton);
@@ -129,6 +149,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label nameLabelColumn;
         private System.Windows.Forms.Label scoreLabelColumn;
+
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label timeLabelColumn;
         private System.Windows.Forms.Button button1;

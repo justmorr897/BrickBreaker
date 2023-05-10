@@ -88,6 +88,7 @@
             // 
             // SaveButton1
             // 
+
             this.SaveButton1.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveButton1.Location = new System.Drawing.Point(210, 247);
             this.SaveButton1.Name = "SaveButton1";
@@ -102,7 +103,7 @@
             this.SaveButton1.MouseLeave += new System.EventHandler(this.SaveButton1_MouseLeave);
             // 
             // SaveButton3
-            // 
+            //
             this.SaveButton3.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveButton3.Location = new System.Drawing.Point(210, 376);
             this.SaveButton3.Name = "SaveButton3";
@@ -163,7 +164,7 @@
             // 
             // titleLabel
             // 
-            this.titleLabel.BackColor = System.Drawing.Color.Transparent;
+           
             this.titleLabel.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.Location = new System.Drawing.Point(206, 81);
             this.titleLabel.Name = "titleLabel";
@@ -174,6 +175,7 @@
             // 
             // levelsButton
             // 
+
             this.levelsButton.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.levelsButton.Location = new System.Drawing.Point(106, 605);
             this.levelsButton.Name = "levelsButton";
@@ -181,7 +183,7 @@
             this.levelsButton.TabIndex = 8;
             this.levelsButton.Tag = "6";
             this.levelsButton.Text = "Levels";
-            this.levelsButton.UseVisualStyleBackColor = true;
+            this.levelsButton.UseVisualStyleBackColor = false;
             this.levelsButton.Click += new System.EventHandler(this.levelsButton_Click);
             this.levelsButton.Enter += new System.EventHandler(this.levelsButton_Enter);
             this.levelsButton.MouseEnter += new System.EventHandler(this.SaveButton1_Enter);
@@ -200,6 +202,7 @@
             // 
             // errorLabel
             // 
+            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
             this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
             this.errorLabel.Location = new System.Drawing.Point(148, 11);

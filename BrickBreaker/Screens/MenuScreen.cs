@@ -35,6 +35,7 @@ namespace BrickBreaker
         {
             Form1.ChangeScreen(this, new LevelEditor());
         }
+
         private void leaderboardButton_Click(object sender, EventArgs e)
         {
             Form1.ChangeScreen(this, new Leaderboard());
