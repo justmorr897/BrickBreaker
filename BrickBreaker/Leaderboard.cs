@@ -29,7 +29,7 @@ namespace BrickBreaker
 
             List<Scores> sortedScores = MenuScreen.scores.OrderByDescending(x => x.score).ToList();
 
-            int start = 140;
+            int start = 220;
 
             foreach (Scores s in sortedScores)
             {
@@ -37,19 +37,19 @@ namespace BrickBreaker
                 scoreLabelColumn.Text += $"\n{s.score}";
                 timeLabelColumn.Text += $"\n{s.time}";
 
-                nameLabelColumn.Size = new Size(nameLabelColumn.Width, nameLabelColumn.Height + 30);
-                scoreLabelColumn.Size = new Size(scoreLabelColumn.Width, scoreLabelColumn.Height + 30);
-                timeLabelColumn.Size = new Size(timeLabelColumn.Width, timeLabelColumn.Height + 30);
+                nameLabelColumn.Size = new Size(nameLabelColumn.Width, nameLabelColumn.Height + 40);
+                scoreLabelColumn.Size = new Size(scoreLabelColumn.Width, scoreLabelColumn.Height + 40);
+                timeLabelColumn.Size = new Size(timeLabelColumn.Width, timeLabelColumn.Height + 40);
 
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.BackColor = Color.Transparent;
-                pictureBox.Location = new Point(25, start + 30);
+                pictureBox.Location = new Point(50, start);
                 pictureBox.Size = new Size(45,30);
                 pictureBox.BackgroundImageLayout = ImageLayout.Zoom;
                 pictureBox.BackgroundImage = duckImage;
                 this.Controls.Add(pictureBox);
 
-                start = start + 30;
+                start = start + 38;
 
             }
 
