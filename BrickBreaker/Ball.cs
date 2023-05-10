@@ -131,7 +131,6 @@ namespace BrickBreaker
             }
        
         }
-
         public void WallCollision(UserControl UC)
         {
             // Collision with left wall

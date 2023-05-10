@@ -34,7 +34,6 @@
             this.scoreLabel = new System.Windows.Forms.Label();
             this.pauseLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
-            this.resumeButton = new System.Windows.Forms.Button();
             this.pauseLivesLabel = new System.Windows.Forms.Label();
             this.pauseScoreLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,19 +48,19 @@
             // livesLabel
             // 
             this.livesLabel.BackColor = System.Drawing.Color.Transparent;
-            this.livesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.livesLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.livesLabel.ForeColor = System.Drawing.Color.Black;
             this.livesLabel.Location = new System.Drawing.Point(3, 0);
             this.livesLabel.Name = "livesLabel";
             this.livesLabel.Size = new System.Drawing.Size(116, 34);
             this.livesLabel.TabIndex = 0;
-            this.livesLabel.Text = "1";
+            this.livesLabel.Text = "Lives: 1";
             this.livesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // scoreLabel
             // 
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
-            this.scoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.Black;
             this.scoreLabel.Location = new System.Drawing.Point(484, 0);
             this.scoreLabel.Name = "scoreLabel";
@@ -73,18 +72,19 @@
             // pauseLabel
             // 
             this.pauseLabel.BackColor = System.Drawing.Color.Gray;
-            this.pauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseLabel.Location = new System.Drawing.Point(186, 203);
             this.pauseLabel.Name = "pauseLabel";
             this.pauseLabel.Size = new System.Drawing.Size(219, 277);
             this.pauseLabel.TabIndex = 3;
-            this.pauseLabel.Text = "Paused";
+            this.pauseLabel.Text = "\r\nPaused";
             this.pauseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.pauseLabel.Visible = false;
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(220, 417);
+            this.exitButton.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(220, 386);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(152, 42);
             this.exitButton.TabIndex = 4;
@@ -93,23 +93,12 @@
             this.exitButton.Visible = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // resumeButton
-            // 
-            this.resumeButton.Location = new System.Drawing.Point(220, 369);
-            this.resumeButton.Name = "resumeButton";
-            this.resumeButton.Size = new System.Drawing.Size(152, 42);
-            this.resumeButton.TabIndex = 5;
-            this.resumeButton.Text = "Resume";
-            this.resumeButton.UseVisualStyleBackColor = true;
-            this.resumeButton.Visible = false;
-            this.resumeButton.Click += new System.EventHandler(this.resumeButton_Click);
-            // 
             // pauseLivesLabel
             // 
             this.pauseLivesLabel.BackColor = System.Drawing.Color.DimGray;
-            this.pauseLivesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseLivesLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseLivesLabel.ForeColor = System.Drawing.Color.Black;
-            this.pauseLivesLabel.Location = new System.Drawing.Point(237, 252);
+            this.pauseLivesLabel.Location = new System.Drawing.Point(237, 273);
             this.pauseLivesLabel.Name = "pauseLivesLabel";
             this.pauseLivesLabel.Size = new System.Drawing.Size(116, 34);
             this.pauseLivesLabel.TabIndex = 6;
@@ -120,9 +109,9 @@
             // pauseScoreLabel
             // 
             this.pauseScoreLabel.BackColor = System.Drawing.Color.DimGray;
-            this.pauseScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseScoreLabel.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseScoreLabel.ForeColor = System.Drawing.Color.Black;
-            this.pauseScoreLabel.Location = new System.Drawing.Point(237, 304);
+            this.pauseScoreLabel.Location = new System.Drawing.Point(237, 325);
             this.pauseScoreLabel.Name = "pauseScoreLabel";
             this.pauseScoreLabel.Size = new System.Drawing.Size(116, 34);
             this.pauseScoreLabel.TabIndex = 7;
@@ -133,7 +122,7 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(237, 0);
             this.label1.Name = "label1";
@@ -153,7 +142,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pauseScoreLabel);
             this.Controls.Add(this.pauseLivesLabel);
-            this.Controls.Add(this.resumeButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.pauseLabel);
             this.Controls.Add(this.scoreLabel);
@@ -178,7 +166,6 @@
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label pauseLabel;
         private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.Button resumeButton;
         private System.Windows.Forms.Label pauseLivesLabel;
         private System.Windows.Forms.Label pauseScoreLabel;
         private System.Windows.Forms.Label label1;
