@@ -51,61 +51,87 @@
             // 
             // SaveButton1
             // 
-            this.SaveButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SaveButton1.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.SaveButton1.FlatAppearance.BorderSize = 5;
+            this.SaveButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton1.Font = new System.Drawing.Font("Vox Round Semibold", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton1.ForeColor = System.Drawing.Color.Maroon;
             this.SaveButton1.Location = new System.Drawing.Point(30, 450);
             this.SaveButton1.Name = "SaveButton1";
             this.SaveButton1.Size = new System.Drawing.Size(100, 200);
             this.SaveButton1.TabIndex = 2;
-            this.SaveButton1.Text = "Save 1";
-            this.SaveButton1.UseVisualStyleBackColor = true;
+            this.SaveButton1.Text = "1";
+            this.SaveButton1.UseVisualStyleBackColor = false;
             this.SaveButton1.Click += new System.EventHandler(this.SaveButton1_Click);
             // 
             // SaveButton3
             // 
-            this.SaveButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SaveButton3.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.SaveButton3.FlatAppearance.BorderSize = 5;
+            this.SaveButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton3.Font = new System.Drawing.Font("Vox Round Semibold", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton3.ForeColor = System.Drawing.Color.Maroon;
             this.SaveButton3.Location = new System.Drawing.Point(250, 450);
             this.SaveButton3.Name = "SaveButton3";
             this.SaveButton3.Size = new System.Drawing.Size(100, 200);
             this.SaveButton3.TabIndex = 4;
-            this.SaveButton3.Text = "Save 3";
-            this.SaveButton3.UseVisualStyleBackColor = true;
+            this.SaveButton3.Text = "3";
+            this.SaveButton3.UseVisualStyleBackColor = false;
             this.SaveButton3.Click += new System.EventHandler(this.SaveButton3_Click);
             // 
             // SaveButton4
             // 
-            this.SaveButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SaveButton4.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.SaveButton4.FlatAppearance.BorderSize = 5;
+            this.SaveButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton4.Font = new System.Drawing.Font("Vox Round Semibold", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton4.ForeColor = System.Drawing.Color.Maroon;
             this.SaveButton4.Location = new System.Drawing.Point(360, 450);
             this.SaveButton4.Name = "SaveButton4";
             this.SaveButton4.Size = new System.Drawing.Size(100, 200);
             this.SaveButton4.TabIndex = 5;
-            this.SaveButton4.Text = "Save 4";
-            this.SaveButton4.UseVisualStyleBackColor = true;
+            this.SaveButton4.Text = "4";
+            this.SaveButton4.UseVisualStyleBackColor = false;
             this.SaveButton4.Click += new System.EventHandler(this.SaveButton4_Click);
             // 
             // SaveButton5
             // 
-            this.SaveButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SaveButton5.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.SaveButton5.FlatAppearance.BorderSize = 5;
+            this.SaveButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton5.Font = new System.Drawing.Font("Vox Round Semibold", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton5.ForeColor = System.Drawing.Color.Maroon;
             this.SaveButton5.Location = new System.Drawing.Point(470, 450);
             this.SaveButton5.Name = "SaveButton5";
             this.SaveButton5.Size = new System.Drawing.Size(100, 200);
             this.SaveButton5.TabIndex = 6;
-            this.SaveButton5.Text = "Save 5";
-            this.SaveButton5.UseVisualStyleBackColor = true;
+            this.SaveButton5.Text = "5";
+            this.SaveButton5.UseVisualStyleBackColor = false;
             this.SaveButton5.Click += new System.EventHandler(this.SaveButton5_Click);
             // 
             // SaveButton2
             // 
-            this.SaveButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SaveButton2.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.SaveButton2.FlatAppearance.BorderSize = 5;
+            this.SaveButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton2.Font = new System.Drawing.Font("Vox Round Semibold", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton2.ForeColor = System.Drawing.Color.Maroon;
             this.SaveButton2.Location = new System.Drawing.Point(140, 450);
             this.SaveButton2.Name = "SaveButton2";
             this.SaveButton2.Size = new System.Drawing.Size(100, 200);
             this.SaveButton2.TabIndex = 3;
-            this.SaveButton2.Text = "Save 2";
-            this.SaveButton2.UseVisualStyleBackColor = true;
+            this.SaveButton2.Text = "2";
+            this.SaveButton2.UseVisualStyleBackColor = false;
             this.SaveButton2.Click += new System.EventHandler(this.SaveButton2_Click);
             // 
             // titleLabel
             // 
+            this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.Location = new System.Drawing.Point(215, 139);
             this.titleLabel.Name = "titleLabel";
@@ -116,13 +142,18 @@
             // 
             // levelsButton
             // 
-            this.levelsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.levelsButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.levelsButton.FlatAppearance.BorderColor = System.Drawing.Color.Maroon;
+            this.levelsButton.FlatAppearance.BorderSize = 5;
+            this.levelsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.levelsButton.Font = new System.Drawing.Font("Vox Round Semibold", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.levelsButton.ForeColor = System.Drawing.Color.Maroon;
             this.levelsButton.Location = new System.Drawing.Point(30, 250);
             this.levelsButton.Name = "levelsButton";
             this.levelsButton.Size = new System.Drawing.Size(540, 150);
             this.levelsButton.TabIndex = 1;
             this.levelsButton.Text = "Levels";
-            this.levelsButton.UseVisualStyleBackColor = true;
+            this.levelsButton.UseVisualStyleBackColor = false;
             this.levelsButton.Click += new System.EventHandler(this.levelsButton_Click);
             // 
             // checkBox1
@@ -137,6 +168,7 @@
             // 
             // errorLabel
             // 
+            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
             this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
             this.errorLabel.Location = new System.Drawing.Point(163, 74);
@@ -152,6 +184,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.levelsButton);

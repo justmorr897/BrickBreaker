@@ -74,7 +74,9 @@ namespace BrickBreaker
 
                     score = reader.ReadString();
 
-                    int newScore = Convert.ToInt32(score);
+                    int newScore;
+                    if(score.Length == 0) { newScore = 0; }
+                    else { newScore = Convert.ToInt32(score); }
 
                     Scores s = new Scores(name, newScore);
 
