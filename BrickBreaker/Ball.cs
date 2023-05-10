@@ -166,12 +166,12 @@ namespace BrickBreaker
                 // Do nothing
                 return;
             }
-            else if (Math.Abs(paddle.acceleration) <= 3)
+            else if (Math.Abs(paddle.acceleration) <= 5)
             {
                 // Small Launch
                 xSpeed = startXSpeed - 1;
             }
-            else if (Math.Abs(paddle.acceleration) <= 6)
+            else if (Math.Abs(paddle.acceleration) <= 7)
             {
                 // Normal Launch
                 xSpeed = startXSpeed;
