@@ -17,11 +17,9 @@ namespace BrickBreaker
         List<TextBox> textboxList = new List<TextBox>();
 
         TextBox textbox = new TextBox();
-        SolidBrush redbrush = new SolidBrush(Color.Red);
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
-        int mouseX;
-        int mouseY;
+        int mouseX, mouseY;
         int width = 45;
         int height = 30;
         int level = 0;
@@ -31,8 +29,8 @@ namespace BrickBreaker
         public LevelEditor()
         {
             InitializeComponent();
-            Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
-            rectangles.Add(saveButtonRect);
+            Rectangle backButtonRect = new Rectangle(backButton.Location.X, backButton.Location.Y, width, height);
+            rectangles.Add(backButtonRect);
 
             // Set a default value
             color = 1;
@@ -45,71 +43,62 @@ namespace BrickBreaker
 
         public void Print()
         {
+            bool isOverlapping = false;
+
             if (drawPen.Color == Color.Blue)
             {
-                rectangles.Add(newRect);
-
-                textbox = new TextBox();
-
-                if (color == 1)
+                for (int i = 0; i < rectangles.Count; i++)
                 {
-                    textbox.BackColor = Color.Green;
-                    textbox.Text = "1";
-                }
-                else if (color == 2)
-                {
-                    textbox.BackColor = Color.DarkCyan;
-                    textbox.Text = "2";
-                }
-                else if (color == 3)
-                {
-                    textbox.BackColor = Color.Orange;
-                    textbox.Text = "3";
-                }
-                else if (color == 4)
-                {
-                    textbox.BackColor = Color.Purple;
-                    textbox.Text = "4";
-                }
-                else if (color == 5)
-                {
-                    textbox.BackColor = Color.Gold;
-                    textbox.Text = "5";
+                    if (newRect.IntersectsWith(rectangles[i]))
+                    {
+                        isOverlapping = true;
+                    }
                 }
 
+                if (isOverlapping == false)
+                {
+                    rectangles.Add(newRect);
 
-                textbox.Font = new Font("Arial", 13);
-                textbox.Location = new Point(mouseX, mouseY);
-                textbox.Size = new Size(width, height);
-                textbox.ForeColor = Color.White;
-                textbox.TextAlign = HorizontalAlignment.Center;
-                textbox.ReadOnly = true;
+                    textbox = new TextBox();
 
-                textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
-                this.Controls.Add(textbox);
-                textbox.Focus();
-                textboxList.Add(textbox);
+                    if (color == 1)
+                    {
+                        textbox.BackColor = Color.Green;
+                        textbox.Text = "1";
+                    }
+                    else if (color == 2)
+                    {
+                        textbox.BackColor = Color.DarkCyan;
+                        textbox.Text = "2";
+                    }
+                    else if (color == 3)
+                    {
+                        textbox.BackColor = Color.Orange;
+                        textbox.Text = "3";
+                    }
+                    else if (color == 4)
+                    {
+                        textbox.BackColor = Color.Purple;
+                        textbox.Text = "4";
+                    }
+                    else if (color == 5)
+                    {
+                        textbox.BackColor = Color.Gold;
+                        textbox.Text = "5";
+                    }
 
-                //foreach (Rectangle rectangle in rectangles)
-                //{
-                //    if (newRect.IntersectsWith(rectangle))
-                //    {
+                    textbox.Font = new Font("Arial", 13);
+                    textbox.Location = new Point(mouseX, mouseY);
+                    textbox.Size = new Size(width, height);
+                    textbox.ForeColor = Color.White;
+                    textbox.TextAlign = HorizontalAlignment.Center;
+                    textbox.ReadOnly = true;
 
-                //    }
-
-                //    //if(rectangle.Contains(mouseX, mouseY))
-                //    //{
-
-                //    //}
-                //    else
-                //    {
-                //        textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
-                //        this.Controls.Add(textbox);
-                //        textbox.Focus();
-                //        textboxList.Add(textbox);
-                //        break;
-                //    }
-                //}
+                    textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                    this.Controls.Add(textbox);
+                    textbox.Focus();
+                    textboxList.Add(textbox);
+                }
             }
         }
 
@@ -207,7 +196,6 @@ namespace BrickBreaker
             level4Button.Location = new Point(-140, level4Button.Location.Y);
             level5Button.Location = new Point(-140, level5Button.Location.Y);
 
-
             while (level1Button.Location.X < -15)
             {
                 level1Button.Location = new Point(level1Button.Location.X + buttonSpeed, level1Button.Location.Y);
@@ -233,78 +221,23 @@ namespace BrickBreaker
                 level5Button.Location = new Point(level5Button.Location.X + buttonSpeed, level5Button.Location.Y);
                 level5Button.Refresh();
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Button button = sender as Button;
+            color = Convert.ToInt16(button.Tag);
         }
 
-        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        private void SaveButtonClick(object sender, EventArgs e)
         {
-            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
-        }
+            Button button = sender as Button;
+            level = Convert.ToInt16(button.Tag);
+            LevelButtonClick();
+        }      
 
-        private void oneHPButton_Click(object sender, EventArgs e)
+        public void LevelButtonClick()
         {
-            color = 1;
-        }
-
-        private void twoHPButton_Click(object sender, EventArgs e)
-        {
-            color = 2;
-        }
-
-        private void threeHPButton_Click(object sender, EventArgs e)
-        {
-            color = 3;
-        }
-
-        private void fourHPButton_Click(object sender, EventArgs e)
-        {
-            color = 4;
-        }
-
-        private void fiveHPButton_Click(object sender, EventArgs e)
-        {
-            color = 5;
-        }
-
-        private void level1Button_Click(object sender, EventArgs e)
-        {
-            level = 1;
-            LevelButtonClick(level);
-        }
-
-        private void level2Button_Click(object sender, EventArgs e)
-        {
-            level = 2;
-            LevelButtonClick(level);
-        }
-
-        private void level3Button_Click(object sender, EventArgs e)
-        {
-            level = 3;
-            LevelButtonClick(level);
-        }
-
-        private void level4Button_Click(object sender, EventArgs e)
-        {
-            level = 4;
-            LevelButtonClick(level);
-        }
-
-        private void level5Button_Click(object sender, EventArgs e)
-        {
-            level = 5;
-            LevelButtonClick(level);
-        }
-
-        public void LevelButtonClick(int _level)
-        {
-            level = _level;
-
             string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
 
@@ -325,14 +258,12 @@ namespace BrickBreaker
             }
 
             writer.WriteEndElement();
-
             writer.Close();
 
             int length = this.Controls.Count;
 
             for (int i = length - 13; i >= 0; i--)
             {
-                //this.Controls.RemoveAt(i);
                 this.Controls.Remove(textboxList[i]);
             }
 
@@ -342,7 +273,16 @@ namespace BrickBreaker
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
-            //level5Button.Enabled = false;
+        }
+
+        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
         }
     }
 }
