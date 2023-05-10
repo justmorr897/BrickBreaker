@@ -13,11 +13,51 @@ namespace BrickBreaker
     public partial class SelectScreen : UserControl
     {
         public static string username;
-        bool usernameEntered = false;
+        int level;
+
+        List<PictureBox> leftPictureBoxes = new List<PictureBox>();
+        List<PictureBox> rightPictureBoxes = new List<PictureBox>();
+
 
         public SelectScreen()
         {
             InitializeComponent();
+            
+            leftPictureBoxes.Add(pictureBox3);
+            leftPictureBoxes.Add(pictureBox4);
+            leftPictureBoxes.Add(pictureBox5);
+            leftPictureBoxes.Add(pictureBox6);
+            leftPictureBoxes.Add(pictureBox7);
+            leftPictureBoxes.Add(pictureBox8);
+            leftPictureBoxes.Add(pictureBox1);
+            leftPictureBoxes.Add(pictureBox2);
+
+            Bitmap flipImage1 = new Bitmap(Properties.Resources.Duck01);
+            Bitmap flipImage2 = new Bitmap(Properties.Resources.Duck02);
+            Bitmap flipImage3 = new Bitmap(Properties.Resources.Duck03);
+
+
+            flipImage1.RotateFlip(RotateFlipType.Rotate180FlipY);
+            flipImage2.RotateFlip(RotateFlipType.Rotate180FlipY);
+            flipImage3.RotateFlip(RotateFlipType.Rotate180FlipY);
+
+            pictureBox9.BackgroundImage = flipImage3;
+            pictureBox10.BackgroundImage = flipImage2;
+            pictureBox11.BackgroundImage = flipImage1;
+            pictureBox12.BackgroundImage = flipImage2;
+            pictureBox13.BackgroundImage = flipImage3;
+            pictureBox14.BackgroundImage = flipImage2;
+            pictureBox15.BackgroundImage = flipImage1;
+            pictureBox16.BackgroundImage = flipImage2;
+
+            rightPictureBoxes.Add(pictureBox11);
+            rightPictureBoxes.Add(pictureBox12);
+            rightPictureBoxes.Add(pictureBox13);
+            rightPictureBoxes.Add(pictureBox14);
+            rightPictureBoxes.Add(pictureBox15);
+            rightPictureBoxes.Add(pictureBox16);
+            rightPictureBoxes.Add(pictureBox9);
+            rightPictureBoxes.Add(pictureBox10);
         }
 
         private void textBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -27,28 +67,24 @@ namespace BrickBreaker
             if(e.KeyCode == Keys.Enter && usernameInput.Text != "")
             {
                 username = usernameInput.Text;
-                checkBox1.Checked = true;
+                usernameCheckbox.Checked = true;
+                usernameInput.Enabled = false;
+                partyModeCheckbox.Focus();
             }
             else
             {
-                checkBox1.Checked = false;
+                usernameCheckbox.Checked = false;
             }
         }
 
         public void ChangeScreen()
         {
-            GameScreen gs = new GameScreen();
-            Form form = this.FindForm();
-
-            form.Controls.Add(gs);
-            form.Controls.Remove(this);
-
-            gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+            Form1.ChangeScreen(this, new GameScreen());
         }
 
         private void levelsButton_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (usernameCheckbox.Checked == true)
             {
                 GameScreen.gameLevel = 1;
                 GameScreen.isSaveLevelSelcted = false;
@@ -60,98 +96,136 @@ namespace BrickBreaker
                 Error();
 
             }
+        }
 
+        public void ButtonClick(int _level)
+        {
+            if (usernameCheckbox.Checked == true)
+            {
+                GameScreen.saveLevel = _level;
+                GameScreen.isSaveLevelSelcted = true;
+                Form1.ChangeScreen(this, new GameScreen());
 
+            }
+            else
+            {
+                Error();
+            }
         }
 
         private void SaveButton1_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 1;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
-        }
-
-        private void SaveButton2_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 2;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
-        }
-
-        private void SaveButton3_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 3;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
-        }
-
-        private void SaveButton4_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 4;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-
-            }
-
-        }
-
-        private void SaveButton5_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-                GameScreen.saveLevel = 5;
-                GameScreen.isSaveLevelSelcted = true;
-                ChangeScreen();
-
-            }
-            else
-            {
-                Error();
-            }
-
+            Button button = sender as Button;
+            level = Convert.ToInt32(button.Tag);
+            ButtonClick(level);
         }
 
         public void Error()
         {
             errorLabel.Visible = true;
             usernameInput.Focus();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
+        }
+
+        private void partyModeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            GameScreen.partyMode = partyModeCheckbox.Checked;
+            SaveButton1.Focus();
+        }
+
+        private void SaveButton1_MouseEnter(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            int tag = Convert.ToInt16(button.Tag);
+            leftPictureBoxes[tag  - 1].Visible = true;
+            rightPictureBoxes[tag - 1].Visible = true;
+        }
+
+        private void SaveButton1_MouseLeave(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            int tag = Convert.ToInt16(button.Tag);
+            leftPictureBoxes[tag - 1].Visible = false;
+            rightPictureBoxes[tag - 1].Visible = false;
+        }
+
+        private void SaveButton1_Enter(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            int tag = Convert.ToInt16(button.Tag);
+
+            for(int i = 0; i < rightPictureBoxes.Count; i++)
+            {
+                rightPictureBoxes[i].Visible = false;
+                leftPictureBoxes[i].Visible = false;
+            }
+
+            leftPictureBoxes[tag - 1].Visible = true;
+            rightPictureBoxes[tag - 1].Visible = true;
+        }
+
+        private void usernameInput_Enter(object sender, EventArgs e)
+        {
+            for (int i = 0; i < rightPictureBoxes.Count; i++)
+            {
+                rightPictureBoxes[i].Visible = false;
+                leftPictureBoxes[i].Visible = false;
+            }
+
+            leftPictureBoxes[6].Visible = true;
+            rightPictureBoxes[6].Visible = true;
+        }
+
+        private void partyModeCheckbox_Enter(object sender, EventArgs e)
+        {
+            for (int i = 0; i < rightPictureBoxes.Count; i++)
+            {
+                rightPictureBoxes[i].Visible = false;
+                leftPictureBoxes[i].Visible = false;
+            }
+
+            leftPictureBoxes[7].Visible = true;
+            rightPictureBoxes[7].Visible = true;
+        }
+
+        private void levelsButton_Enter(object sender, EventArgs e)
+        {
+            for (int i = 0; i < rightPictureBoxes.Count; i++)
+            {
+                rightPictureBoxes[i].Visible = false;
+                leftPictureBoxes[i].Visible = false;
+            }
+
+            leftPictureBoxes[5].Visible = true;
+            rightPictureBoxes[5].Visible = true;
+        }
+
+        private void partyModeCheckbox_MouseEnter(object sender, EventArgs e)
+        {
+            partyModeCheckbox.Focus();
+
+            CheckBox checkBox = sender as CheckBox;
+            int tag = Convert.ToInt16(checkBox.Tag);
+
+            leftPictureBoxes[6].Visible = false;
+            rightPictureBoxes[6].Visible = false;
+
+            leftPictureBoxes[tag - 1].Visible = true;
+            rightPictureBoxes[tag - 1].Visible = true;
+        }
+
+        private void partyModeCheckbox_MouseLeave(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            int tag = Convert.ToInt16(checkBox.Tag);
+
+
+            leftPictureBoxes[tag - 1].Visible = false;
+            rightPictureBoxes[tag - 1].Visible = false;
         }
     }
 }
