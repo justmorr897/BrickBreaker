@@ -163,7 +163,6 @@ namespace BrickBreaker
             {
                 string levelFile = "Resources/GameLevel" + gameLevel + ".xml";
                 reader = XmlReader.Create(levelFile);
-                ExitScreen ps = new ExitScreen();
             }
 
             //XmlReader reader = XmlReader.Create("Resources/LevelEditorXML.xml");
@@ -388,13 +387,6 @@ namespace BrickBreaker
             {
                 gameTimer.Enabled = false;
                 Form form = this.FindForm();
-                ExitScreen ps = new ExitScreen();
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
-
 
                 OnEnd();
             }
@@ -428,12 +420,6 @@ namespace BrickBreaker
                 // Goes to the game over screen
 
                 Form form = this.FindForm();
-                ExitScreen ps = new ExitScreen();
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
             }
         }
 
