@@ -115,7 +115,7 @@ namespace BrickBreaker
                 }
 
                 // Get stuck if the paddle is sticky
-                if (GameScreen.stickyPaddle && !stuck)
+                if (GameScreen.stickyPaddle && !stuck && !GameScreen.moveBall)
                 {
                     foreach (Ball b in GameScreen.balls)
                     {
