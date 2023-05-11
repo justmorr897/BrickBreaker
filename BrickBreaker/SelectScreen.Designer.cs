@@ -80,15 +80,15 @@
             this.usernameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usernameInput.Location = new System.Drawing.Point(221, 119);
             this.usernameInput.Name = "usernameInput";
-            this.usernameInput.Size = new System.Drawing.Size(180, 29);
+            this.usernameInput.Size = new System.Drawing.Size(154, 29);
             this.usernameInput.TabIndex = 0;
             this.usernameInput.Tag = "7";
+            this.usernameInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.usernameInput.Enter += new System.EventHandler(this.usernameInput_Enter);
             this.usernameInput.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.textBox1_PreviewKeyDown);
             // 
             // SaveButton1
             // 
-
             this.SaveButton1.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveButton1.Location = new System.Drawing.Point(210, 247);
             this.SaveButton1.Name = "SaveButton1";
@@ -103,7 +103,7 @@
             this.SaveButton1.MouseLeave += new System.EventHandler(this.SaveButton1_MouseLeave);
             // 
             // SaveButton3
-            //
+            // 
             this.SaveButton3.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveButton3.Location = new System.Drawing.Point(210, 376);
             this.SaveButton3.Name = "SaveButton3";
@@ -164,18 +164,17 @@
             // 
             // titleLabel
             // 
-           
+            this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.Location = new System.Drawing.Point(206, 81);
+            this.titleLabel.Location = new System.Drawing.Point(217, 75);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(185, 35);
+            this.titleLabel.Size = new System.Drawing.Size(189, 35);
             this.titleLabel.TabIndex = 6;
             this.titleLabel.Text = "Username";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // levelsButton
             // 
-
             this.levelsButton.Font = new System.Drawing.Font("Algerian", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.levelsButton.Location = new System.Drawing.Point(106, 605);
             this.levelsButton.Name = "levelsButton";
@@ -185,7 +184,7 @@
             this.levelsButton.Text = "Levels";
             this.levelsButton.UseVisualStyleBackColor = false;
             this.levelsButton.Click += new System.EventHandler(this.levelsButton_Click);
-            this.levelsButton.Enter += new System.EventHandler(this.levelsButton_Enter);
+            this.levelsButton.Enter += new System.EventHandler(this.SaveButton1_Enter);
             this.levelsButton.MouseEnter += new System.EventHandler(this.SaveButton1_Enter);
             this.levelsButton.MouseLeave += new System.EventHandler(this.SaveButton1_MouseLeave);
             // 
@@ -203,7 +202,7 @@
             // errorLabel
             // 
             this.errorLabel.BackColor = System.Drawing.Color.Transparent;
-            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
             this.errorLabel.Location = new System.Drawing.Point(148, 11);
             this.errorLabel.Name = "errorLabel";
@@ -216,7 +215,7 @@
             // backButton
             // 
             this.backButton.BackColor = System.Drawing.Color.White;
-            this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backButton.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.Location = new System.Drawing.Point(22, 11);
             this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
@@ -240,7 +239,7 @@
             this.partyModeCheckbox.Text = "Party Mode";
             this.partyModeCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.partyModeCheckbox.UseVisualStyleBackColor = false;
-            this.partyModeCheckbox.CheckedChanged += new System.EventHandler(this.partyModeCheckbox_CheckedChanged);
+            this.partyModeCheckbox.CheckedChanged += new System.EventHandler(this.SaveButton1_MouseLeave);
             this.partyModeCheckbox.Enter += new System.EventHandler(this.partyModeCheckbox_Enter);
             this.partyModeCheckbox.MouseEnter += new System.EventHandler(this.partyModeCheckbox_MouseEnter);
             this.partyModeCheckbox.MouseLeave += new System.EventHandler(this.partyModeCheckbox_MouseLeave);

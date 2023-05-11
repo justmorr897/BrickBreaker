@@ -208,7 +208,7 @@
             // 
             // backButton
             // 
-            this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backButton.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.Location = new System.Drawing.Point(22, 11);
             this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
@@ -237,7 +237,6 @@
             this.Controls.Add(this.threeHPButton);
             this.Controls.Add(this.twoHPButton);
             this.Controls.Add(this.oneHPButton);
-            //this.Controls.Add(this.button1);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "LevelEditor";

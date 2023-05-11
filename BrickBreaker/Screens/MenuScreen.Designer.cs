@@ -46,10 +46,9 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.playButton.Font = new System.Drawing.Font("Chiller", 140.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.ForeColor = System.Drawing.Color.Black;
-
             this.playButton.Location = new System.Drawing.Point(3, -149);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(594, 507);     
+            this.playButton.Size = new System.Drawing.Size(594, 507);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "\r\nPlay";
             this.playButton.UseVisualStyleBackColor = false;
@@ -86,8 +85,7 @@
             this.editorButton.Font = new System.Drawing.Font("Chiller", 48F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editorButton.ForeColor = System.Drawing.Color.Black;
             this.editorButton.Location = new System.Drawing.Point(98, 324);
-            this.editorButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-
+            this.editorButton.Margin = new System.Windows.Forms.Padding(5);
             this.editorButton.Name = "editorButton";
             this.editorButton.Size = new System.Drawing.Size(389, 178);
             this.editorButton.TabIndex = 2;

@@ -22,7 +22,7 @@ namespace BrickBreaker
         public SelectScreen()
         {
             InitializeComponent();
-            
+
             leftPictureBoxes.Add(pictureBox3);
             leftPictureBoxes.Add(pictureBox4);
             leftPictureBoxes.Add(pictureBox5);
@@ -35,7 +35,6 @@ namespace BrickBreaker
             Bitmap flipImage1 = new Bitmap(Properties.Resources.Duck01);
             Bitmap flipImage2 = new Bitmap(Properties.Resources.Duck02);
             Bitmap flipImage3 = new Bitmap(Properties.Resources.Duck03);
-
 
             flipImage1.RotateFlip(RotateFlipType.Rotate180FlipY);
             flipImage2.RotateFlip(RotateFlipType.Rotate180FlipY);
@@ -64,7 +63,7 @@ namespace BrickBreaker
         {
             errorLabel.Visible = false;
 
-            if(e.KeyCode == Keys.Enter && usernameInput.Text != "")
+            if (e.KeyCode == Keys.Enter && usernameInput.Text != "")
             {
                 username = usernameInput.Text;
                 usernameCheckbox.Checked = true;
@@ -89,7 +88,6 @@ namespace BrickBreaker
                 GameScreen.gameLevel = 1;
                 GameScreen.isSaveLevelSelcted = false;
                 ChangeScreen();
-
             }
             else
             {
@@ -105,7 +103,6 @@ namespace BrickBreaker
                 GameScreen.saveLevel = _level;
                 GameScreen.isSaveLevelSelcted = true;
                 Form1.ChangeScreen(this, new GameScreen());
-
             }
             else
             {
@@ -135,22 +132,35 @@ namespace BrickBreaker
         {
             GameScreen.partyMode = partyModeCheckbox.Checked;
             SaveButton1.Focus();
+            leftPictureBoxes[0].Visible = true;
+            rightPictureBoxes[0].Visible = true;
+        }
+
+        public void MakeVisible(int tag)
+        {
+            leftPictureBoxes[tag].Visible = true;
+            rightPictureBoxes[tag].Visible = true;
+        }
+
+        public void MakeNotVisible()
+        {
+            for (int i = 0; i < rightPictureBoxes.Count; i++)
+            {
+                rightPictureBoxes[i].Visible = false;
+                leftPictureBoxes[i].Visible = false;
+            }
         }
 
         private void SaveButton1_MouseEnter(object sender, EventArgs e)
         {
             Button button = sender as Button;
             int tag = Convert.ToInt16(button.Tag);
-            leftPictureBoxes[tag  - 1].Visible = true;
-            rightPictureBoxes[tag - 1].Visible = true;
+            MakeVisible(tag - 1);
         }
 
         private void SaveButton1_MouseLeave(object sender, EventArgs e)
         {
-            Button button = sender as Button;
-            int tag = Convert.ToInt16(button.Tag);
-            leftPictureBoxes[tag - 1].Visible = false;
-            rightPictureBoxes[tag - 1].Visible = false;
+            MakeNotVisible();
         }
 
         private void SaveButton1_Enter(object sender, EventArgs e)
@@ -158,50 +168,20 @@ namespace BrickBreaker
             Button button = sender as Button;
             int tag = Convert.ToInt16(button.Tag);
 
-            for(int i = 0; i < rightPictureBoxes.Count; i++)
-            {
-                rightPictureBoxes[i].Visible = false;
-                leftPictureBoxes[i].Visible = false;
-            }
-
-            leftPictureBoxes[tag - 1].Visible = true;
-            rightPictureBoxes[tag - 1].Visible = true;
+            MakeNotVisible();
+            MakeVisible(tag - 1);
         }
 
         private void usernameInput_Enter(object sender, EventArgs e)
         {
-            for (int i = 0; i < rightPictureBoxes.Count; i++)
-            {
-                rightPictureBoxes[i].Visible = false;
-                leftPictureBoxes[i].Visible = false;
-            }
-
-            leftPictureBoxes[6].Visible = true;
-            rightPictureBoxes[6].Visible = true;
+            MakeNotVisible();
+            MakeVisible(6);
         }
 
         private void partyModeCheckbox_Enter(object sender, EventArgs e)
         {
-            for (int i = 0; i < rightPictureBoxes.Count; i++)
-            {
-                rightPictureBoxes[i].Visible = false;
-                leftPictureBoxes[i].Visible = false;
-            }
-
-            leftPictureBoxes[7].Visible = true;
-            rightPictureBoxes[7].Visible = true;
-        }
-
-        private void levelsButton_Enter(object sender, EventArgs e)
-        {
-            for (int i = 0; i < rightPictureBoxes.Count; i++)
-            {
-                rightPictureBoxes[i].Visible = false;
-                leftPictureBoxes[i].Visible = false;
-            }
-
-            leftPictureBoxes[5].Visible = true;
-            rightPictureBoxes[5].Visible = true;
+            MakeNotVisible();
+            MakeVisible(7);
         }
 
         private void partyModeCheckbox_MouseEnter(object sender, EventArgs e)
@@ -211,11 +191,8 @@ namespace BrickBreaker
             CheckBox checkBox = sender as CheckBox;
             int tag = Convert.ToInt16(checkBox.Tag);
 
-            leftPictureBoxes[6].Visible = false;
-            rightPictureBoxes[6].Visible = false;
-
-            leftPictureBoxes[tag - 1].Visible = true;
-            rightPictureBoxes[tag - 1].Visible = true;
+            MakeNotVisible();
+            MakeVisible(tag - 1);
         }
 
         private void partyModeCheckbox_MouseLeave(object sender, EventArgs e)
@@ -223,9 +200,7 @@ namespace BrickBreaker
             CheckBox checkBox = sender as CheckBox;
             int tag = Convert.ToInt16(checkBox.Tag);
 
-
-            leftPictureBoxes[tag - 1].Visible = false;
-            rightPictureBoxes[tag - 1].Visible = false;
+            MakeNotVisible();
         }
     }
 }

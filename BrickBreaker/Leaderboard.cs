@@ -29,7 +29,7 @@ namespace BrickBreaker
 
             List<Scores> sortedScores = MenuScreen.scores.OrderByDescending(x => x.score).ToList();
 
-            int start = 220;
+            int start = 180;
 
             foreach (Scores s in sortedScores)
             {
@@ -43,16 +43,14 @@ namespace BrickBreaker
 
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.BackColor = Color.Transparent;
-                pictureBox.Location = new Point(50, start);
+                pictureBox.Location = new Point(40, start);
                 pictureBox.Size = new Size(45,30);
                 pictureBox.BackgroundImageLayout = ImageLayout.Zoom;
                 pictureBox.BackgroundImage = duckImage;
                 this.Controls.Add(pictureBox);
 
-                start = start + 38;
-
+                start = start + 35;
             }
-
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -63,6 +61,15 @@ namespace BrickBreaker
         private void button1_Click(object sender, EventArgs e)
         {
             MenuScreen.scores.Clear();
+
+            for(int i = Controls.Count - 1; i >= 0; i--)
+            {
+                if(Controls[i] is PictureBox)
+                {
+                    Controls.Remove(Controls[i]);
+                }
+            }
+
             PrintToScreen();
         }
     }
