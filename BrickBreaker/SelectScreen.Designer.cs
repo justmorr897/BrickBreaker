@@ -239,7 +239,7 @@
             this.partyModeCheckbox.Text = "Party Mode";
             this.partyModeCheckbox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.partyModeCheckbox.UseVisualStyleBackColor = false;
-            this.partyModeCheckbox.CheckedChanged += new System.EventHandler(this.SaveButton1_MouseLeave);
+            this.partyModeCheckbox.CheckedChanged += new System.EventHandler(this.partyModeCheckbox_CheckedChanged);
             this.partyModeCheckbox.Enter += new System.EventHandler(this.partyModeCheckbox_Enter);
             this.partyModeCheckbox.MouseEnter += new System.EventHandler(this.partyModeCheckbox_MouseEnter);
             this.partyModeCheckbox.MouseLeave += new System.EventHandler(this.partyModeCheckbox_MouseLeave);
