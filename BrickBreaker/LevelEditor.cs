@@ -45,7 +45,7 @@ namespace BrickBreaker
         {
             bool isOverlapping = false;
 
-            if (drawPen.Color == Color.Blue)
+            if (drawPen.Color == Color.White)
             {
                 for (int i = 0; i < rectangles.Count; i++)
                 {
@@ -118,7 +118,7 @@ namespace BrickBreaker
                 }
                 else
                 {
-                    drawPen = new Pen(Color.Blue);
+                    drawPen = new Pen(Color.White);
                 }
             }
 

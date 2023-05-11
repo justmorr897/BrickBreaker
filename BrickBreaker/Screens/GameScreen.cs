@@ -94,7 +94,6 @@ namespace BrickBreaker
         public GameScreen()
         {
             InitializeComponent();
-
             OnStart();
         }
 
@@ -107,7 +106,6 @@ namespace BrickBreaker
             paddleSizeTimer = paddleSpeedTimer = speedBallTimer = damageTimer = fireBallTimer = explosiveHitTimer = magnetTimer = stickyPaddleTimer = messageTimer = 0;
             edgeProtector = stickyPaddle = moveBall = shotReady = shotgunPowerup = false;
             balls.Clear();
-
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = false;

@@ -52,7 +52,7 @@
             this.livesLabel.ForeColor = System.Drawing.Color.Black;
             this.livesLabel.Location = new System.Drawing.Point(3, 0);
             this.livesLabel.Name = "livesLabel";
-            this.livesLabel.Size = new System.Drawing.Size(116, 34);
+            this.livesLabel.Size = new System.Drawing.Size(155, 34);
             this.livesLabel.TabIndex = 0;
             this.livesLabel.Text = "Lives: 1";
             this.livesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -62,9 +62,9 @@
             this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.Black;
-            this.scoreLabel.Location = new System.Drawing.Point(484, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(439, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(116, 34);
+            this.scoreLabel.Size = new System.Drawing.Size(161, 34);
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "Score: 1";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
