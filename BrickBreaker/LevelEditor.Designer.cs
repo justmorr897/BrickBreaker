@@ -208,7 +208,7 @@
             // 
             // backButton
             // 
-            this.backButton.Font = new System.Drawing.Font("Chiller", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backButton.Font = new System.Drawing.Font("Algerian", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.Location = new System.Drawing.Point(22, 11);
             this.backButton.Margin = new System.Windows.Forms.Padding(2);
             this.backButton.Name = "backButton";
@@ -223,6 +223,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.outputLabel);
             this.Controls.Add(this.level5Button);
@@ -235,6 +237,7 @@
             this.Controls.Add(this.threeHPButton);
             this.Controls.Add(this.twoHPButton);
             this.Controls.Add(this.oneHPButton);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "LevelEditor";
             this.Size = new System.Drawing.Size(600, 701);

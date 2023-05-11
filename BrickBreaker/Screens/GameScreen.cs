@@ -83,7 +83,7 @@ namespace BrickBreaker
         Color colour = Color.White;
 
         // Fonts
-        Font powerupMessageFont = new Font("Forte", 50);
+        //Font powerupMessageFont = new Font("Forte", 50);
 
         Stopwatch stopwatch = new Stopwatch();
         Stopwatch gameTimeStopwatch = new Stopwatch();
@@ -470,17 +470,17 @@ namespace BrickBreaker
 
             explosions.Clear();
 
-            if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
-            {
-                if (paddle.acceleration > 0)
-                {
-                    paddle.acceleration--;
-                }
-                else
-                {
-                    paddle.acceleration++;
-                }
-            }
+            //if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
+            //{
+            //    if (paddle.acceleration > 0)
+            //    {
+            //        paddle.acceleration--;
+            //    }
+            //    else
+            //    {
+            //        paddle.acceleration++;
+            //    }
+            //}
             //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";
@@ -716,18 +716,12 @@ namespace BrickBreaker
             //    e.Graphics.FillEllipse(brush, p.X - 80, p.Y - 40, 160, 80);
             //}
 
-            // Draws powerup message
-            //if (messageTimer > 0)
-            //{
-            //    e.Graphics.DrawString(powerupMessage, powerupMessageFont, darkBlue, 100, this.Height / 2);
-            //}
-
             if (messageTimer > 50)
             {
                 string text = powerupMessage;
-                using (Font font = new Font($"{powerupMessageFont}", 45, FontStyle.Bold, GraphicsUnit.Point))
+                using (Font font = new Font($"Algerian", 45, FontStyle.Bold, GraphicsUnit.Point))
                 {
-                    Rectangle rect1 = new Rectangle(0, 25, this.Width, 100);
+                    Rectangle rect = new Rectangle(0, 15, this.Width, 100);
 
                     // Create a StringFormat object with the each line of text, and the block
                     // of text centered on the page.
@@ -736,9 +730,9 @@ namespace BrickBreaker
                     stringFormat.LineAlignment = StringAlignment.Center;
 
                     // Draw the text and the surrounding rectangle.
-                    e.Graphics.DrawString(text, font, Brushes.DarkBlue, rect1, stringFormat);
+                    e.Graphics.DrawString(text, font, Brushes.DarkBlue, rect, stringFormat);
                     //e.Graphics.DrawRectangle(Pens.Black, rect1);
-                }
+                }   
             }
 
             // Draw timers
