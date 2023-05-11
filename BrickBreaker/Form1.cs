@@ -18,7 +18,7 @@ namespace BrickBreaker
         public Form1()
         {
             InitializeComponent();
-            //ReadXmlFile();
+            ReadXmlFile();
         }
 
         public void ReadXmlFile()
