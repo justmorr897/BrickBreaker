@@ -182,28 +182,28 @@ namespace BrickBreaker
             }
 
 
-                //if (direction == "X")
-                //{
-                //    switch (randomNum)
-                //    {
-                //        case 0:
-                //            xSpeed = startXSpeed - 2;
-                //            break;
-                //        case 1:
-                //            xSpeed = startXSpeed - 1;
-                //            break;
-                //        case 2:
-                //            xSpeed = startXSpeed;
-                //            break;
-                //        case 3:
-                //            xSpeed = startXSpeed + 1;
-                //            break;
-                //        case 4:
-                //            xSpeed = startXSpeed + 2;
-                //            break;
-                //    }
+            //if (direction == "X")
+            //{
+            //    switch (randomNum)
+            //    {
+            //        case 0:
+            //            xSpeed = startXSpeed - 2;
+            //            break;
+            //        case 1:
+            //            xSpeed = startXSpeed - 1;
+            //            break;
+            //        case 2:
+            //            xSpeed = startXSpeed;
+            //            break;
+            //        case 3:
+            //            xSpeed = startXSpeed + 1;
+            //            break;
+            //        case 4:
+            //            xSpeed = startXSpeed + 2;
+            //            break;
+            //    }
 
-                //}
+            //}
 
             }
 
@@ -219,6 +219,36 @@ namespace BrickBreaker
             return didCollide;
         }
 
+        //public static double GetDirection(int xSpeed, int ySpeed)
+        //{
+        //    double direction;
+        //    double test;
 
+        //    if (ySpeed == 0)
+        //    {
+        //        if (xSpeed < 0)
+        //        {
+        //            return -90;
+        //        }
+        //        else
+        //        {
+        //            return 90;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        test = Convert.ToDouble(xSpeed / ySpeed);
+        //        direction = Math.Atan(xSpeed / ySpeed * -1) * 180 / Math.PI;
+
+        //        if (xSpeed >= 0)
+        //        {
+        //            return direction;
+        //        }
+        //        else
+        //        {
+        //            return direction + 180;
+        //        }
+        //    }
+        //}
     }
 }

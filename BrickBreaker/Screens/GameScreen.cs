@@ -36,7 +36,7 @@ namespace BrickBreaker
 
         //Set all power ups bools to false
         public static bool edgeProtector, stickyPaddle, moveBall, isSaveLevelSelcted, partyMode, shotReady, shotgunPowerup = false;
-        public static string powerupMessage = "";
+        public static string powerupMessage, instructionMessage = "";
 
         //Ball will be launched by player by pressing space
         public bool awaitingLaunch = true;
@@ -202,7 +202,7 @@ namespace BrickBreaker
             }
 
             //Write the level to the screen
-            WritePowerupMessage(level);
+            WritePowerupMessage(level, 0);
 
             // Just to make sure the ball doesnt move on start
             balls[0].canMove = false;
@@ -470,17 +470,17 @@ namespace BrickBreaker
 
             explosions.Clear();
 
-            //if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
-            //{
-            //    if (paddle.acceleration > 0)
-            //    {
-            //        paddle.acceleration--;
-            //    }
-            //    else
-            //    {
-            //        paddle.acceleration++;
-            //    }
-            //}
+            if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
+            {
+                if (paddle.acceleration > 0)
+                {
+                    paddle.acceleration--;
+                }
+                else
+                {
+                    paddle.acceleration++;
+                }
+            }
             //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";
@@ -716,7 +716,7 @@ namespace BrickBreaker
             //    e.Graphics.FillEllipse(brush, p.X - 80, p.Y - 40, 160, 80);
             //}
 
-            if (messageTimer > 50)
+            if (messageTimer > 0)
             {
                 string text = powerupMessage;
                 using (Font font = new Font($"Algerian", 45, FontStyle.Bold, GraphicsUnit.Point))
@@ -732,7 +732,13 @@ namespace BrickBreaker
                     // Draw the text and the surrounding rectangle.
                     e.Graphics.DrawString(text, font, Brushes.DarkBlue, rect, stringFormat);
                     //e.Graphics.DrawRectangle(Pens.Black, rect1);
-                }   
+                }
+                powerupLabel.Text = instructionMessage;
+                powerupLabel.Visible = true;
+            }
+            else
+            {
+                powerupLabel.Visible = false;
             }
 
             // Draw timers
@@ -829,10 +835,23 @@ namespace BrickBreaker
             writer.Close();
         }
 
-        public static void WritePowerupMessage(string message)
+        public static void WritePowerupMessage(string message, int type)
         {
-            messageTimer = 100;
+            messageTimer = 200;
             powerupMessage = message;
+            instructionMessage = "";
+            if (type == 6)
+            {
+                instructionMessage = "Press space to release.";
+            }
+            if (type == 8)
+            {
+                instructionMessage = "Click the ducks to shoot them!";
+            }
+            if (type == 11)
+            {
+                instructionMessage = "Click within the box to move the ball.";
+            }
         }
 
         public void CountTimers()
