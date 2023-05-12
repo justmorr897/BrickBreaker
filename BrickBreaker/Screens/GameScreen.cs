@@ -122,13 +122,10 @@ namespace BrickBreaker
             int ballX = this.Width / 2 - 10;
             int ballY = this.Height - paddle.height - 80;
 
-            /**
-             * Set the ball speed to 0 so it doesnt move upon start so it can be launched
-             */
             int xSpeed = 2;
             int ySpeed = 2;
             int ballSize = 20;
-            
+
             balls.Add(new Ball(ballX, ballY, xSpeed, ySpeed, ballSize));
 
             LevelBuild();
@@ -137,6 +134,15 @@ namespace BrickBreaker
 
         public void LevelBuild()
         {
+            if (saveLevel > totalLevels || gameLevel > totalLevels)
+            {
+                gameTimer.Enabled = false;
+                CooperCode();
+                Leaderboard.gameOver = true;
+                Form1.ChangeScreen(this, new Leaderboard());
+                return;
+            }
+
             if (partyMode)
             {
                 powerUpChance = 3;
@@ -193,7 +199,6 @@ namespace BrickBreaker
 
             reader.Close();
 
-
             for (int i = 1; i < balls.Count; i++)
             {
                 balls.RemoveAt(i);
@@ -207,6 +212,8 @@ namespace BrickBreaker
 
             //start game timer 
             gameTimer.Enabled = true;
+
+            gameTimeStopwatch.Reset();
             gameTimeStopwatch.Start();
         }
 
@@ -227,7 +234,7 @@ namespace BrickBreaker
                     paddleYMove = 10;
                     spaceDown = true;
                     break;
-                case Keys.P:               
+                case Keys.P:
                     PauseAndResume();
                     break;
                 default:
@@ -359,7 +366,6 @@ namespace BrickBreaker
                 }
             }
 
-
             foreach (Block b in blocks)
             {
                 foreach (Point p in explosions)
@@ -403,7 +409,7 @@ namespace BrickBreaker
             if (blocks.Count == 0)
             {
                 gameTimer.Enabled = false;
-                OnEnd();
+                OnLevelEnd();
             }
 
             //move the powerups
@@ -425,8 +431,8 @@ namespace BrickBreaker
             {
                 CooperCode();
                 gameTimer.Enabled = false;
+                Leaderboard.gameOver = true;
                 Form1.ChangeScreen(this, new Leaderboard());
-                //OnEnd();
             }
 
             //Animate the ducks
@@ -456,29 +462,27 @@ namespace BrickBreaker
             //Play the reload sound when the player gets the shotgun powerup
             if (shotgunPowerup && shotReady == true)
             {
-                //if (stopwatch.ElapsedMilliseconds > 1500)
-                //{
                 var reloadSound = new System.Windows.Media.MediaPlayer();
                 reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
                 reloadSound.Play();
 
                 shotReady = false;
-                //}
             }
 
             explosions.Clear();
 
-            //if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
-            //{
-            //    if (paddle.acceleration > 0)
-            //    {
-            //        paddle.acceleration--;
-            //    }
-            //    else
-            //    {
-            //        paddle.acceleration++;
-            //    }
-            //}
+            if (paddle.acceleration != 0 && !leftArrowDown && !rightArrowDown || leftArrowDown && rightArrowDown)
+            {
+                if (paddle.acceleration > 0)
+                {
+                    paddle.acceleration--;
+                }
+                else
+                {
+                    paddle.acceleration++;
+                }
+            }
+
             //update lives and score labels
             livesLabel.Text = $"Lives: {lives}";
             scoreLabel.Text = $"Score: {score}";
@@ -531,11 +535,6 @@ namespace BrickBreaker
                     //add to the shot counter
                     shotgunShots++;
 
-                    //var reloadSound = new System.Windows.Media.MediaPlayer();
-                    //reloadSound.Open(new Uri(Application.StartupPath + "/Resources/shotguCopyEdited.Wav"));
-                    //reloadSound.Play();
-
-
                     //Check if any blocks are hit by the shot
                     //If they are remove them from blocks and add them to deadblocks
                     //Also increase score
@@ -548,7 +547,6 @@ namespace BrickBreaker
                             score++;
                         }
                     }
-
                 }
                 else
                 {
@@ -597,20 +595,9 @@ namespace BrickBreaker
             PauseAndResume();
         }
 
-        public void OnEnd()
+        public void OnLevelEnd()
         {
-            CooperCode();
-
-            if (gameLevel < totalLevels)
-            {
-                JustinCode2();
-
-            }
-            else if (gameLevel >= totalLevels || saveLevel >= totalLevels)
-            {
-                // Goes to the game over screen
-                Form1.ChangeScreen(this, new Leaderboard());
-            }
+            JustinCode2();
         }
 
         public void JustinCode2()
@@ -646,7 +633,7 @@ namespace BrickBreaker
             {
                 if (Math.Abs(mouseX - balls[0].x) < 150 * powerUpIntensity && Math.Abs(mouseY - balls[0].y) < 150 * powerUpIntensity)
                 {
-                  
+
                     e.Graphics.DrawLine(moveBallPen, balls[0].x + balls[0].size / 2, balls[0].y + balls[0].size / 2, mouseX, mouseY);
 
                     e.Graphics.DrawLine(moveBallPen, mouseX - 15, mouseY - 15, mouseX + 15, mouseY + 15);
@@ -730,7 +717,7 @@ namespace BrickBreaker
                     // Draw the text and the surrounding rectangle.
                     e.Graphics.DrawString(text, font, Brushes.DarkBlue, rect, stringFormat);
                     //e.Graphics.DrawRectangle(Pens.Black, rect1);
-                }   
+                }
             }
 
             // Draw timers
@@ -807,7 +794,7 @@ namespace BrickBreaker
             name = SelectScreen.username;
             string HS = score.ToString();
             int intScore = Convert.ToInt32(HS);
-            int time = Convert.ToInt16(gameTimeStopwatch.ElapsedMilliseconds/1000);
+            int time = Convert.ToInt16(gameTimeStopwatch.ElapsedMilliseconds / 1000);
 
             Scores newScore = new Scores(name, intScore, time);
 

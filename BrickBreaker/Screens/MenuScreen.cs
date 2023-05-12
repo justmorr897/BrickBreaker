@@ -38,6 +38,7 @@ namespace BrickBreaker
 
         private void leaderboardButton_Click(object sender, EventArgs e)
         {
+            Leaderboard.gameOver = false;
             Form1.ChangeScreen(this, new Leaderboard());
         }
     }

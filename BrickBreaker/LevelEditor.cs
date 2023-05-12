@@ -20,8 +20,8 @@ namespace BrickBreaker
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
         int mouseX, mouseY;
-        int width = 45;
-        int height = 30;
+        int width = 50;
+        int height = 25;
         int level = 0;
         int buttonSpeed = 5;
         int color;
@@ -238,7 +238,7 @@ namespace BrickBreaker
 
         public void LevelButtonClick()
         {
-            string levelFile = "Resources/UserLevel" + level + ".xml";
+            string levelFile = "Resources/GameLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
 
             writer.WriteStartElement("Level");
