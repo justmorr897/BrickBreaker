@@ -36,6 +36,8 @@
             this.exitButton = new System.Windows.Forms.Button();
             this.pauseLivesLabel = new System.Windows.Forms.Label();
             this.pauseScoreLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.powerupLabel = new System.Windows.Forms.Label();
             this.levelPauseLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -132,6 +134,19 @@
             this.levelPauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.levelPauseLabel.Click += new System.EventHandler(this.label1_Click);
             // 
+            // powerupLabel
+            // 
+            this.powerupLabel.BackColor = System.Drawing.Color.Transparent;
+            this.powerupLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.powerupLabel.ForeColor = System.Drawing.Color.White;
+            this.powerupLabel.Location = new System.Drawing.Point(0, 670);
+            this.powerupLabel.Name = "powerupLabel";
+            this.powerupLabel.Size = new System.Drawing.Size(600, 23);
+            this.powerupLabel.TabIndex = 9;
+            this.powerupLabel.Text = "Instructions";
+            this.powerupLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.powerupLabel.Visible = false;
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -139,6 +154,8 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Controls.Add(this.powerupLabel);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.levelPauseLabel);
             this.Controls.Add(this.pauseScoreLabel);
             this.Controls.Add(this.pauseLivesLabel);
@@ -168,6 +185,8 @@
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label pauseLivesLabel;
         private System.Windows.Forms.Label pauseScoreLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label powerupLabel;
         private System.Windows.Forms.Label levelPauseLabel;
     }
 }

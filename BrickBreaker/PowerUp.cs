@@ -168,7 +168,7 @@ namespace BrickBreaker
                             }
                         }
 
-                        GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
+                        GameScreen.WritePowerupMessage(goodPowerups[type - 1], type);
                         type = 0;
                     }
                     else if (type < 0)
@@ -225,7 +225,7 @@ namespace BrickBreaker
                             GameScreen.paddleSpeedTimer = 750;
                         }
 
-                        GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1]);
+                        GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1], type);
                         type = 0;
                     }
                     else
