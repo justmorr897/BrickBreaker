@@ -31,6 +31,7 @@
             this.playButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.editorButton = new System.Windows.Forms.Button();
+            this.leaderboardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playButton
@@ -45,9 +46,9 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.playButton.Font = new System.Drawing.Font("Chiller", 140.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.ForeColor = System.Drawing.Color.Black;
-            this.playButton.Location = new System.Drawing.Point(62, -149);
+            this.playButton.Location = new System.Drawing.Point(3, -149);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(500, 500);
+            this.playButton.Size = new System.Drawing.Size(594, 507);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "\r\nPlay";
             this.playButton.UseVisualStyleBackColor = false;
@@ -83,7 +84,7 @@
             this.editorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editorButton.Font = new System.Drawing.Font("Chiller", 48F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editorButton.ForeColor = System.Drawing.Color.Black;
-            this.editorButton.Location = new System.Drawing.Point(110, 309);
+            this.editorButton.Location = new System.Drawing.Point(98, 324);
             this.editorButton.Margin = new System.Windows.Forms.Padding(5);
             this.editorButton.Name = "editorButton";
             this.editorButton.Size = new System.Drawing.Size(389, 178);
@@ -92,6 +93,25 @@
             this.editorButton.UseVisualStyleBackColor = false;
             this.editorButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // leaderboardButton
+            // 
+            this.leaderboardButton.BackColor = System.Drawing.Color.Transparent;
+            this.leaderboardButton.BackgroundImage = global::BrickBreaker.Properties.Resources.Sign;
+            this.leaderboardButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.leaderboardButton.FlatAppearance.BorderSize = 0;
+            this.leaderboardButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.leaderboardButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.leaderboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.leaderboardButton.Font = new System.Drawing.Font("Chiller", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leaderboardButton.ForeColor = System.Drawing.Color.Black;
+            this.leaderboardButton.Location = new System.Drawing.Point(178, 0);
+            this.leaderboardButton.Name = "leaderboardButton";
+            this.leaderboardButton.Size = new System.Drawing.Size(227, 103);
+            this.leaderboardButton.TabIndex = 3;
+            this.leaderboardButton.Text = "\r\nLeaderboard";
+            this.leaderboardButton.UseVisualStyleBackColor = false;
+            this.leaderboardButton.Click += new System.EventHandler(this.leaderboardButton_Click);
+            // 
             // MenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -99,6 +119,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Controls.Add(this.leaderboardButton);
             this.Controls.Add(this.editorButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
@@ -115,5 +136,6 @@
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button editorButton;
+        private System.Windows.Forms.Button leaderboardButton;
     }
 }

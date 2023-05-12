@@ -17,13 +17,11 @@ namespace BrickBreaker
         List<TextBox> textboxList = new List<TextBox>();
 
         TextBox textbox = new TextBox();
-        SolidBrush redbrush = new SolidBrush(Color.Red);
         Pen drawPen = new Pen(Color.White);
         Rectangle newRect;
-        int mouseX;
-        int mouseY;
-        int width = 45;
-        int height = 30;
+        int mouseX, mouseY;
+        int width = 50;
+        int height = 25;
         int level = 0;
         int buttonSpeed = 5;
         int color;
@@ -31,8 +29,8 @@ namespace BrickBreaker
         public LevelEditor()
         {
             InitializeComponent();
-            Rectangle saveButtonRect = new Rectangle(button1.Location.X, button1.Location.Y, width, height);
-            rectangles.Add(saveButtonRect);
+            Rectangle backButtonRect = new Rectangle(backButton.Location.X, backButton.Location.Y, width, height);
+            rectangles.Add(backButtonRect);
 
             // Set a default value
             color = 1;
@@ -45,72 +43,99 @@ namespace BrickBreaker
 
         public void Print()
         {
-            if (drawPen.Color == Color.Blue)
+            bool isOverlapping = false;
+
+            if (drawPen.Color == Color.White)
             {
-                rectangles.Add(newRect);
-
-                textbox = new TextBox();
-
-                if (color == 1)
+                for (int i = 0; i < rectangles.Count; i++)
                 {
-                    textbox.BackColor = Color.Green;
-                    textbox.Text = "1";
+                    //If a brick already exists where the mouse is, overlapping will be true
+                    if (newRect.IntersectsWith(rectangles[i]))
+                    {
+                        isOverlapping = true;
+                    }
                 }
-                else if (color == 2)
-                {
-                    textbox.BackColor = Color.DarkCyan;
-                    textbox.Text = "2";
-                }
-                else if (color == 3)
-                {
-                    textbox.BackColor = Color.Orange;
-                    textbox.Text = "3";
-                }
-                else if (color == 4)
-                {
-                    textbox.BackColor = Color.Purple;
-                    textbox.Text = "4";
-                }
-                else if (color == 5)
-                {
-                    textbox.BackColor = Color.Gold;
-                    textbox.Text = "5";
-                }
-                
 
-                textbox.Font = new Font("Arial", 13);
-                textbox.Location = new Point(mouseX, mouseY);
-                textbox.Size = new Size(width, height);
-                textbox.ForeColor = Color.White;
-                textbox.TextAlign = HorizontalAlignment.Center;
-                textbox.ReadOnly = true;
+                if (isOverlapping == false)
+                {
+                    //If it isn't overlapping, add that block to that position
+                    //Add that rectangle to the list of rectangles
+                    rectangles.Add(newRect);
 
-                textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+                    //Make a new textbox
+                    textbox = new TextBox();
 
-                this.Controls.Add(textbox);
-                textbox.Focus();
+                    //Set the text of the new textbox depending of the color variable
+                    if (color == 1)
+                    {
+                        textbox.BackColor = Color.Green;
+                        textbox.Text = "1";
+                    }
+                    else if (color == 2)
+                    {
+                        textbox.BackColor = Color.DarkCyan;
+                        textbox.Text = "2";
+                    }
+                    else if (color == 3)
+                    {
+                        textbox.BackColor = Color.Orange;
+                        textbox.Text = "3";
+                    }
+                    else if (color == 4)
+                    {
+                        textbox.BackColor = Color.Purple;
+                        textbox.Text = "4";
+                    }
+                    else if (color == 5)
+                    {
+                        textbox.BackColor = Color.Gold;
+                        textbox.Text = "5";
+                    }
 
-                textboxList.Add(textbox);
+                    //Set all the values for the new textbox
+                    textbox.Font = new Font("Arial", 13);
+                    textbox.Location = new Point(mouseX, mouseY);
+                    textbox.Size = new Size(width, height);
+                    textbox.ForeColor = Color.White;
+                    textbox.TextAlign = HorizontalAlignment.Center;
+                    textbox.ReadOnly = true;
+
+                    //Add a keydown event to check for arrow button presses
+                    textbox.KeyDown += new KeyEventHandler(Textbox_KeyDown);
+
+                    //Add that textbox to the controls and textboxList and focus on it
+                    this.Controls.Add(textbox);
+                    textbox.Focus();
+                    textboxList.Add(textbox);
+                }
             }
         }
 
         private void LevelEditor_MouseMove(object sender, MouseEventArgs e)
         {
+            //Store the mouse position as two variables
             mouseX = e.X;
             mouseY = e.Y;
 
+            //Create a rectangle where the mouse is
             newRect = new Rectangle(e.X, e.Y, width, height);
 
             for (int i = 0; i < rectangles.Count; i++)
             {
+                //Check if the rectangle where the mouse is intersects with any existing textboxs
+                //Won't allow multiple bricks to be placed on top of each other
                 if (newRect.IntersectsWith(rectangles[i]))
                 {
+                    //if the block can't be placed there
+                    //Draw the rectangle in red
                     drawPen = new Pen(Color.Red);
                     break;
                 }
                 else
                 {
-                    drawPen = new Pen(Color.Blue);
+                    //If it can be placed 
+                    //Draw the rectangle in white
+                    drawPen = new Pen(Color.White);
                 }
             }
 
@@ -121,9 +146,10 @@ namespace BrickBreaker
         {
             outputLabel.Visible = false;
 
+            //Make new textbox
             TextBox textbox = sender as TextBox;
-            //string currentText = textbox.Text;
 
+            //Set color to number key presses
             if (e.KeyCode == Keys.D1)
             {
                 color = 1;
@@ -176,19 +202,21 @@ namespace BrickBreaker
 
         public void ButtonVisibleChange()
         {
+            //Toggle visibility of buttons 
             level1Button.Visible = !level1Button.Visible;
             level2Button.Visible = !level2Button.Visible;
             level3Button.Visible = !level3Button.Visible;
             level4Button.Visible = !level4Button.Visible;
             level5Button.Visible = !level5Button.Visible;
 
+            //Reset location of save buttons
             level1Button.Location = new Point(-140, level1Button.Location.Y);
             level2Button.Location = new Point(-140, level2Button.Location.Y);
             level3Button.Location = new Point(-140, level3Button.Location.Y);
             level4Button.Location = new Point(-140, level4Button.Location.Y);
             level5Button.Location = new Point(-140, level5Button.Location.Y);
 
-
+            //Small animation so they pop out from side
             while (level1Button.Location.X < -15)
             {
                 level1Button.Location = new Point(level1Button.Location.X + buttonSpeed, level1Button.Location.Y);
@@ -214,83 +242,40 @@ namespace BrickBreaker
                 level5Button.Location = new Point(level5Button.Location.X + buttonSpeed, level5Button.Location.Y);
                 level5Button.Refresh();
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //All five hp buttons lead here
+            Button button = sender as Button;
 
+            //Set the color value to the tag of the button clicked
+            color = Convert.ToInt16(button.Tag);
         }
 
-        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        private void SaveButtonClick(object sender, EventArgs e)
         {
-            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
-        }
+            //All save button link here
+            Button button = sender as Button;
 
-        private void oneHPButton_Click(object sender, EventArgs e)
+            //Set the level as the tag of the button clicked
+            level = Convert.ToInt16(button.Tag);
+            
+            //Write that level to xml
+            LevelButtonClick();
+        }      
+
+        public void LevelButtonClick()
         {
-            color = 1;
-        }
-
-        private void twoHPButton_Click(object sender, EventArgs e)
-        {
-            color = 2;
-        }
-
-        private void threeHPButton_Click(object sender, EventArgs e)
-        {
-            color = 3;
-        }
-
-        private void fourHPButton_Click(object sender, EventArgs e)
-        {
-            color = 4;
-        }
-
-        private void fiveHPButton_Click(object sender, EventArgs e)
-        {
-            color = 5;
-        }
-
-        private void level1Button_Click(object sender, EventArgs e)
-        {
-            level = 1;
-            LevelButtonClick(level);
-        }
-
-        private void level2Button_Click(object sender, EventArgs e)
-        {
-            level = 2;
-            LevelButtonClick(level);
-        }
-
-        private void level3Button_Click(object sender, EventArgs e)
-        {
-            level = 3;
-            LevelButtonClick(level);
-        }
-
-        private void level4Button_Click(object sender, EventArgs e)
-        {
-            level = 4;
-            LevelButtonClick(level);
-        }
-
-        private void level5Button_Click(object sender, EventArgs e)
-        {
-            level = 5;
-            LevelButtonClick(level);
-        }
-
-        public void LevelButtonClick(int _level)
-        {
-            level = _level;
-
+            //Write to a different file depending on what the level variable is
             string levelFile = "Resources/UserLevel" + level + ".xml";
             XmlWriter writer = XmlWriter.Create(levelFile);
 
             writer.WriteStartElement("Level");
 
+            //For every textbox added as a brick
+            //Write those values to an xml file
+            //With x, y, hp, and color as values
             foreach (Control c in this.Controls)
             {
                 if (c is TextBox)
@@ -306,24 +291,37 @@ namespace BrickBreaker
             }
 
             writer.WriteEndElement();
-
             writer.Close();
 
             int length = this.Controls.Count;
 
+            //Remove all the controls on the screen except for the buttons already on the screen
             for (int i = length - 13; i >= 0; i--)
             {
-                //this.Controls.RemoveAt(i);
                 this.Controls.Remove(textboxList[i]);
             }
 
+            //Clear those lists
             textboxList.Clear();
             rectangles.Clear();
             outputLabel.Visible = true;
+
+            //Tell the user what level was loaded
             outputLabel.Text = $"Level {level} Saved";
 
             ButtonVisibleChange();
-            //level5Button.Enabled = false;
+        }
+
+        private void LevelEditor_Paint(object sender, PaintEventArgs e)
+        {
+            //Draw where the brick would be drawn
+            e.Graphics.DrawRectangle(drawPen, mouseX, mouseY, width, height);
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            //Back to menu
+            Form1.ChangeScreen(this, new MenuScreen());
         }
     }
 }

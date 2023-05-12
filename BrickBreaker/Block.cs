@@ -11,10 +11,7 @@ namespace BrickBreaker
     {
         public int width = 50;
         public int height = 25;
-
-        public int x;
-        public int y; 
-        public int hp;
+        public int x, y, hp;
         public Color colour;
 
         //animation
@@ -31,6 +28,13 @@ namespace BrickBreaker
             hp = _hp;
             colour = _colour;
             frame = rand.Next(1, 4);
+        }
+
+        public bool CrossHairCollision(Block block, Rectangle _crosshairRectangle)
+        {
+            Rectangle blockRec = new Rectangle(block.x, block.y, block.width, block.height);
+
+            return blockRec.IntersectsWith(_crosshairRectangle);
         }
     }
 }

@@ -6,9 +6,10 @@ namespace BrickBreaker
 {
     public class Ball
     {
-        public int x, y, xSpeed, ySpeed, size, damage;
-        public int speed = 1;
+        public int x, y, xSpeed, ySpeed, size, damage, prevX, prevY, startXSpeed, startYSpeed;
+        public int speed = 2;
         public Color colour;
+        public bool canMove = false;
         public Random rand = new Random();
         public bool stuck = false;
         public int xStuck = 0;
@@ -20,10 +21,18 @@ namespace BrickBreaker
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
+            startXSpeed = xSpeed;
+            startYSpeed = ySpeed;
         }
 
         public void Move()
         {
+            //x += xSpeed * speed;
+            //y += ySpeed * speed;
+
+            prevX = x;
+            prevY = y;
+            
             if (!stuck)
             {
                 x += xSpeed * speed;
@@ -54,27 +63,17 @@ namespace BrickBreaker
                     {
                         xSpeed *= -1;
 
-                        //if (xSpeed > 0)
-                        //{
-                        //    ball.x = ball.x - size;
-                        //}
-                        //else if (xSpeed < 0)
-                        //{
-                        //    ball.x = ball.x + size;
-                        //}
+                        x = prevX;
+                        y = prevY;
+
                     }
                     else // hits anywhere else
                     {
                         ySpeed *= -1;
 
-                        //if (ySpeed > 0)
-                        //{
-                        //    ball.y = ball.y + size;
-                        //}
-                        //else if (ySpeed < 0)
-                        //{
-                        //    ball.y = ball.y - size;
-                        //}
+                        x = prevX;
+                        y = prevY;
+                        
                     }
                 }
             }
@@ -96,14 +95,42 @@ namespace BrickBreaker
 
                 ySpeed *= -1;
 
-                if (GameScreen.stickyPaddle && !stuck)
+                // Adjust Angle
+                AdjustAngle("X");
+
+                // Get Direction
+                if (GameScreen.leftArrowDown)
                 {
+                    xSpeed = -Math.Abs(xSpeed);
+                } 
+                else if (GameScreen.rightArrowDown)
+                {
+                    xSpeed = Math.Abs(xSpeed);
+                } 
+
+                // Force launch the ball if you hit another one while holding it
+                if (GameScreen.balls[0] != this)
+                {
+                    GameScreen.balls[0].canMove = true;
+                }
+
+                // Get stuck if the paddle is sticky
+                if (GameScreen.stickyPaddle && !stuck && !GameScreen.moveBall)
+                {
+                    foreach (Ball b in GameScreen.balls)
+                    {
+                        if (!b.stuck)
+                        {
+                            GameScreen.stickyPaddleTimer = 500;
+                        }
+                    }
                     stuck = true;
                     xStuck = x - GameScreen.paddle.x;
                 }
+               
             }
+       
         }
-
         public void WallCollision(UserControl UC)
         {
             // Collision with left wall
@@ -111,35 +138,74 @@ namespace BrickBreaker
             {
                 xSpeed *= -1;
                 x = size;
-                AdjustAngle("Y");
             }
             // Collision with right wall
             if (x >= (UC.Width - size))
             {
                 xSpeed *= -1;
                 x = UC.Width - size;
-                AdjustAngle("Y");
             }
             // Collision with top wall
             if (y <= 2)
             {
                 ySpeed *= -1;
-                AdjustAngle("X");
             }
         }
 
         public void AdjustAngle(string direction)
         {
-            /**
-             * Generate 3 numbers and depending on the result change the angle of the ball
-             * The ball has its inital value and upon hitting a wall, it can adjust one of the speeds to be 1 above or below
-             * the initial value or reset it back to that
-             */
 
-            int randomNum = rand.Next(0, 3);
+            // Declare Paddle
+            Paddle paddle = GameScreen.paddle;
+
+            // Max Speed is 8
+
+            // If player doesnt move
+            if (paddle.acceleration == 0)
+            {
+                // Do nothing
+                return;
+            }
+            else if (Math.Abs(paddle.acceleration) <= 5)
+            {
+                // Small Launch
+                xSpeed = startXSpeed - 1;
+            }
+            else if (Math.Abs(paddle.acceleration) <= 7)
+            {
+                // Normal Launch
+                xSpeed = startXSpeed;
+            } else if (Math.Abs(paddle.acceleration) > 6)
+            {
+                // Big Launch
+                xSpeed = startXSpeed + 1;
+            }
 
 
-        }
+                //if (direction == "X")
+                //{
+                //    switch (randomNum)
+                //    {
+                //        case 0:
+                //            xSpeed = startXSpeed - 2;
+                //            break;
+                //        case 1:
+                //            xSpeed = startXSpeed - 1;
+                //            break;
+                //        case 2:
+                //            xSpeed = startXSpeed;
+                //            break;
+                //        case 3:
+                //            xSpeed = startXSpeed + 1;
+                //            break;
+                //        case 4:
+                //            xSpeed = startXSpeed + 2;
+                //            break;
+                //    }
+
+                //}
+
+            }
 
         public bool BottomCollision(UserControl UC)
         {
@@ -152,6 +218,7 @@ namespace BrickBreaker
 
             return didCollide;
         }
+
 
     }
 }
