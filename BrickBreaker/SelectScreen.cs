@@ -15,9 +15,9 @@ namespace BrickBreaker
         public static string username;
         int level;
 
+        //Lists of images for UX and animation
         List<PictureBox> leftPictureBoxes = new List<PictureBox>();
         List<PictureBox> rightPictureBoxes = new List<PictureBox>();
-
 
         public SelectScreen()
         {
@@ -36,6 +36,7 @@ namespace BrickBreaker
             Bitmap flipImage2 = new Bitmap(Properties.Resources.Duck02);
             Bitmap flipImage3 = new Bitmap(Properties.Resources.Duck03);
 
+            //Flip the images
             flipImage1.RotateFlip(RotateFlipType.Rotate180FlipY);
             flipImage2.RotateFlip(RotateFlipType.Rotate180FlipY);
             flipImage3.RotateFlip(RotateFlipType.Rotate180FlipY);
@@ -63,6 +64,8 @@ namespace BrickBreaker
         {
             errorLabel.Visible = false;
 
+            //Make sure the user adds a username
+            //It crashes the program if the username is null
             if (e.KeyCode == Keys.Enter && usernameInput.Text != "")
             {
                 username = usernameInput.Text;
@@ -83,6 +86,7 @@ namespace BrickBreaker
 
         private void levelsButton_Click(object sender, EventArgs e)
         {
+            //Load gameLevel one
             if (usernameCheckbox.Checked == true)
             {
                 GameScreen.gameLevel = 1;
@@ -98,6 +102,8 @@ namespace BrickBreaker
 
         public void ButtonClick(int _level)
         {
+            //Load save level that is sent
+            //Change to GameScreen
             if (usernameCheckbox.Checked == true)
             {
                 GameScreen.saveLevel = _level;
@@ -112,6 +118,7 @@ namespace BrickBreaker
 
         private void SaveButton1_Click(object sender, EventArgs e)
         {
+            //For each save button send the sender tag value to ButtonClick event to load corresponding level
             Button button = sender as Button;
             level = Convert.ToInt32(button.Tag);
             ButtonClick(level);
@@ -119,18 +126,25 @@ namespace BrickBreaker
 
         public void Error()
         {
+            //If user didn't enter a username and tried to click, make error label visible
             errorLabel.Visible = true;
+
+            //Focus back onto the username input for the user to enter
             usernameInput.Focus();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            //Back to Menu
             Form1.ChangeScreen(this, new MenuScreen());
         }
 
         private void partyModeCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            //Change partymode variable
             GameScreen.partyMode = partyModeCheckbox.Checked;
+
+            //Focus on the next control
             SaveButton1.Focus();
             leftPictureBoxes[0].Visible = true;
             rightPictureBoxes[0].Visible = true;
@@ -138,12 +152,14 @@ namespace BrickBreaker
 
         public void MakeVisible(int tag)
         {
+            //Uses the tag of the control sent to make that duck image visible
             leftPictureBoxes[tag].Visible = true;
             rightPictureBoxes[tag].Visible = true;
         }
 
         public void MakeNotVisible()
         {
+            //Make all duck images not visible
             for (int i = 0; i < rightPictureBoxes.Count; i++)
             {
                 rightPictureBoxes[i].Visible = false;
@@ -153,6 +169,7 @@ namespace BrickBreaker
 
         private void SaveButton1_MouseEnter(object sender, EventArgs e)
         {
+            //On mouse enter make corresponding duck visible
             Button button = sender as Button;
             int tag = Convert.ToInt16(button.Tag);
             MakeVisible(tag - 1);
@@ -160,11 +177,14 @@ namespace BrickBreaker
 
         private void SaveButton1_MouseLeave(object sender, EventArgs e)
         {
+            //On any save button leave
+            //Make all pictures not visible
             MakeNotVisible();
         }
 
         private void SaveButton1_Enter(object sender, EventArgs e)
         {
+            //When the button is focused do the same as if it was moused-over
             Button button = sender as Button;
             int tag = Convert.ToInt16(button.Tag);
 

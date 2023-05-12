@@ -36,7 +36,7 @@
             this.exitButton = new System.Windows.Forms.Button();
             this.pauseLivesLabel = new System.Windows.Forms.Label();
             this.pauseScoreLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.levelPauseLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -119,18 +119,18 @@
             this.pauseScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.pauseScoreLabel.Visible = false;
             // 
-            // label1
+            // levelPauseLabel
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(237, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 34);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Pause";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.levelPauseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.levelPauseLabel.Font = new System.Drawing.Font("Algerian", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.levelPauseLabel.ForeColor = System.Drawing.Color.Black;
+            this.levelPauseLabel.Location = new System.Drawing.Point(190, 0);
+            this.levelPauseLabel.Name = "levelPauseLabel";
+            this.levelPauseLabel.Size = new System.Drawing.Size(215, 34);
+            this.levelPauseLabel.TabIndex = 8;
+            this.levelPauseLabel.Text = "Pause";
+            this.levelPauseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.levelPauseLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // GameScreen
             // 
@@ -139,7 +139,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.levelPauseLabel);
             this.Controls.Add(this.pauseScoreLabel);
             this.Controls.Add(this.pauseLivesLabel);
             this.Controls.Add(this.exitButton);
@@ -168,6 +168,6 @@
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label pauseLivesLabel;
         private System.Windows.Forms.Label pauseScoreLabel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label levelPauseLabel;
     }
 }

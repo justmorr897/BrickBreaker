@@ -23,6 +23,7 @@ namespace BrickBreaker
 
         public void ReadXmlFile()
         {
+            //Load the HighScore XML file upon program load
             string name;
             int score, time;
             string levelFile = "HighScoreXML.xml";
@@ -42,6 +43,7 @@ namespace BrickBreaker
                     reader.ReadToNextSibling("Time");
                     time = Convert.ToInt32(reader.ReadString());
 
+                    //creates scores from xml files
                     Scores newScore = new Scores(name, score, time);
                     MenuScreen.scores.Add(newScore);
                 }
@@ -53,7 +55,7 @@ namespace BrickBreaker
             formWidth = this.Width;
             formHeight = this.Height;
 
-            // Start the program centred on the Menu Screen
+            // Start the menuscreen immediatly
             ChangeScreen(this, new MenuScreen());
         }
 
