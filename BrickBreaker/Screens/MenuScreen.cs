@@ -17,11 +17,11 @@ namespace BrickBreaker
         public MenuScreen()
         {
             InitializeComponent();
-            //CooperCode();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            //Exit program
             Application.Exit();
         }
 
@@ -33,10 +33,14 @@ namespace BrickBreaker
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Launch Level Editor
             Form1.ChangeScreen(this, new LevelEditor());
         }
+
         private void leaderboardButton_Click(object sender, EventArgs e)
         {
+            //Launch leaderboard and set gameOver to false since it was accessed through the menu
+            Leaderboard.gameOver = false;
             Form1.ChangeScreen(this, new Leaderboard());
         }
     }

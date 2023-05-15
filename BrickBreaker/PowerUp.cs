@@ -71,11 +71,11 @@ namespace BrickBreaker
             {
                 if (x < GameScreen.paddle.x + GameScreen.paddle.width / 2)
                 {
-                    x += 3;
+                    x += 3 * GameScreen.powerUpIntensity;
                 }
                 else
                 {
-                    x -= 3;
+                    x -= 3 * GameScreen.powerUpIntensity;
                 }
             }
             if (type != 0) // If the type is zero, the powerup is disabled and should be removed
@@ -91,16 +91,22 @@ namespace BrickBreaker
                         {
                             GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, 2, -2, 20));
                             GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, -2, -2, 20));
+
+                            if (GameScreen.powerUpIntensity == 2)
+                            {
+                                GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, 1, -2, 20));
+                                GameScreen.balls.Add(new Ball(GameScreen.paddle.x, GameScreen.paddle.y - 40, -1, -2, 20));
+                            }
                         }
                         else if (type == 2)
                         {
-                            if (GameScreen.paddle.width == 40)
+                            if (GameScreen.paddle.width == 40 / GameScreen.powerUpIntensity)
                             {
                                 GameScreen.paddleSizeTimer = 0;
                             }
                             else
                             {
-                                GameScreen.paddle.width = 160;
+                                GameScreen.paddle.width = 160 * GameScreen.powerUpIntensity;
                                 GameScreen.paddleSizeTimer = 1000;
                             }
                         }
@@ -110,7 +116,7 @@ namespace BrickBreaker
                         }
                         else if (type == 4)
                         {
-                            GameScreen.lives++;
+                            GameScreen.lives += GameScreen.powerUpIntensity;
                         }
                         else if (type == 5)
                         {
@@ -122,12 +128,12 @@ namespace BrickBreaker
                         }
                         else if (type == 7)
                         {
-                            GameScreen.ballDamage = 2;
+                            GameScreen.ballDamage = 2 * GameScreen.powerUpIntensity;
                             GameScreen.damageTimer = 750;
                         }
                         else if (type == 8)
                         {
-                            GameScreen.shotgunPowerUp = true;
+                            GameScreen.shotgunPowerup = true;
                         }
                         else if (type == 9)
                         {
@@ -144,7 +150,7 @@ namespace BrickBreaker
                         }
                         else if (type == 12)
                         {
-                            if (GameScreen.balls[0].speed == 4)
+                            if (GameScreen.balls[0].speed == 3 + GameScreen.powerUpIntensity)
                             {
                                 foreach (Ball b in GameScreen.balls)
                                 {
@@ -162,20 +168,20 @@ namespace BrickBreaker
                             }
                         }
 
-                        GameScreen.WritePowerupMessage(goodPowerups[type - 1]);
+                        GameScreen.WritePowerupMessage(goodPowerups[type - 1], type);
                         type = 0;
                     }
                     else if (type < 0)
                     {
                         if (type == -1)
                         {
-                            if (GameScreen.paddle.width == 160)
+                            if (GameScreen.paddle.width == 160 * GameScreen.powerUpIntensity)
                             {
                                 GameScreen.paddleSizeTimer = 0;
                             }
                             else
                             {
-                                GameScreen.paddle.width = 40;
+                                GameScreen.paddle.width = 40 / GameScreen.powerUpIntensity;
                                 GameScreen.paddleSizeTimer = 750;
                             }
                         }
@@ -193,7 +199,7 @@ namespace BrickBreaker
                             {
                                 foreach (Ball b in GameScreen.balls)
                                 {
-                                    b.speed = 4;
+                                    b.speed = 3 + GameScreen.powerUpIntensity;
                                 }
                                 GameScreen.speedBallTimer = 500;
                             }
@@ -204,20 +210,22 @@ namespace BrickBreaker
                             {
                                 b.x = random.Next(0, Form1.formWidth);
                                 b.y = random.Next(0, Form1.formHeight);
+                                GameScreen.stickyPaddle = false;
+                                GameScreen.moveBall = false;
                             }
                             GameScreen.paddle.x = random.Next(0, Form1.formWidth - GameScreen.paddle.width);
                         }
                         else if (type == -4)
                         {
-                            GameScreen.lives--;
+                            GameScreen.lives -= GameScreen.powerUpIntensity;
                         }
                         else if (type == -5)
                         {
-                            GameScreen.paddle.speed = 4;
+                            GameScreen.paddle.speed = 5 - GameScreen.powerUpIntensity;
                             GameScreen.paddleSpeedTimer = 750;
                         }
 
-                        GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1]);
+                        GameScreen.WritePowerupMessage(badPowerups[type * -1 - 1], type);
                         type = 0;
                     }
                     else
