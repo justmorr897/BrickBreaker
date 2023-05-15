@@ -173,6 +173,31 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GameLevel5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\GameLevel4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\GameLevel3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\GameLevel2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\GameLevel1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Debug\Resources\GameLevel1.xml" />
+    <None Include="bin\Debug\Resources\GameLevel2.xml" />
+    <None Include="bin\Debug\Resources\GameLevel3.xml" />
+    <None Include="bin\Debug\Resources\GameLevel4.xml" />
+    <None Include="bin\Debug\Resources\GameLevel5.xml" />
+    <None Include="bin\Debug\Resources\UserLevel1.xml" />
+    <None Include="bin\Debug\Resources\UserLevel2.xml" />
+    <None Include="bin\Debug\Resources\UserLevel3.xml" />
+    <None Include="bin\Debug\Resources\UserLevel4.xml" />
+    <None Include="bin\Debug\Resources\UserLevel5.xml" />
     <Content Include="HighScoreXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -188,9 +213,6 @@
     <None Include="Resources\Duck33.png" />
     <None Include="Resources\Duck32.png" />
     <None Include="Resources\Duck31.png" />
-    <None Include="Resources\GameLevel1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\Duck01.png" />
   </ItemGroup>
   <ItemGroup>
